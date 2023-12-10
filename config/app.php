@@ -81,7 +81,7 @@ return [
     */
 
     'locale' => 'en',
-    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -179,12 +179,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
+        // Intervention\Image\ImageServiceProvider::class,
+        // Intervention\Image\ImageServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class
-        
+        Stevebauman\Location\LocationServiceProvider::class,
     ],
 
     /*

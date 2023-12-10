@@ -4,13 +4,13 @@
     'name' => 'Laravel',
     'env' => 'local',
     'debug' => true,
-    'url' => 'https://askwayin.com/',
+    'url' => 'http://127.0.0.1:8000/',
     'asset_url' => NULL,
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:Jv+WvmI5e+wo4xbMQdLnmI3zjlFR6pFUY2Gv42ox8W8=',
+    'key' => 'base64:aMBZCKArMhf2ln6YSqRFTUb0aisQQqZPW0deMaBQRLE=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -44,11 +44,10 @@
       27 => 'App\\Providers\\EventServiceProvider',
       28 => 'App\\Providers\\RouteServiceProvider',
       29 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-      30 => 'Intervention\\Image\\ImageServiceProvider',
-      31 => 'Cartalyst\\Stripe\\Laravel\\StripeServiceProvider',
-      32 => 'Mews\\Purifier\\PurifierServiceProvider',
-      33 => 'Barryvdh\\DomPDF\\ServiceProvider',
-      34 => 'Stevebauman\\Location\\LocationServiceProvider',
+      30 => 'Cartalyst\\Stripe\\Laravel\\StripeServiceProvider',
+      31 => 'Mews\\Purifier\\PurifierServiceProvider',
+      32 => 'Barryvdh\\DomPDF\\ServiceProvider',
+      33 => 'Stevebauman\\Location\\LocationServiceProvider',
     ),
     'aliases' => 
     array (
@@ -167,7 +166,7 @@
         'app_id' => '',
         'options' => 
         array (
-          'cluster' => NULL,
+          'cluster' => 'mt1',
           'useTLS' => true,
         ),
       ),
@@ -215,7 +214,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/framework/cache/data',
+        'path' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -248,8 +247,8 @@
       'dynamodb' => 
       array (
         'driver' => 'dynamodb',
-        'key' => NULL,
-        'secret' => NULL,
+        'key' => '',
+        'secret' => '',
         'region' => 'us-east-1',
         'table' => 'cache',
         'endpoint' => NULL,
@@ -298,7 +297,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'u856343279_wayin',
+        'database' => 'askwayin',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -306,11 +305,11 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'u856343279_wayin',
-        'username' => 'u856343279_wayin',
-        'password' => 'Raies@9917',
+        'database' => 'askwayin',
+        'username' => 'root',
+        'password' => 'Brijesh@123',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -326,11 +325,11 @@
       array (
         'driver' => 'pgsql',
         'url' => NULL,
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'u856343279_wayin',
-        'username' => 'u856343279_wayin',
-        'password' => 'Raies@9917',
+        'database' => 'askwayin',
+        'username' => 'root',
+        'password' => 'Brijesh@123',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -341,11 +340,11 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'u856343279_wayin',
-        'username' => 'u856343279_wayin',
-        'password' => 'Raies@9917',
+        'database' => 'askwayin',
+        'username' => 'root',
+        'password' => 'Brijesh@123',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -436,22 +435,22 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/app',
+        'root' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/app/public',
-        'url' => 'https://askwayin.com//storage',
+        'root' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/app/public',
+        'url' => 'http://127.0.0.1:8000//storage',
         'visibility' => 'public',
       ),
       's3' => 
       array (
         'driver' => 's3',
-        'key' => NULL,
-        'secret' => NULL,
-        'region' => NULL,
-        'bucket' => NULL,
+        'key' => '',
+        'secret' => '',
+        'region' => 'us-east-1',
+        'bucket' => '',
         'url' => NULL,
         'endpoint' => NULL,
         'use_path_style_endpoint' => false,
@@ -459,14 +458,14 @@
     ),
     'links' => 
     array (
-      '/home/u856343279/domains/askwayin.com/public_html/project/..//storage' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/app/public',
+      '/Users/brijeshkannaujiya/Sites/askwayin/..//storage' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/app/public',
     ),
   ),
   'google_captcha' => 
   array (
-    'site_key' => NULL,
-    'secret_key' => NULL,
-    'gc_verification_url' => NULL,
+    'site_key' => '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+    'secret_key' => '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe',
+    'gc_verification_url' => 'https://www.google.com/recaptcha/api/siteverify',
     'error_codes' => 
     array (
       'missing-input-secret' => 'The secret parameter is missing.',
@@ -525,7 +524,7 @@
       'local' => 
       array (
         'type' => 'city',
-        'path' => '/home/u856343279/domains/askwayin.com/public_html/project/database/maxmind/GeoLite2-City.mmdb',
+        'path' => '/Users/brijeshkannaujiya/Sites/askwayin/database/maxmind/GeoLite2-City.mmdb',
       ),
     ),
     'ip_api' => 
@@ -567,13 +566,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/logs/laravel.log',
+        'path' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/logs/laravel.log',
+        'path' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -583,7 +582,7 @@
         'url' => NULL,
         'username' => 'Laravel Log',
         'emoji' => ':boom:',
-        'level' => 'critical',
+        'level' => 'debug',
       ),
       'papertrail' => 
       array (
@@ -624,7 +623,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/logs/laravel.log',
+        'path' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -636,11 +635,11 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
-        'host' => 'smtp.gmail.com',
-        'port' => '465',
+        'host' => 'smtp.mailtrap.io',
+        'port' => '2525',
         'encryption' => 'tls',
-        'username' => 'negiharender.websutility@gmail.com',
-        'password' => 'zywfbierinyqfedl',
+        'username' => 'df3da325f3ec48',
+        'password' => '8e18def867639a',
         'timeout' => NULL,
         'auth_mode' => NULL,
       ),
@@ -673,7 +672,7 @@
     ),
     'from' => 
     array (
-      'address' => 'hello@example.com',
+      'address' => 'GeniusOcean@gmail.com',
       'name' => 'Example',
     ),
     'markdown' => 
@@ -681,14 +680,14 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/home/u856343279/domains/askwayin.com/public_html/project/resources/views/vendor/mail',
+        0 => '/Users/brijeshkannaujiya/Sites/askwayin/resources/views/vendor/mail',
       ),
     ),
   ),
   'nexmo' => 
   array (
-    'api_key' => '',
-    'api_secret' => '',
+    'api_key' => 'my_api_key',
+    'api_secret' => 'my_secret',
     'signature_secret' => '',
     'private_key' => '',
     'application_id' => '',
@@ -704,7 +703,7 @@
     'encoding' => 'UTF-8',
     'finalize' => true,
     'ignoreNonStrings' => false,
-    'cachePath' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/app/purifier',
+    'cachePath' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/app/purifier',
     'cacheFileMode' => 493,
     'settings' => 
     array (
@@ -994,8 +993,8 @@
       'sqs' => 
       array (
         'driver' => 'sqs',
-        'key' => NULL,
-        'secret' => NULL,
+        'key' => '',
+        'secret' => '',
         'prefix' => 'https://sqs.us-east-1.amazonaws.com/your-account-id',
         'queue' => 'default',
         'suffix' => NULL,
@@ -1033,8 +1032,8 @@
     ),
     'ses' => 
     array (
-      'key' => NULL,
-      'secret' => NULL,
+      'key' => '',
+      'secret' => '',
       'region' => 'us-east-1',
     ),
     'stripe' => 
@@ -1063,10 +1062,10 @@
   'session' => 
   array (
     'driver' => 'file',
-    'lifetime' => 120,
+    'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/framework/sessions',
+    'files' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1097,7 +1096,7 @@
   ),
   'telr' => 
   array (
-    'test_mode' => true,
+    'test_mode' => '1',
     'currency' => 'AED',
     'sale' => 
     array (
@@ -1106,8 +1105,8 @@
     'create' => 
     array (
       'ivp_method' => 'create',
-      'ivp_store' => NULL,
-      'ivp_authkey' => NULL,
+      'ivp_store' => '',
+      'ivp_authkey' => '',
       'return_auth' => '/handle-payment/success',
       'return_can' => '/handle-payment/cancel',
       'return_decl' => '/handle-payment/declined',
@@ -1138,9 +1137,9 @@
   array (
     'paths' => 
     array (
-      0 => '/home/u856343279/domains/askwayin.com/public_html/project/resources/views',
+      0 => '/Users/brijeshkannaujiya/Sites/askwayin/resources/views',
     ),
-    'compiled' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/framework/views',
+    'compiled' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/framework/views',
   ),
   'dompdf' => 
   array (
@@ -1148,10 +1147,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/fonts/',
-      'font_cache' => '/home/u856343279/domains/askwayin.com/public_html/project/storage/fonts/',
-      'temp_dir' => '/tmp',
-      'chroot' => '/home/u856343279/domains/askwayin.com/public_html/project',
+      'font_dir' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/fonts/',
+      'font_cache' => '/Users/brijeshkannaujiya/Sites/askwayin/storage/fonts/',
+      'temp_dir' => '/var/folders/19/9z23ss955ls6tsq9fwr_34wh0000gn/T',
+      'chroot' => '/Users/brijeshkannaujiya/Sites/askwayin',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -1212,7 +1211,7 @@
   ),
   'mollie' => 
   array (
-    'key' => 'test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    'key' => 'test_jePgBjaRV5rUdzWc44rb2fUxgM2dM9',
   ),
   'cookie-consent' => 
   array (

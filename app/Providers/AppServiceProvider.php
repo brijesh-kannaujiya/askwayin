@@ -35,11 +35,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if($this->app->environment('production') && DB::table('generalsettings')->first()->is_ssl == 1) {
+        if ($this->app->environment('production') && DB::table('generalsettings')->first()->is_ssl == 1) {
             \URL::forceScheme('https');
         }
 
-        view()->composer('*',function($settings){
+        view()->composer('*', function ($settings) {
             $paystack    = PaymentGateway::whereKeyword('paystack')->first();
             $paystack = $paystack->convertAutoData();
 
@@ -49,22 +49,20 @@ class AppServiceProvider extends ServiceProvider
             $settings->with('pages', DB::table('pages')->whereStatus(1)->get());
             $settings->with('ps', DB::table('pagesettings')->first());
             $settings->with('social', DB::table('socialsettings')->first());
-            $settings->with('sociallinks', DB::table('social_links')->orderBy('id','desc')->get());
-            $settings->with('default_font', Font::where('is_default','=',1)->first());
+            $settings->with('sociallinks', DB::table('social_links')->orderBy('id', 'desc')->get());
+            $settings->with('default_font', Font::where('is_default', '=', 1)->first());
             $settings->with('defaultCurrency', globalCurrency());
 
             if (\Request::is('admin') || \Request::is('admin/*')) {
-                $data = DB::table('admin_languages')->where('is_default','=',1)->first();
+                $data = DB::table('admin_languages')->where('is_default', '=', 1)->first();
                 App::setlocale($data->name);
-            }
-            else {
+            } else {
 
                 if (Session::has('language')) {
                     $data = DB::table('languages')->find(Session::get('language'));
                     App::setlocale($data->name);
-                }
-                else {
-                    $data = DB::table('languages')->where('is_default','=',1)->first();
+                } else {
+                    $data = DB::table('languages')->where('is_default', '=', 1)->first();
                     App::setlocale($data->name);
                 }
             }
@@ -72,20 +70,12 @@ class AppServiceProvider extends ServiceProvider
             if (Session::has('currency')) {
                 $data = DB::table('currencies')->find(Session::get('currency'));
                 $settings->with('currency', $data);
-            }
-            else {
-                $data = DB::table('currencies')->where('is_default','=',1)->first();
+            } else {
+                $data = DB::table('currencies')->where('is_default', '=', 1)->first();
                 $settings->with('currency', $data);
             }
         });
 
         Paginator::useBootstrap();
-
-
     }
-
-
-
-
 }
-

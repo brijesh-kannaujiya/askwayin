@@ -50,11 +50,10 @@
     46 => 'App\\Providers\\EventServiceProvider',
     47 => 'App\\Providers\\RouteServiceProvider',
     48 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    49 => 'Intervention\\Image\\ImageServiceProvider',
-    50 => 'Cartalyst\\Stripe\\Laravel\\StripeServiceProvider',
-    51 => 'Mews\\Purifier\\PurifierServiceProvider',
-    52 => 'Barryvdh\\DomPDF\\ServiceProvider',
-    53 => 'Stevebauman\\Location\\LocationServiceProvider',
+    49 => 'Cartalyst\\Stripe\\Laravel\\StripeServiceProvider',
+    50 => 'Mews\\Purifier\\PurifierServiceProvider',
+    51 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    52 => 'Stevebauman\\Location\\LocationServiceProvider',
   ),
   'eager' => 
   array (
@@ -93,11 +92,10 @@
     32 => 'App\\Providers\\EventServiceProvider',
     33 => 'App\\Providers\\RouteServiceProvider',
     34 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    35 => 'Intervention\\Image\\ImageServiceProvider',
-    36 => 'Cartalyst\\Stripe\\Laravel\\StripeServiceProvider',
-    37 => 'Mews\\Purifier\\PurifierServiceProvider',
-    38 => 'Barryvdh\\DomPDF\\ServiceProvider',
-    39 => 'Stevebauman\\Location\\LocationServiceProvider',
+    35 => 'Cartalyst\\Stripe\\Laravel\\StripeServiceProvider',
+    36 => 'Mews\\Purifier\\PurifierServiceProvider',
+    37 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    38 => 'Stevebauman\\Location\\LocationServiceProvider',
   ),
   'deferred' => 
   array (

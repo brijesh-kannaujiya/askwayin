@@ -1,0 +1,168 @@
+
+a.text-danger:focus, a.text-danger:hover {
+    color: #01a1a1 !important;
+}
+
+/*.theme-bg{
+	background: linear-gradient(0deg, rgba(42,51,138,1) 0%, rgba(2,157,159,1) 100%)!important;
+}*/
+
+html body .bg-red {
+  background-color: #01a1a1;
+}
+
+.theme-cl,
+ul.icons_lists.colors li:before,
+.text-danger,
+html body .text-primary,
+html body .text-themecolor,
+.lists-4.color li:before, .lists-3.color li:before, .lists-2.color li:before, .lists-1.color li:before,
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover,
+.pagination>li>a:focus,
+.pagination>li>a:hover{
+	color: #fff !important;
+}
+
+.theme-btn-light,
+.page-item.active .page-link {
+	color: #01a1a1;
+    border:1px solid #01a1a1;
+}
+
+.theme-btn-light:hover, .btn-light:focus {
+    background: #01a1a1;
+    border: 1px solid #01a1a1;
+}
+
+.radio-custom:checked + .radio-custom-label:before {
+    background: #01a1a1;
+    border-color: #01a1a1;
+}
+
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    background: #01a1a1;
+}
+
+.nav-menu>.active>a,
+.nav-menu>.focus>a,
+.nav-menu>li:hover>a {
+    color:#fff !important;
+}
+
+.header-fixed .nav-menu>li:hover>a
+{
+    color:#333d46 !important;
+}
+
+.nav-menu>.active>a .submenu-indicator-chevron,
+.nav-menu>.focus>a .submenu-indicator-chevron,
+.nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #01a1a1 #01a1a1 transparent
+}
+
+.nav-search-button:hover .nav-search-icon {
+    color: #01a1a1;
+}
+
+.nav-button {
+    background-color: #01a1a1;
+}
+
+.nav-dropdown>li>a:hover, .nav-dropdown>li>a:focus {
+	color:#01a1a1;
+}
+
+.nav-dropdown>.focus>a,
+.nav-dropdown>li:hover>a {
+    color:#01a1a1;
+}
+
+.nav-dropdown>.focus>a .submenu-indicator-chevron,
+.nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color:transparent #01a1a1 #01a1a1 transparent;
+}
+
+.nav-menu.nav-menu-social>li.add-listing,
+.Uploadphoto{
+    /*background: linear-gradient(0deg, rgba(42,51,138,1) 0%, rgba(2,157,159,1) 100%);*/
+    background: #2a338a;
+}
+
+.header-transparent.dark-text .nav-menu>li>a:hover, .header-transparent.dark-text .nav-menu>li>a:focus {
+    color:#01a1a1;
+}
+
+.Rego-top-cates ul li a:hover .Rego-tp-ico, .Rego-top-cates ul li a:focus .Rego-tp-ico, .Rego-top-cates ul li a:active .Rego-tp-ico{
+    color:#01a1a1;
+}
+
+.Rego-bnr-cats ul li a:hover, .Rego-bnr-cats ul li a:focus, .Rego-bnr-cats ul li a:active,
+.uli-list-features .list-uiyt .list-iobk,
+.Rego-cates a,
+.Rego-facilities-wrap ul li,
+.vrt-list-features ul li a:hover, .vrt-list-features ul li a:focus,.vrt-list-features ul li a:active,
+.Rego-catg-icon,
+.Rego-cat-arrow,
+.Rego-author-lists,
+.Rego-author-links .Rego-social.colored li a,
+.Rego-price-body ul li i,
+.Rego-all-drp .Rego-single-drp.small .btn-group>.btn.active,
+.reviews-reaction a.comment-love.active,
+.prt_body ul li:before,
+.btn.choose_package,
+.btn.choose_package:hover, .btn.choose_package:focus,
+.dashboard-nav ul li.active a, .dashboard-nav ul li:hover a,
+a.close-list-item,
+.abs-list-sec .add-list-btn,
+.daterangepicker td.available:hover, .daterangepicker th.available:hover,
+.blg_grid_caption .blg_tag,
+.single_article_pagination .article_pagination_center_grid a,
+.social-links li a:hover,
+.social-links li a:focus {
+	color:#01a1a1;
+}
+
+.Rego-btn-book:hover, .Rego-btn-book:focus, .Rego-btn-book:active,
+.vrt-list-amenties ul li .vrt-amens.no:before,
+.Rego-catg-wrap:hover .Rego-catg-icon, .Rego-catg-wrap:focus .Rego-catg-icon, .Rego-catg-wrap:active .Rego-catg-icon,
+.Rego-author-links .Rego-social li a:hover, .Rego-author-links .Rego-social li a:focus, .Rego-author-links .Rego-social li a:active,
+.filt-count {
+    background:#01a1a1;
+}
+
+
+.d14ixh{
+	color: #01a1a1 !important;
+}
+
+.Rego-img-location-wrap:hover .Rego-cat-arrow, .Rego-img-location-wrap:focus .Rego-cat-arrow, .Rego-img-location-wrap:active .Rego-cat-arrow {
+    background: #01a1a1;
+    border: 1px dashed #01a1a1;
+}
+
+.Rego-price-btn:hover, .Rego-price-btn:focus, .Rego-price-btn:active, .Rego-price-btn.active{
+	background:#01a1a1;
+	border:2px dashed #01a1a1;
+}
+
+.Rego-all-drp .dropdown-toggle.active:after {
+    border-color: transparent #01a1a1 #01a1a1transparent;
+}
+.btn.choose_package.active{
+	background:#01a1a1;
+	border-color:#01a1a1;
+}
+
+.nav-pills .nav-link.active, .show>.nav-pills .nav-link,
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color:#01a1a1;
+}
+.dashboard-nav ul li.active, .dashboard-nav ul li:hover{
+    border-color:#01a1a1;
+}
