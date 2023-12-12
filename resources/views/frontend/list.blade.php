@@ -5,58 +5,58 @@
 @endpush
 
 @section('content')
-    <!-- ============================ Main Section Start ================================== -->
+<!-- ============================ Main Section Start ================================== -->
 
-    
+
 <section class="gray py-5">
-<?php
+    <?php
    $type = request('category');
    
-   //dd($type);
+//    dd($type);
    foreach ($type as $key => $data){
    $banner= DB::select("SELECT * FROM categories where slug='$data' limit 1");
    foreach ($banner as $key => $bannerss){
        //dd($bannerss);
 ?>
-<div class="bread pb-4">
-				<img src="{{ asset('assets/images') }}/{{ $bannerss->photo_banner }}" class="img-fluid" style="width: 100%;">
-			</div>
-<?php } } ?>
-        <div class="container">
-            <div class="row">
+    <div class="bread pb-4">
+        <img src="{{ asset('assets/images') }}/{{ $bannerss->photo_banner }}" class="img-fluid" style="width: 100%;">
+    </div>
+    <?php } } ?>
+    <div class="container">
+        <div class="row">
 
-               
 
-                <!-- Item Wrap Start -->
-                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-3">
 
-                    <!-- row -->
-                    <div class="row justify-content-center gx-3" id="show_search_items">
-                        @includeIf('partials.front.listing')
-                    </div>
-                    <!-- row -->
+            <!-- Item Wrap Start -->
+            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-3">
 
+                <!-- row -->
+                <div class="row justify-content-center gx-3" id="show_search_items">
+                    @includeIf('partials.front.listing')
                 </div>
+                <!-- row -->
 
             </div>
+
         </div>
-    </section>
-    <!-- ============================ Main Section End ================================== -->
+    </div>
+</section>
+<!-- ============================ Main Section End ================================== -->
 
-    <!-- ======================= Newsletter Start ============================ -->
-    @include('partials.front.cta')
-    <!-- ======================= Newsletter Start ============================ -->
+<!-- ======================= Newsletter Start ============================ -->
+@include('partials.front.cta')
+<!-- ======================= Newsletter Start ============================ -->
 
-    <!-- ============================ Footer Start ================================== -->
-    @include('partials.front.footer')
-    <!-- ============================ Footer End ================================== -->
+<!-- ============================ Footer Start ================================== -->
+@include('partials.front.footer')
+<!-- ============================ Footer End ================================== -->
 
-    <form id="search_item" class="d-none" action="{{route('front.listing')}}" method="get">
-        <input type="text" name="type[]" id="type" value="">
-        <input type="text" name="location[]" id="location" value="">
-		<input type="text" name="category[]" id="categories" value="">
-        <button type="submit" id="search_btn_submit" class="d-none"></button>
-    </form>
+<form id="search_item" class="d-none" action="{{route('front.listing')}}" method="get">
+    <input type="text" name="type[]" id="type" value="">
+    <input type="text" name="location[]" id="location" value="">
+    <input type="text" name="category[]" id="categories" value="">
+    <button type="submit" id="search_btn_submit" class="d-none"></button>
+</form>
 @endsection
 
 @push('js')
