@@ -69,4 +69,4 @@ Route::get('/appaddsdata', [DirectoryController::class, 'appaddsdata']);
 Route::get('/cat_search', [DirectoryController::class, 'cat_search']);
 
 
-Route::post('/device-token', [ApiController::class, 'DeviceToken']);
+Route::post('/create-device-token',  [ApiController::class, 'DeviceToken']);

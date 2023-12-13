@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Follower;
 use App\Models\Listing;
 use App\Models\Appadds;
+use App\Models\Device;
 use App\Models\ListingEnquiry;
 use App\Models\ListingReview;
 use App\Models\ListingFaq;
@@ -1585,7 +1586,23 @@ class DirectoryController extends Controller
 
 
 
+    public function DeviceToken(Request $request)
+    {
+        $data = $request->validate([
+            'device_id' => 'required',
+            'language' => 'required', // Add other columns as needed
+        ]);
 
+        // Use updateOrCreate to update or create the device
+        $device = Device::updateOrCreate([
+            'device_id'   => $data['device_id'],
+        ], [
+            'language'     => $data['language'],
+        ]);
+
+
+        return response()->json(['message' => 'Device updated or created successfully', 'data' => $device]);
+    }
 
     // public function filterAllProduct(Request $request)
     // {
