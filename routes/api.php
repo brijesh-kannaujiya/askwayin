@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\DirectoryController;
@@ -66,3 +67,6 @@ Route::get('/lang/{id}', [DirectoryController::class, 'language']);
 Route::get('/highlight_type', [DirectoryController::class, 'filterallproduct']);
 Route::get('/appaddsdata', [DirectoryController::class, 'appaddsdata']);
 Route::get('/cat_search', [DirectoryController::class, 'cat_search']);
+
+
+Route::post('/device-token', [ApiController::class, 'DeviceToken']);
