@@ -87,6 +87,7 @@
         </div>
         <div class="Rego-grid-fl-wrap">
             <div class="Rego-caption px-3 py-2">
+                {{--
                 <!--<div class="Rego-author">-->
                 <!--    @if ($data->user_id == NULL && $data->admin_id == NULL)-->
                 <!--        <a href="{{ route('front.author.details','admin') }}">-->
@@ -97,7 +98,7 @@
                 <!--            <img src="{{ asset('assets/images/'.$data->user->photo)}}" class="img-fluid circle" alt="">-->
                 <!--        </a>-->
                 <!--    @endif-->
-                <!--</div>-->
+                <!--</div>--> --}}
                 <div class="Rego-cates"><a
                         href="{{ route('front.listing',['category' => $data->category->slug]) }}">@lang($data->category->title)</a>
                 </div>
