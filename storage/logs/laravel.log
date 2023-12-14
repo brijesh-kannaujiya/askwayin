@@ -264,3 +264,44 @@
 #48 C:\\xampp\\htdocs\\askwayin\\index.php(21): require_once('C:\\\\xampp\\\\htdocs...')
 #49 {main}
 "} 
+[2023-12-14 19:50:46] local.ERROR: During class fetch: Uncaught ParseError: syntax error, unexpected ',' in /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/translation-contracts/TranslatorTrait.php:138
+Stack trace:
+#0 /Users/brijeshkannaujiya/Sites/askwayin/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}('/Users/brijeshk...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('Symfony\\Contrac...')
+#2 /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/translation/IdentityTranslator.php(23): spl_autoload_call('Symfony\\Contrac...')
+#3 /Users/brijeshkannaujiya/Sites/askwayin/vendor/composer/ClassLoader.php(576): include('/Users/brijeshk...')
+#4 /Users/brijeshkannaujiya/Sites/askwayin/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}('/Users/brijeshk...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('Symfony\\Compone...')
+#6 /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/translation/Formatter/MessageFormatter.php(33): spl_autoload_call('Symfony\\Compone...')
+#7 {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): During class fetch: Uncaught ParseError: syntax error, unexpected ',' in /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/translation-contracts/TranslatorTrait.php:138
+Stack trace:
+#0 /Users/brijeshkannaujiya/Sites/askwayin/vendor/composer/ClassLoader.php(427): Composer\\Autoload\\{closure}('/Users/brijeshk...')
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Contrac...')
+#2 /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/translation/IdentityTranslator.php(23): spl_autoload_call('Symfony\\\\Contrac...')
+#3 /Users/brijeshkannaujiya/Sites/askwayin/vendor/composer/ClassLoader.php(576): include('/Users/brijeshk...')
+#4 /Users/brijeshkannaujiya/Sites/askwayin/vendor/composer/ClassLoader.php(427): Composer\\Autoload\\{closure}('/Users/brijeshk...')
+#5 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#6 /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/translation/Formatter/MessageFormatter.php(33): spl_autoload_call('Symfony\\\\Compone...')
+#7 at /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/translation/IdentityTranslator.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2023-12-14 20:04:42] local.ERROR: Command "publish" is not defined.
+
+Did you mean one of these?
+    sail:publish
+    stub:publish
+    vendor:publish {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"publish\" is not defined.
+
+Did you mean one of these?
+    sail:publish
+    stub:publish
+    vendor:publish at /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/console/Application.php:720)
+[stacktrace]
+#0 /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/console/Application.php(259): Symfony\\Component\\Console\\Application->find('publish')
+#1 /Users/brijeshkannaujiya/Sites/askwayin/vendor/symfony/console/Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /Users/brijeshkannaujiya/Sites/askwayin/vendor/laravel/framework/src/Illuminate/Console/Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Users/brijeshkannaujiya/Sites/askwayin/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Users/brijeshkannaujiya/Sites/askwayin/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
