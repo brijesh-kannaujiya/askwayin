@@ -152,7 +152,7 @@ class FrontendController extends Controller
         $data['ps'] = Pagesetting::first();
         $data['sociallinks'] = SocialLinks::orderBy('id', 'desc')->get();
         $data['home_modules'] = $data['ps']->home_module ? json_decode($data['ps']->home_module, true) : [];
-
+        // dd($gs->theme);
         return view('frontend.theme.' . $gs->theme, $data);
     }
 

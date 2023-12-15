@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -30,7 +31,13 @@ class CategoryController extends Controller
 
     public function apicall(Request $request)
     {
-        $homecategories = DB::select('SELECT * FROM categories WHERE  is_top=1 ORDER by id asc LIMIT 7');
+        $locale = $request->header('Accept-Language') ?? 'en';
+
+        $homeCategories = DB::table('categories')
+            ->where('is_top', true)
+            ->orderBy('id', 'asc') // Use orderBy instead of order_by
+            ->limit(7)
+            ->get();
         $listings       = DB::table('listings')->get();
         $bartners       = DB::table('bartners')->get();
         $partners       = DB::table('partners')->get();
@@ -43,8 +50,23 @@ class CategoryController extends Controller
         $ExploreCategory = DB::select('SELECT * FROM categories WHERE is_top=0 and parent_id IS NULL');
         $testimonial    = DB::table('reviews')->get();
         $count = $bartners->count();
+        if ($locale == 'ar') {
+            $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
+            $translations = json_decode(File::get($translationFile), true);
+            $languageTranslations = $translations;
+            $translatedCategories = $homeCategories->map(function ($category) use ($languageTranslations) {
+                $categoryId = $category->id;
+                $translatedName = $languageTranslations[$category->title] ?? $category->title;
+                return [
+                    'id' => $categoryId,
+                    'name' => $translatedName,
+                ];
+            });
+        } else {
+            $translatedCategories = $homeCategories;
+        }
         if ($count > 0) {
-            return  json_encode(['status' => true, 'homecategory' => $homecategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'homecategory' => $translatedCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
             //return view('frontend.api_code', json_encode(['status' => false,'data' => 'Not Found']));  
@@ -55,8 +77,25 @@ class CategoryController extends Controller
     {
         $allcategories = DB::table('categories')->where('parent_id', NULL)->get();
         $count = $allcategories->count();
+        $locale = $request->header('Accept-Language') ?? 'en';
+        if ($locale == 'ar') {
+            $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
+            $translations = json_decode(File::get($translationFile), true);
+            $languageTranslations = $translations;
+            $translatedCategories = $allcategories->map(function ($category) use ($languageTranslations) {
+                $categoryId = $category->id;
+                $translatedName = $languageTranslations[$category->title] ?? $category->title;
+                return [
+                    'id' => $categoryId,
+                    'name' => $translatedName,
+                ];
+            });
+        } else {
+            $translatedCategories = $allcategories;
+        }
+
         if ($count > 0) {
-            return  json_encode(['status' => true, 'allcategories' => $allcategories, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'allcategories' => $translatedCategories, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
