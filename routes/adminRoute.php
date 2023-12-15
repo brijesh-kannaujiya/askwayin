@@ -139,7 +139,7 @@ Route::prefix('admin')->group(function(){
         Route::post('/locations/update/{id}', [LocationController::class,'update'])->name('admin.locations.update');
         Route::get('/locations/delete/{id}', [LocationController::class,'destroy'])->name('admin.locations.delete');
         Route::get('/locations/bulk-delete', [LocationController::class,'bulkdelete'])->name('admin.locations.bulk.delete');
-     });
+     }); 
 
       Route::group(['middleware'=>'permissions:Directory Listing'],function(){
         Route::get('/listing/datatables/{status}', [ListingController::class,'datatables'])->name('admin.listing.datatables');
