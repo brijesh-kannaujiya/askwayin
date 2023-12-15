@@ -698,7 +698,7 @@
 
 
 
-
+                {{--
 
                 <!-- Author Box -->
                 <!--<div class="jb-apply-form bg-white rounded py-4 px-4 mb-4">-->
@@ -757,7 +757,7 @@
 
                 <!--</div>-->
 
-                <!-- Business Info -->
+                <!-- Business Info --> --}}
 
 
             </div>
