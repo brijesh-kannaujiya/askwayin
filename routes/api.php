@@ -27,18 +27,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/create-device-token',  [ApiController::class, 'DeviceToken']);
 
-Route::post('/login', [DirectoryController::class, 'login']); // not 
-Route::post('/registerapi', [DirectoryController::class, 'register']); // not
-Route::post('/logout', [DirectoryController::class, 'logout']); // not
-Route::post('/alllogin', [DirectoryController::class, 'search']); // not
-Route::get('/lang/{id}', [DirectoryController::class, 'language']);// not
+Route::prefix('user')->group(function () {
+    Route::post('/login', [DirectoryController::class, 'login']); // not 
+    Route::post('/registerapi', [DirectoryController::class, 'register']); // not
+    Route::post('/logout', [DirectoryController::class, 'logout']); // not
+    Route::post('/alllogin', [DirectoryController::class, 'search']); // not
+    Route::get('/lang/{id}', [DirectoryController::class, 'language']); // not
+    Route::post('/changepassword/{user_id}', [UserController::class, 'change_password']);
+    Route::post('/send-reset-password-email', [PasswordResetController::class, 'send_reset_password_email']);
+    Route::post('/reset-password/{token}', [PasswordResetController::class, 'reset']);
+    Route::post('/deleteUser/{user_id}', [UserController::class, 'deleteUser']);
+    Route::post('/updateuser/{user_id}', [UserController::class, 'updateuser']);
+    Route::get('/edituser/{user_id}', [UserController::class, 'edituser']);
+});
 
-Route::get('/edituser/{user_id}', [UserController::class, 'edituser']); 
-Route::post('/updateuser/{user_id}', [UserController::class, 'updateuser']);
-Route::post('/deleteUser/{user_id}', [UserController::class, 'deleteUser']);
+
+
 Route::post('/contactmailapi', [UserController::class, 'contactmailapi']);
 Route::get('/loggeduser', [UserController::class, 'logged_user']);
-Route::post('/changepassword/{user_id}', [UserController::class, 'change_password']);
+
 Route::get('/userprofile/{user_id}', [UserController::class, 'userprofile']);
 
 Route::get('/search/{keyword}', [CategoryController::class, 'cat_search']);
@@ -66,7 +73,3 @@ Route::get('/search_api/{slug}', [ProductController::class, 'search_api']);
 Route::get('/filterallproduct', [ProductController::class, 'filterallproduct']);
 Route::get('/highlight_type', [ProductController::class, 'filterallproduct']);
 Route::get('/appaddsdata', [ProductController::class, 'appaddsdata']);
-
-Route::post('/send-reset-password-email', [PasswordResetController::class, 'send_reset_password_email']);
-Route::post('/reset-password/{token}', [PasswordResetController::class, 'reset']);
-

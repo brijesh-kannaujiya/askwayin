@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function apicall(Request $request)
     {
-        $locale = $request->header('Accept-Language') ?? 'en';
+        $locale = $request->header('Accept-Language') ?? 'ar';
 
         $homeCategories = DB::table('categories')
             ->where('is_top', true)
@@ -59,7 +59,20 @@ class CategoryController extends Controller
                 $translatedName = $languageTranslations[$category->title] ?? $category->title;
                 return [
                     'id' => $categoryId,
-                    'name' => $translatedName,
+                    'title' => $translatedName,
+                    'slug' =>  $category->slug,
+                    'photo' =>  $category->photo,
+                    'photo1' =>  $category->photo1,
+                    'photo_banner' =>  $category->photo_banner,
+                    'photo3' =>  $category->photo3,
+                    'pop_cat' =>  $category->pop_cat,
+                    'status' =>  $category->status,
+                    'parent_id' =>  $category->parent_id,
+                    'is_top' =>  $category->is_top,
+                    'pop_home_cat' =>  $category->pop_home_cat,
+                    'bg_color' =>  $category->bg_color,
+                    'created_at' =>  $category->created_at,
+                    'updated_at' =>  $category->updated_at,
                 ];
             });
         } else {
@@ -87,7 +100,20 @@ class CategoryController extends Controller
                 $translatedName = $languageTranslations[$category->title] ?? $category->title;
                 return [
                     'id' => $categoryId,
-                    'name' => $translatedName,
+                    'title' => $translatedName,
+                    'slug' =>  $category->slug,
+                    'photo' =>  $category->photo,
+                    'photo1' =>  $category->photo1,
+                    'photo_banner' =>  $category->photo_banner,
+                    'photo3' =>  $category->photo3,
+                    'pop_cat' =>  $category->pop_cat,
+                    'status' =>  $category->status,
+                    'parent_id' =>  $category->parent_id,
+                    'is_top' =>  $category->is_top,
+                    'pop_home_cat' =>  $category->pop_home_cat,
+                    'bg_color' =>  $category->bg_color,
+                    'created_at' =>  $category->created_at,
+                    'updated_at' =>  $category->updated_at,
                 ];
             });
         } else {
