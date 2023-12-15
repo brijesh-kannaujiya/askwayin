@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function apicall(Request $request)
     {
-        $locale = $request->header('Accept-Language') ?? 'ar';
+        $locale = $request->header('Accept-Language') ?? 'en';
 
         $homeCategories = DB::table('categories')
             ->where('is_top', true)
