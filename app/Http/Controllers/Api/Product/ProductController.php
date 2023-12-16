@@ -67,7 +67,7 @@ class ProductController extends Controller
         }
     }
 
-    
+
     public function product_detail($slug)
     {
 
@@ -292,10 +292,10 @@ class ProductController extends Controller
 
 
 
-    
+
     public function wishlistpostapi(Request $request)
     {
-      
+
 
         if (Wishlists::where('user_id', auth()->id())->where('listing_id', $request->listing_id)->exists()) {
             $wishlist = Wishlists::where('user_id', auth()->id())->where('listing_id', $request->listing_id)->first();
@@ -312,10 +312,10 @@ class ProductController extends Controller
     }
 
 
-    
+
     public function removewishlistpostapi(Request $request)
     {
-      
+
 
         if (Wishlists::where('user_id', auth()->id())->where('listing_id', $request->listing_id)->exists()) {
             $wishlist = Wishlists::where('user_id', auth()->id())->where('listing_id', $request->listing_id)->first();
@@ -325,7 +325,7 @@ class ProductController extends Controller
         return response()->json(['success' => 'First you add the product into favourite list.']);
     }
 
-    
+
 
     public function search_filter(Request $request, $keybord)
     {
@@ -392,7 +392,7 @@ class ProductController extends Controller
         }
     }
 
-    
+
     public function filter_highlight_type(Request $request, $highlight_type)
     {
         $data = Listing::where('highlight_type', $highlight_type)->get();
@@ -448,7 +448,7 @@ class ProductController extends Controller
         }
     }
 
-    
+
     public function filterAllProduct(Request $request)
     {
 
@@ -456,13 +456,18 @@ class ProductController extends Controller
         $keyword = $request->input('keyword');
         $slug    = $request->input('slug');
         $product_data = $request->input('product_data');
-
+        $filtertype = $request->input('filtertype');
         $listingsData = [];
-
         if ($slug != '') {
             $categoriesub = Category::where('slug', $slug)->get();
             foreach ($categoriesub as $key => $categoriesubIDp) {
-                $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)->get();
+                if ($filtertype != '') {
+                    $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)
+                        ->where('highlight_type', $filtertype)
+                        ->get();
+                } else {
+                    $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)->get();
+                }
                 // Process $allproduct_query to populate $listingsData for this condition
                 foreach ($allproduct_query as $listing) {
                     $categoryName = $categoriesubIDp->slug; // Get category slug for this specific condition
@@ -505,8 +510,7 @@ class ProductController extends Controller
                 }
             }
         } else if ($product_data != '') {
-            $allproduct_query = DB::table('listings')->where('type', 'LIKE', "%$product_data%")->get();
-
+            $allproduct_query = DB::table('listings')->where('name', 'LIKE', "%$product_data%")->get();
             foreach ($allproduct_query as $listing) {
                 $categorysss = $listing->category_id;
                 $categoriesub = Category::where('id', $categorysss)->get();
@@ -521,13 +525,26 @@ class ProductController extends Controller
                     $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
                     $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
                     $totalRate = $reviews->sum('rate');
-
+                    $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
+                    $seduel = json_decode($listing->schedules);
+                    $newArray = [];
+                    if ($seduel) {
+                        foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
+                            $dayOpenName = $day . '_open';
+                            $dayCloseName = $day . '_close';
+                            $open = $seduel->$dayOpenName;
+                            $close = $seduel->$dayCloseName;
+                            $formattedHours = $open . ' - ' . $close;
+                            $newArray[$day] = $formattedHours;
+                        }
+                    }
                     $listingData = [
                         'id' => $data->id,
                         'name' => $data->name,
                         'photo' => $data->photo,
                         'is_feature' => $listing->is_feature == 1 ? 'FEATURED' : '',
-                        'schedules' => $listing->schedules ? json_decode($listing->schedules, true) : [],
+                        // 'schedules' => $listing->schedules ? json_decode($listing->schedules, true) : [],
+                        'schedules' => $newArray,
                         'slug' => $data->slug,
                         'real_address' => $data->real_address,
                         'phone_number' => $data->phone_number,
@@ -537,6 +554,7 @@ class ProductController extends Controller
                         'CatName' => $categoryName,
                         'total_rating' => $totalRate,
                         'openCloseTime' => $data->openClose($data->id),
+                        'ReatingLastUpdate' => isset($listingLastUpdate->created_at) && $listingLastUpdate->created_at ? $listingLastUpdate->created_at->diffForHumans() : 'Na',
                     ];
 
                     $listingsData[] = $listingData;
@@ -587,7 +605,7 @@ class ProductController extends Controller
         ]);
     }
 
-    
+
     public function appaddsdata(Request $request)
     {
         $data = DB::table('appadds')->select('*')->get();
@@ -611,8 +629,4 @@ class ProductController extends Controller
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
     }
-
-
-
-
 }

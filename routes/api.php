@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\Product\ProductController;
 use App\Http\Controllers\Api\SubCategory\SubCategoryController;
@@ -28,14 +29,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/create-device-token',  [ApiController::class, 'DeviceToken']);
 
 Route::prefix('user')->group(function () {
-    Route::post('/login', [DirectoryController::class, 'login']); // not 
-    Route::post('/registerapi', [DirectoryController::class, 'register']); // not
-    Route::post('/logout', [DirectoryController::class, 'logout']); // not
-    Route::post('/alllogin', [DirectoryController::class, 'search']); // not
-    Route::get('/lang/{id}', [DirectoryController::class, 'language']); // not
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/registerapi', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/alllogin', [AuthController::class, 'search']);
+    Route::get('/lang/{id}', [DirectoryController::class, 'language']);
     Route::post('/changepassword/{user_id}', [UserController::class, 'change_password']);
-    Route::post('/send-reset-password-email', [PasswordResetController::class, 'send_reset_password_email']);
-    Route::post('/reset-password/{token}', [PasswordResetController::class, 'reset']);
+    // Route::post('/send-reset-password-email', [PasswordResetController::class, 'send_reset_password_email']);
+    // Route::post('/reset-password/{token}', [PasswordResetController::class, 'reset']);
     Route::post('/deleteUser/{user_id}', [UserController::class, 'deleteUser']);
     Route::post('/updateuser/{user_id}', [UserController::class, 'updateuser']);
     Route::get('/edituser/{user_id}', [UserController::class, 'edituser']);
