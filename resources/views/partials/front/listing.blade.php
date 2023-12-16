@@ -104,7 +104,6 @@
                 </div>
                 <h4 class="mb-0 ft-medium medium"><a href="{{ route('front.listing.details',$data->slug) }}"
                         class="text-dark fs-md">@lang($data->name)
-                        <!--<span class="verified-badge"><i class="fas fa-check-circle"></i></span>-->
                     </a></h4>
                 <div class="Rego-middle-caption mt-3">
                     <div class="Rego-location"><i class="fas fa-map-marker-alt"></i>@lang($data->real_address)</div>

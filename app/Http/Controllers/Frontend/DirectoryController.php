@@ -20,7 +20,7 @@ use App\Models\User;
 use App\Models\Wishlists;
 use Illuminate\Http\Request;
 use Validator;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class DirectoryController extends Controller
 {
@@ -32,14 +32,13 @@ class DirectoryController extends Controller
         $locations = $request->location ? $request->location[0] : null;
         $types = $request->type ? $request->type[0] : null;
         $real_address = $request->real_address ? $request->real_address : null;
-
+        // dd($categories, $locations, $types, $real_address);
         $data['categories'] = Category::whereIsTop(1)->orderBy('id', 'desc')->get();
         $data['locations'] = Location::whereStatus(1)->orderBy('id', 'desc')->get();
-
         $data['listings'] = Listing::when($categories, function ($query, $categories) use ($real_address) {
             $categories = explode(",", $categories);
             foreach ($categories as $key => $category) {
-                $cat = Category::whereSlug($category)->first(); 
+                $cat = Category::whereSlug($category)->first();
                 if ($key == 0) {
                     if ($cat != null) {
                         $query->where('category_id', $cat->id)->where('real_address', 'LIKE', "%$real_address%");
@@ -74,22 +73,16 @@ class DirectoryController extends Controller
 
         // Get the executed queries
         $queries = DB::getQueryLog();
-
         // Disable query logging to prevent further queries from being added to the log
         DB::disableQueryLog();
-
         // Print the queries (for debugging purposes)
-        // dd($queries);
-
+        dd($data['listings']);
         if ($request->ajax()) {
             return view('partials.front.listing', $data);
         }
 
         return view('frontend.list', $data);
     }
-
-
-
 
     public function filter(Request $request)
     {
@@ -166,8 +159,6 @@ class DirectoryController extends Controller
         return view('frontend.list', $data);
     }
 
-
-
     public function subcategory(Request $request, $slug)
     {
         $categoriesubID = Category::where('slug', $slug)->get();
@@ -180,86 +171,8 @@ class DirectoryController extends Controller
 
     ////////// API WORK START ///////////////////
 
-  
 
 
-
-    public function register(Request $request)
-    {
-
-        $rules = [
-            'name' => 'required|alpha_dash|min:5|unique:users',
-            'email' => 'required|email|max:255|unique:users',
-            'phone' => 'required',
-            'username' => 'required',
-            'password' => 'required||min:6|confirmed'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-
-        if (User::where('email', $request->email)->first()) {
-            return response([
-                'message' => 'Email already exists',
-                'status' => 'failed'
-            ], 200);
-        }
-        $user = User::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-        $token = $token = md5(time() . $request->name . $request->email);
-        return response([
-            'token' => $token,
-            'message' => 'Registration Success',
-            'status' => 'success'
-        ], 201);
-    }
-
-
-
-    public function login(Request $request)
-    {
-        $rules = [
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-
-        $user = User::where('email', $request->email)->first();
-        if ($user && Hash::check($request->password, $user->password)) {
-            $token = md5(time() . $request->name . $request->email);
-
-            return response([
-                'token' => $token,
-                'id' => $user->id,
-                'name' => $user->name,
-                'phone' => $user->phone,
-                'email' => $user->email,
-                'message' => 'Login Success',
-                'status' => 'success'
-            ], 200);
-        } else {
-            return  json_encode(['status' => false, 'result' => 'The Provided Credentials are incorrect']);
-        }
-        return response([
-            'message' => 'Something Wrong.',
-            'status' => 'failed'
-        ], 401);
-    }
-
-    public function logout()
-    {
-        //$user = User::where('email', $request->email)->first();
-        ///auth()->user()->$user->token->delete();
-        return response([
-            'message' => 'Logout Success',
-            'status' => 'success'
-        ], 200);
-    }
-
-  
 
 
 
@@ -276,13 +189,6 @@ class DirectoryController extends Controller
     //  }
 
 
-   
-
-
-
-
-
-   
 
 
 
@@ -290,13 +196,20 @@ class DirectoryController extends Controller
 
 
 
-  
 
 
-   
 
 
- 
+
+
+
+
+
+
+
+
+
+
 
 
     //     public function allproduct_by_slug(Request $request,$slug)
@@ -315,7 +228,7 @@ class DirectoryController extends Controller
     //      }
     //     }
 
- 
+
 
 
 
@@ -749,7 +662,7 @@ class DirectoryController extends Controller
 
 
 
-   
+
 
 
 
