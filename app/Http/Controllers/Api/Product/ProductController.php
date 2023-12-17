@@ -491,22 +491,35 @@ class ProductController extends Controller
         }
 
         if ($type == 'products') {
-            $allproduct_query = DB::table('listings')->where('name', 'LIKE', "%$product_data%")->get();
+            // $allproduct_query = DB::table('categories')->where('name', 'LIKE', "%$product_data%")->OrWhere('slug', 'LIKE', "%$product_data%")->get();
+            $allproduct_query = DB::table('categories')
+                ->when($product_data, function ($q) use ($product_data) {
+                    $q->OrWhere('slug', 'LIKE', "%$product_data%");
+                    $q->OrWhere('title', 'LIKE', "%$product_data%");
+                })
+                // ->where(DB::raw('LOWER(slug)'), 'LIKE', '%' . strtolower($product_data) . '%')
+                // ->orWhere(DB::raw('LOWER(name)'), 'LIKE', '%' . strtolower($product_data) . '%')
+                ->get();
+            // dd($allproduct_query);
             foreach ($allproduct_query as $listing) {
-                $categorysss = $listing->category_id;
+                $categorysss = $listing->id;
                 $categoriesub = Category::where('id', $categorysss)->get();
                 foreach ($categoriesub as $categoriesubname) {
                     $categoryName = $categoriesubname->slug;
                     $categorytitle = $categoriesubname->title;
                     $categoryid = $categoriesubname->id;
                 }
-                $data = Listing::whereSlug($listing->slug)->whereStatus(1)->first();
+                $data = Listing::where('category_id', $categoryid)
+                    // whereSlug($listing->slug)
+                    ->whereStatus(1)->first();
+                // dd($data);
                 if ($data) {
                     $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
                     $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
-                    $totalRate = $reviews->sum('rate');
-                    $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
-                    $seduel = json_decode($listing->schedules);
+                    // $totalRate = $reviews->sum('rate');
+                    // $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
+                    // dd($listing);
+                    $seduel = json_decode($data->schedules);
                     $newArray = [];
                     if ($seduel) {
                         foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
@@ -522,7 +535,7 @@ class ProductController extends Controller
                         'id' => $data->id,
                         'name' => $data->name,
                         'photo' => $data->photo,
-                        'is_feature' => $listing->is_feature == 1 ? 'FEATURED' : '',
+                        'is_feature' => $data->is_feature == 1 ? 'FEATURED' : '',
                         'schedules' => $newArray,
                         'slug' => $data->slug,
                         'real_address' => $data->real_address,
@@ -537,7 +550,7 @@ class ProductController extends Controller
                         'ReatingLastUpdate' => isset($data->created_at) && $data->created_at ? $data->created_at->diffForHumans() : 'NA',
                     ];
 
-                    // Brijesh
+
 
                     $listingsData[] = $listingData;
                 }
