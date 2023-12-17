@@ -530,7 +530,7 @@ class ProductController extends Controller
                         'CatName' => $categoryName,
                         'total_rating' => $totalRate,
                         'openCloseTime' => $data->openClose($data->id),
-                        'ReatingLastUpdate' => isset($listingLastUpdate->created_at) && $listingLastUpdate->created_at ? $listingLastUpdate->created_at->diffForHumans() : 'NA',
+                        'ReatingLastUpdate' => isset($data->created_at) && $data->created_at ? $data->created_at->diffForHumans() : 'NA',
                     ];
 
                     // Brijesh
@@ -563,7 +563,7 @@ class ProductController extends Controller
                     if ($data) {
                         $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
                         $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
-                        $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
+                        // $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
                         $totalRate = $reviews->sum('rate');
                         $listingData = [
                             'id' => $data->id,
@@ -581,7 +581,7 @@ class ProductController extends Controller
                             'total_rating' => $totalRate,
                             'openCloseTime' => $data->openClose($data->id),
                             'highlight_type' => $data->highlight_type,
-                            'ReatingLastUpdate' => isset($listingLastUpdate->created_at) && $listingLastUpdate->created_at ? $listingLastUpdate->created_at->diffForHumans() : 'NA',
+                            'ReatingLastUpdate' => isset($data->created_at) && $data->created_at ? $data->created_at->diffForHumans() : 'NA',
                         ];
                         $listingsData[] = $listingData;
                     }
