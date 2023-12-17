@@ -33,11 +33,18 @@ class CategoryController extends Controller
     {
         $locale = $request->header('Accept-Language') ?? 'en';
 
-        $homeCategories = DB::table('categories')
-            ->where('is_top', true)
-            ->orderBy('id', 'asc') // Use orderBy instead of order_by
+        // $homeCategories = DB::table('categories')
+        //     ->select('categories.id')
+        //     ->where('is_top', true)
+        //     ->orderBy('id', 'asc') // Use orderBy instead of order_by
+        //     ->limit(7)
+        //     ->get();
+
+        $homeCategories = Category::withCount('subcategories')
             ->limit(7)
+            ->orderBy('id', 'asc')
             ->get();
+
         $listings       = DB::table('listings')->get();
         $bartners       = DB::table('bartners')->get();
         $partners       = DB::table('partners')->get();
@@ -88,7 +95,13 @@ class CategoryController extends Controller
 
     public function allcategoryapi(Request $request)
     {
-        $allcategories = DB::table('categories')->where('parent_id', NULL)->get();
+        // $allcategories = DB::table('categories')->where('parent_id', NULL)->get();
+
+        $allcategories = Category::withCount('subcategories')
+            // ->orderBy('id', 'asc')
+            ->where('parent_id', NULL)
+            ->get();
+
         $count = $allcategories->count();
         $locale = $request->header('Accept-Language') ?? 'en';
         if ($locale == 'ar') {

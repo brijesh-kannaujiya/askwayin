@@ -24,19 +24,28 @@ class Category extends Model
         'bg_color',
     ];
 
-    public function parent(){
-        return $this->belongsTo(Category::class,'parent_id')->withDefault(function ($data) {
-            foreach($data->getFillable() as $dt){
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id')->withDefault(function ($data) {
+            foreach ($data->getFillable() as $dt) {
                 $data[$dt] = __('Deleted');
             }
         });
     }
 
-    public function child(){
-        return $this->hasMany(Category::class,'parent_id');
+    public function child()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function listings(){
+    public function subcategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+
+    public function listings()
+    {
         return $this->hasMany(Listing::class);
     }
 }
