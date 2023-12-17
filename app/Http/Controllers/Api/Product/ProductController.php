@@ -309,7 +309,7 @@ class ProductController extends Controller
 
         $wishlist = new Wishlists();
         //$token = md5(time().$request->name.$request->email);
-        $wishlist->user_id = auth()->id();
+        $wishlist->user_id =  $request->user_id;
         $wishlist->listing_id = $request->listing_id;
         $wishlist->save();
         return response()->json(['success' => 'Product added into your favourite list.']);
