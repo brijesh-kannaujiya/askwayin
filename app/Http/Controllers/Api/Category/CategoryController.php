@@ -80,6 +80,7 @@ class CategoryController extends Controller
                     'bg_color' =>  $category->bg_color,
                     'created_at' =>  $category->created_at,
                     'updated_at' =>  $category->updated_at,
+                    'subcategories_count' => $category->subcategories_count
                 ];
             });
         } else {
