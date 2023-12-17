@@ -10,7 +10,7 @@
 
 <section class="gray py-5">
     <?php
-   $type = request('category');
+   $type = [request('category')];
    
 //    dd($type);
    foreach ($type as $key => $data){

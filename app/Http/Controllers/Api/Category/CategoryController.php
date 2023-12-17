@@ -101,9 +101,10 @@ class CategoryController extends Controller
             // ->orderBy('id', 'asc')
             ->where('parent_id', NULL)
             ->get();
-
         $count = $allcategories->count();
-        $locale = $request->header('Accept-Language') ?? 'en';
+        $locale = $request->header('Accept-Language') ?? 'ar';
+        // $locale = 'ar';
+        // dd($locale);
         if ($locale == 'ar') {
             $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
             $translations = json_decode(File::get($translationFile), true);
@@ -127,6 +128,7 @@ class CategoryController extends Controller
                     'bg_color' =>  $category->bg_color,
                     'created_at' =>  $category->created_at,
                     'updated_at' =>  $category->updated_at,
+                    'subcategories_count' => $category->subcategories_count
                 ];
             });
         } else {
