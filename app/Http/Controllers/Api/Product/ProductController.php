@@ -259,9 +259,9 @@ class ProductController extends Controller
                 $data = Listing::whereSlug($listing->slug)->whereStatus(1)->first();
 
                 if ($data) {
-                    $reviews       = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
+                    // $reviews       = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
                     $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
-                    $totalRate = $reviews->sum('rate');
+                    // $totalRate = $reviews->sum('rate');
 
                     $listingData = [
                         'id' => $data->id,
@@ -276,7 +276,7 @@ class ProductController extends Controller
                         'category_id' => $categoryid,
                         'total_reviews' => $totlalreviews,
                         'CatName' => $categoryName,
-                        'total_rating' => $totalRate,
+                        'total_rating' => $data->directoryRatting($data->id),
                         'openCloseTime' => $data->openClose($data->id),
                     ];
 
@@ -531,7 +531,8 @@ class ProductController extends Controller
                         'category_id'  => $categoryid,
                         'total_reviews' => $totlalreviews,
                         'CatName' => $categoryName,
-                        'total_rating' => $totalRate,
+                        // 'total_rating' => $totalRate,
+                        'total_rating' => $data->directoryRatting($data->id),
                         'openCloseTime' => $data->openClose($data->id),
                         'ReatingLastUpdate' => isset($data->created_at) && $data->created_at ? $data->created_at->diffForHumans() : 'NA',
                     ];
