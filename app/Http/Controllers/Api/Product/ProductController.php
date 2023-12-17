@@ -533,6 +533,8 @@ class ProductController extends Controller
                         'ReatingLastUpdate' => isset($listingLastUpdate->created_at) && $listingLastUpdate->created_at ? $listingLastUpdate->created_at->diffForHumans() : 'NA',
                     ];
 
+                    // Brijesh
+
                     $listingsData[] = $listingData;
                 }
             }
