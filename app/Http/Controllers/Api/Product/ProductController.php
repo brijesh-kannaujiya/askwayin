@@ -82,7 +82,6 @@ class ProductController extends Controller
         $datadd = Listing::where('slug', $slug)->get();
         foreach ($datadd as $key => $datareview) {
             $listing_reviews   = DB::table('listing_reviews')->where('listing_id', $datareview->id)->get();
-            // dd($listing_reviews);
         }
 
         // Initialize variables to calculate the total rating and count
@@ -107,22 +106,27 @@ class ProductController extends Controller
         $decimalPlaces = 2; // Adjust as needed
         $averageRating = round($averageRating, $decimalPlaces);
 
-        // Output the calculated average rating
-        //echo "The average rating is: $averageRating";
-
-
-        //   if($data->openClose($data->id)=='open'){
-        //       echo $data->openClose($data->id);
-        //   }
-
-
         if (auth()->user()) {
             $this->recentViews($data->id, $data->user_id);
             $data['recentViews'] = RecentViewsListing::whereNotIn('listing_id', [$data->id])->whereUserId(auth()->id())->orderBy('id', 'desc')->limit(4)->get();
         }
 
         if ($data) {
-            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $data->description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $data->name, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' => $data['schedules'], 'ReviewRatting' => $averageRating, 'result' => 'Data Found']);
+            $schedules = $data['schedules'];
+            $newArray = [];
+            if ($schedules) {
+                foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
+                    $dayOpenName = $day . '_open';
+                    $dayCloseName = $day . '_close';
+                    $open = $schedules[$dayOpenName];
+                    $close = $schedules[$dayCloseName];
+                    $formattedHours = $open . ' - ' . $close;
+                    $newArray[$day] = $formattedHours;
+                }
+            }
+
+
+            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $data->description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $data->name, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'result' => 'Data Found']);
             //return view('frontend.details',$data);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
