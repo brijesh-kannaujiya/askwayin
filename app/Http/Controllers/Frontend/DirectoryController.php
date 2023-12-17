@@ -76,7 +76,7 @@ class DirectoryController extends Controller
         // Disable query logging to prevent further queries from being added to the log
         DB::disableQueryLog();
         // Print the queries (for debugging purposes)
-        dd($data['listings']);
+        // dd($data['listings']);
         if ($request->ajax()) {
             return view('partials.front.listing', $data);
         }

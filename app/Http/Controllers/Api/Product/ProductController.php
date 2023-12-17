@@ -458,6 +458,145 @@ class ProductController extends Controller
         $product_data = $request->input('product_data');
         $filtertype = $request->input('filtertype');
         $listingsData = [];
+
+
+        if ($type == 'cat') {
+            $allproduct_query_p = DB::table('categories')
+                ->where('title', 'LIKE', "%$keyword%")
+                ->whereNull('parent_id')
+                ->pluck('id')
+                ->toArray();
+            $listingsData = [];
+            if (!empty($allproduct_query_p)) {
+                foreach ($allproduct_query_p as $cat_id) {
+                    $allproduct_query = DB::table('categories')->where('id', $cat_id)
+                        ->get();
+                    foreach ($allproduct_query as $categoriesubIDp) {
+                        $listingData = [
+                            'id'    => $categoriesubIDp->id,
+                            'title' => $categoriesubIDp->title,
+                            'slug'  => $categoriesubIDp->slug,
+                            'photo' => $categoriesubIDp->photo,
+                        ];
+
+                        $listingsData[] = $listingData;
+                    }
+                }
+            } else {
+                $listingsData = [];
+            }
+        }
+
+        if ($type == 'products') {
+            $allproduct_query = DB::table('listings')->where('name', 'LIKE', "%$product_data%")->get();
+            foreach ($allproduct_query as $listing) {
+                $categorysss = $listing->category_id;
+                $categoriesub = Category::where('id', $categorysss)->get();
+                foreach ($categoriesub as $categoriesubname) {
+                    $categoryName = $categoriesubname->slug;
+                    $categorytitle = $categoriesubname->title;
+                    $categoryid = $categoriesubname->id;
+                }
+                $data = Listing::whereSlug($listing->slug)->whereStatus(1)->first();
+                if ($data) {
+                    $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
+                    $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
+                    $totalRate = $reviews->sum('rate');
+                    $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
+                    $seduel = json_decode($listing->schedules);
+                    $newArray = [];
+                    if ($seduel) {
+                        foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
+                            $dayOpenName = $day . '_open';
+                            $dayCloseName = $day . '_close';
+                            $open = $seduel->$dayOpenName;
+                            $close = $seduel->$dayCloseName;
+                            $formattedHours = $open . ' - ' . $close;
+                            $newArray[$day] = $formattedHours;
+                        }
+                    }
+                    $listingData = [
+                        'id' => $data->id,
+                        'name' => $data->name,
+                        'photo' => $data->photo,
+                        'is_feature' => $listing->is_feature == 1 ? 'FEATURED' : '',
+                        'schedules' => $newArray,
+                        'slug' => $data->slug,
+                        'real_address' => $data->real_address,
+                        'phone_number' => $data->phone_number,
+                        'title'        => $categorytitle,
+                        'category_id'  => $categoryid,
+                        'total_reviews' => $totlalreviews,
+                        'CatName' => $categoryName,
+                        'total_rating' => $totalRate,
+                        'openCloseTime' => $data->openClose($data->id),
+                        'ReatingLastUpdate' => isset($listingLastUpdate->created_at) && $listingLastUpdate->created_at ? $listingLastUpdate->created_at->diffForHumans() : 'Na',
+                    ];
+
+                    $listingsData[] = $listingData;
+                }
+            }
+        }
+
+        if ($type == 'subcat') {
+            $categoriesub = Category::where('slug', $slug)->get();
+            foreach ($categoriesub as $key => $categoriesubIDp) {
+                if ($filtertype != '') {
+                    $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)
+                        ->where('highlight_type', $filtertype)
+                        ->get();
+                } else {
+                    $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)->get();
+                }
+                foreach ($allproduct_query as $listing) {
+                    $categoryName = $categoriesubIDp->slug;
+                    $categorysss = $listing->category_id;
+                    $categoriesub = Category::where('id', $categorysss)->get();
+                    foreach ($categoriesub as $categoriesubname) {
+                        $categoryName = $categoriesubname->slug;
+                        $categorytitle = $categoriesubname->title;
+                        $categoryid = $categoriesubname->id;
+                    }
+                    $data = Listing::whereSlug($listing->slug)->whereStatus(1)->first();
+                    if ($data) {
+                        $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
+                        $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
+                        $totalRate = $reviews->sum('rate');
+                        $listingData = [
+                            'id' => $data->id,
+                            'name' => $data->name,
+                            'photo' => $data->photo,
+                            'is_feature' => $listing->is_feature == 1 ? 'FEATURED' : '',
+                            'schedules' => $listing->schedules ? json_decode($listing->schedules, true) : [],
+                            'slug' => $data->slug,
+                            'real_address' => $data->real_address,
+                            'phone_number' => $data->phone_number,
+                            'title'        => $categorytitle,
+                            'category_id'  => $categoryid,
+                            'total_reviews' => $totlalreviews,
+                            'CatName' => $categoryName,
+                            'total_rating' => $totalRate,
+                            'openCloseTime' => $data->openClose($data->id),
+                            'highlight_type' => $data->highlight_type,
+                        ];
+                        $listingsData[] = $listingData;
+                    }
+                }
+            }
+        }
+
+        $count = count($listingsData);
+
+        return response()->json([
+            'status' => $count > 0,
+            'allproduct' => $listingsData,
+            'result' => $count > 0 ? 'Data Found' : 'Data Not Found',
+        ]);
+        dd($listingsData);
+
+
+
+
         if ($slug != '') {
             $categoriesub = Category::where('slug', $slug)->get();
             foreach ($categoriesub as $key => $categoriesubIDp) {
