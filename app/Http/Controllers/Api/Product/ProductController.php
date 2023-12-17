@@ -469,10 +469,12 @@ class ProductController extends Controller
                 ->whereNull('parent_id')
                 ->pluck('id')
                 ->toArray();
+            // dd($allproduct_query_p);
             $listingsData = [];
             if (!empty($allproduct_query_p)) {
                 foreach ($allproduct_query_p as $cat_id) {
-                    $allproduct_query = DB::table('categories')->where('id', $cat_id)
+                    // dd($cat_id);
+                    $allproduct_query = DB::table('categories')->where('parent_id', $cat_id)
                         ->get();
                     foreach ($allproduct_query as $categoriesubIDp) {
                         $listingData = [
