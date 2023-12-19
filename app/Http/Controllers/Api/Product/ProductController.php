@@ -11,6 +11,8 @@ use App\Models\RecentViewsListing;
 use App\Models\Wishlists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -299,11 +301,26 @@ class ProductController extends Controller
 
     public function wishlistpostapi(Request $request)
     {
+        $rules = [
+            'user_id' => 'required',
+            'listing_id' => 'required',
+        ];
+        $messages = [
+            'user_id.required' => 'The User Id field is required.',
+            'listing_id.required' => 'The Listing Id field is required.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-
-        if (Wishlists::where('user_id', auth()->id())->where('listing_id', $request->listing_id)->exists()) {
-            $wishlist = Wishlists::where('user_id', auth()->id())->where('listing_id', $request->listing_id)->first();
+        if ($request->is_deleted == true) {
+            $wishlist = Wishlists::where('user_id', $request->user_id)->where('listing_id', $request->listing_id)->first();
             $wishlist->delete();
+            return response()->json(['error' => 'Success! The product has been removed from your favorite list.']);
+        }
+
+        if (Wishlists::where('user_id', $request->user_id)->where('listing_id', $request->listing_id)->exists()) {
             return response()->json(['error' => 'Product already added into your favourite list.']);
         }
 
@@ -476,10 +493,19 @@ class ProductController extends Controller
                     // dd($cat_id);
                     $allproduct_query = DB::table('categories')->where('parent_id', $cat_id)
                         ->get();
+                    $locale = $request->header('Accept-Language') ?? 'en';
+                    $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
+                    $translations = json_decode(File::get($translationFile), true);
+                    $languageTranslations = $translations;
                     foreach ($allproduct_query as $categoriesubIDp) {
+                        if ($locale == 'ar') {
+                            $title = $languageTranslations[$categoriesubIDp->title];
+                        } else {
+                            $title = $categoriesubIDp->title;
+                        }
                         $listingData = [
                             'id'    => $categoriesubIDp->id,
-                            'title' => $categoriesubIDp->title,
+                            'title' => $title,
                             'slug'  => $categoriesubIDp->slug,
                             'photo' => $categoriesubIDp->photo,
                         ];
