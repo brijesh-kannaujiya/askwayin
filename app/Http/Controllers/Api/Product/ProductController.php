@@ -316,7 +316,9 @@ class ProductController extends Controller
 
         if ($request->is_deleted == true) {
             $wishlist = Wishlists::where('user_id', $request->user_id)->where('listing_id', $request->listing_id)->first();
-            $wishlist->delete();
+            if ($wishlist) {
+                $wishlist->delete();
+            }
             return response()->json(['error' => 'Success! The product has been removed from your favorite list.']);
         }
 
