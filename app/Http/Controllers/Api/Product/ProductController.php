@@ -80,7 +80,7 @@ class ProductController extends Controller
         $data['faq'] = ListingFaq::whereListingId($data->id)->get();
         $data['data'] = $data;
         $is_verify = $data['is_verify'] ? 'VERIFYED' : '';
-        $is_toprated = $data['is_toprated'] ? 'TOPRED' : '';
+        $is_toprated = $data['is_toprated'] ? 'TOPRATED' : '';
         $is_feature = $data['is_feature'] ? 'FEATURED' : '';
         $datadd = Listing::where('slug', $slug)->get();
         foreach ($datadd as $key => $datareview) {
