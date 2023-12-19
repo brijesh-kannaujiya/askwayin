@@ -79,9 +79,9 @@ class ProductController extends Controller
         $data['reviews'] = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
         $data['faq'] = ListingFaq::whereListingId($data->id)->get();
         $data['data'] = $data;
-        $is_verify = $data['is_verify'];
-        $is_toprated = $data['is_toprated'];
-        $is_feature = $data['is_feature'];
+        $is_verify = $data['is_verify'] ? 'VERIFYED' : '';
+        $is_toprated = $data['is_toprated'] ? 'TOPRED' : '';
+        $is_feature = $data['is_feature'] ? 'FEATURED' : '';
         $datadd = Listing::where('slug', $slug)->get();
         foreach ($datadd as $key => $datareview) {
             $listing_reviews   = DB::table('listing_reviews')->where('listing_id', $datareview->id)->get();
