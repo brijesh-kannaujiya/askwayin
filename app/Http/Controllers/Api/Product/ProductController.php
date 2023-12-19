@@ -79,8 +79,9 @@ class ProductController extends Controller
         $data['reviews'] = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
         $data['faq'] = ListingFaq::whereListingId($data->id)->get();
         $data['data'] = $data;
-        //print_r($data['reviews']);
-
+        $is_verify = $data['is_verify'];
+        $is_toprated = $data['is_toprated'];
+        $is_feature = $data['is_feature'];
         $datadd = Listing::where('slug', $slug)->get();
         foreach ($datadd as $key => $datareview) {
             $listing_reviews   = DB::table('listing_reviews')->where('listing_id', $datareview->id)->get();
@@ -128,7 +129,7 @@ class ProductController extends Controller
             }
 
 
-            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $data->description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $data->name, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $data->description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $data->name, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'is_verify' => $is_verify, 'is_feature' => $is_feature, 'is_toprated' => $is_toprated, 'result' => 'Data Found']);
             //return view('frontend.details',$data);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
