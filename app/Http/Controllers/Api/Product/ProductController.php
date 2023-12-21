@@ -505,7 +505,7 @@ class ProductController extends Controller
                     // dd($cat_id);
                     $allproduct_query = DB::table('categories')->where('parent_id', $cat_id)
                         ->get();
-                    $locale = $request->header('Accept-Language') ?? 'en';
+                    // $locale = $request->header('Accept-Language') ?? 'en';
                     $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
                     $translations = json_decode(File::get($translationFile), true);
                     $languageTranslations = $translations;
@@ -635,16 +635,27 @@ class ProductController extends Controller
                         $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
                         // $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
                         $totalRate = $reviews->sum('rate');
+
+
+                        if ($locale == 'ar') {
+                            $name = $data->name_arbic ? $data->name_arbic : $data->name;
+                            $real_address = $data->real_address_arbic ? $data->real_address_arbic : $data->real_address;
+                        } else {
+                            $name = $data->name;
+                            $real_address = $data->real_address;
+                        }
+
+
                         $listingData = [
                             'id' => $data->id,
-                            'name' => $data->name,
+                            'name' => $name,
                             'photo' => $data->photo,
                             'is_feature' => $listing->is_feature == 1 ? 'FEATURED' : '',
                             'is_verify' => $data->is_verify == 1 ? 'VERIFYED' : '',
                             'is_toprated' => $data->is_toprated == 1 ? 'TOPRATED' : '',
                             'schedules' => $listing->schedules ? json_decode($listing->schedules, true) : [],
                             'slug' => $data->slug,
-                            'real_address' => $data->real_address,
+                            'real_address' => $real_address,
                             'phone_number' => $data->phone_number,
                             'latitude' => $data->latitude,
                             'longitude' => $data->longitude,
