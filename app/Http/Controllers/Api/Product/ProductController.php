@@ -575,18 +575,24 @@ class ProductController extends Controller
                     if ($locale == 'ar') {
                         $name = $data->name_arbic ? $data->name_arbic : $data->name;
                         $real_address = $data->real_address_arbic ? $data->real_address_arbic : $data->real_address;
+                        $is_feature = $data->is_feature == 1 ? 'متميز' : '';
+                        $is_toprated = $data->is_toprated == 1 ? '' : '';
+                        $is_verify = $data->is_verify == 1 ? 'تم التحقق منه ' : '';
                     } else {
                         $name = $data->name;
                         $real_address = $data->real_address;
+                        $is_feature =  $data->is_feature == 1 ? 'FEATURED' : '';
+                        $is_toprated =  $data->is_toprated == 1 ? 'TOPRATED' : '';
+                        $is_verify =  $data->is_verify == 1 ? 'VERIFYED' : '';
                     }
 
                     $listingData = [
                         'id' => $data->id,
                         'name' => $name,
                         'photo' => $data->photo,
-                        'is_feature' => $data->is_feature == 1 ? 'FEATURED' : '',
-                        'is_verify' => $data->is_verify == 1 ? 'VERIFYED' : '',
-                        'is_toprated' => $data->is_toprated == 1 ? 'TOPRATED' : '',
+                        'is_feature' => $is_feature,
+                        'is_verify' => $is_verify,
+                        'is_toprated' => $is_toprated,
                         'schedules' => $newArray,
                         'slug' => $data->slug,
                         'real_address' => $real_address,
@@ -640,9 +646,15 @@ class ProductController extends Controller
                         if ($locale == 'ar') {
                             $name = $data->name_arbic ? $data->name_arbic : $data->name;
                             $real_address = $data->real_address_arbic ? $data->real_address_arbic : $data->real_address;
+                            $is_feature = $data->is_feature == 1 ? 'متميز' : '';
+                            $is_toprated = $data->is_toprated == 1 ? '' : '';
+                            $is_verify = $data->is_verify == 1 ? 'تم التحقق منه ' : '';
                         } else {
                             $name = $data->name;
                             $real_address = $data->real_address;
+                            $is_feature = $data->is_feature == 1 ? 'متميز' : '';
+                            $is_toprated = $data->is_toprated == 1 ? '' : '';
+                            $is_verify = $data->is_verify == 1 ? 'تم التحقق منه ' : '';
                         }
 
 
@@ -650,9 +662,9 @@ class ProductController extends Controller
                             'id' => $data->id,
                             'name' => $name,
                             'photo' => $data->photo,
-                            'is_feature' => $listing->is_feature == 1 ? 'FEATURED' : '',
-                            'is_verify' => $data->is_verify == 1 ? 'VERIFYED' : '',
-                            'is_toprated' => $data->is_toprated == 1 ? 'TOPRATED' : '',
+                            'is_feature' => $is_feature,
+                            'is_verify' => $is_verify,
+                            'is_toprated' => $is_toprated,
                             'schedules' => $listing->schedules ? json_decode($listing->schedules, true) : [],
                             'slug' => $data->slug,
                             'real_address' => $real_address,
