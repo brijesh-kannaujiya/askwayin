@@ -2,29 +2,36 @@
 
 @section('content')
 <!-- Google Maps JavaScript library -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAjsK7kPLSRl8kVv5koly5ORTyXlsD5Dh8"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAjsK7kPLSRl8kVv5koly5ORTyXlsD5Dh8">
+</script>
 
 
 <div class="card">
-	<div class="d-sm-flex align-items-center justify-content-between">
-        <h5 class=" mb-0 text-gray-800 pl-3">{{ __('Add New Listing') }} <a class="btn btn-primary btn-rounded btn-sm" href="{{route('admin.listing.index')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h5>
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <h5 class=" mb-0 text-gray-800 pl-3">{{ __('Add New Listing') }} <a class="btn btn-primary btn-rounded btn-sm"
+                href="{{route('admin.listing.index')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h5>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('admin.listing.create',['type'=> request()->type]) }}">{{ __('Add New Listing') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.listing.create',['type'=> request()->type]) }}">{{
+                    __('Add New Listing') }}</a></li>
         </ol>
-	</div>
+    </div>
 </div>
 
 <div class="row justify-content-center mt-3">
     <div class="col-md-12">
         <div class="card mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">{{ __('Add New Listing Form') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Add New Listing Form') }}</h6>
             </div>
 
             <div class="card-body">
-                <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
-                <form class="geniusform" action="{{route('admin.listing.store')}}" method="POST" enctype="multipart/form-data">
+                <div class="gocover"
+                    style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
+                </div>
+                <form class="geniusform" action="{{route('admin.listing.store')}}" method="POST"
+                    enctype="multipart/form-data">
                     @include('includes.admin.form-both')
                     {{ csrf_field() }}
 
@@ -33,11 +40,13 @@
                         <div id="tabs">
                             <ul class="nav nav-pills nav-justified mb-3" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link bsc active" data-toggle="pill" href="#basic">{{ __('Basic') }}</a>
+                                    <a class="nav-link bsc active" data-toggle="pill" href="#basic">{{ __('Basic')
+                                        }}</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link amenities" data-toggle="pill" href="#amenities">{{ __('Amenities') }}</a>
+                                    <a class="nav-link amenities" data-toggle="pill" href="#amenities">{{
+                                        __('Amenities') }}</a>
                                 </li>
 
                                 <li class="nav-item">
@@ -45,41 +54,48 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link schedule" data-toggle="pill" href="#schedule">{{ __('Schedule') }}</a>
+                                    <a class="nav-link schedule" data-toggle="pill" href="#schedule">{{ __('Schedule')
+                                        }}</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link contact" data-toggle="pill" href="#contact">{{ __('Contact') }}</a>
+                                    <a class="nav-link contact" data-toggle="pill" href="#contact">{{ __('Contact')
+                                        }}</a>
                                 </li>
 
                                 @if (request()->type == 'restaurant')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Item') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Item') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'hotel')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Room') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Room') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'beauty')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Service') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Service') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'real_estate')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(str_replace("_"," ",request()->type)) }} {{ __('Info') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(str_replace("_"," ",request()->type)) }} {{ __('Info') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'car')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Specification') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Specification') }}</a>
+                                </li>
                                 @endif
 
                                 <li class="nav-item">
@@ -91,50 +107,65 @@
                             <div class="tab-content">
                                 <div id="basic" class="container tab-pane active"><br>
                                     @if (request()->type == 'doctor')
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Doctor Name') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="name" placeholder="{{ __('name') }}" value="">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Doctor Name') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="name"
+                                                placeholder="{{ __('name') }}" value="">
+                                        </div>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Doctor Designation') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="designation" placeholder="{{ __('Designation') }}" value="">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Doctor Designation') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="designation"
+                                                placeholder="{{ __('Designation') }}" value="">
+                                        </div>
+                                    </div>
 
                                     @else
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Listing Title') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="name" placeholder="{{ __('Listing Title') }}" value="">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Listing Title') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="name"
+                                                placeholder="{{ __('Listing Title') }}" value="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Listing Title Arbic') }} *</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="name_arbic"
+                                                placeholder="{{ __('Listing Title Arbic') }}" value="">
+                                        </div>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Listing Slug') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="slug" placeholder="{{ __('Listing Slug') }}" value="">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Listing Slug') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="slug"
+                                                placeholder="{{ __('Listing Slug') }}" value="">
+                                        </div>
+                                    </div>
                                     @endif
 
                                     <div class="row">
@@ -149,9 +180,10 @@
                                                 @foreach ($categories as $key=>$category)
                                                 <option value="{{$category->id}}">{{$category->title}}</option>
                                                 @if ($category->child)
-                                                    @foreach ($category->child as $key=>$childlocation)
-                                                        <option value="{{$childlocation->id}}">-{{$childlocation->title}}</option>
-                                                    @endforeach
+                                                @foreach ($category->child as $key=>$childlocation)
+                                                <option value="{{$childlocation->id}}">-{{$childlocation->title}}
+                                                </option>
+                                                @endforeach
                                                 @endif
                                                 @endforeach
                                             </select>
@@ -168,12 +200,13 @@
                                             <select id="location" name="location_id" class="input-field">
                                                 <option value="" selected>{{__('Please select a location')}}</option>
                                                 @foreach ($locations as $key=>$location)
-                                                    <option value="{{$location->id}}">{{ucfirst($location->name)}}</option>
-                                                    @if ($location->child)
-                                                        @foreach ($location->child as $key=>$childlocation)
-                                                            <option value="{{$childlocation->id}}">--{{ ucfirst($childlocation->name)}}</option>
-                                                        @endforeach
-                                                    @endif
+                                                <option value="{{$location->id}}">{{ucfirst($location->name)}}</option>
+                                                @if ($location->child)
+                                                @foreach ($location->child as $key=>$childlocation)
+                                                <option value="{{$childlocation->id}}">--{{
+                                                    ucfirst($childlocation->name)}}</option>
+                                                @endforeach
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -186,10 +219,22 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="real_address" placeholder="{{ __('Address') }}" value="">
+                                            <input type="text" class="input-field" name="real_address"
+                                                placeholder="{{ __('Address') }}" value="">
                                         </div>
                                     </div>
-                                    
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Real Address Arbic') }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="real_address_arbic"
+                                                placeholder="{{ __('Address Arbic') }}" value="">
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="left-area">
@@ -197,57 +242,61 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                            <input type="text" class="form-control" id="search_input" placeholder="Map address..." />
+                                            <input type="text" class="form-control" id="search_input"
+                                                placeholder="Map address..." />
                                         </div>
                                     </div>
-                                     
+
                                     <!-- Address input -->
                                     <div class="row d-none">
-                                    <div class="col-lg-3">
+                                        <div class="col-lg-3">
                                             <div class="left-area">
                                                 <h4 class="heading">{{ __('Map Address') }}</h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                    <div class="form-group">
-                                    
-                                    <input type="text" class="form-control" id="address" placeholder="Address" readonly />
+                                            <div class="form-group">
+
+                                                <input type="text" class="form-control" id="address"
+                                                    placeholder="Address" readonly />
+                                            </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                    </div>
-                                    
+
                                     <div class="row">
-                                    <div class="col-lg-3">
+                                        <div class="col-lg-3">
                                             <div class="left-area">
                                                 <h4 class="heading">{{ __('Map Latitude') }}</h4>
                                             </div>
                                         </div>
-                                    <!-- Latitude input -->
-                                    <div class="col-lg-9">
-                                    <div class="form-group">
-                                    
-                                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Latitude" readonly />
+                                        <!-- Latitude input -->
+                                        <div class="col-lg-9">
+                                            <div class="form-group">
+
+                                                <input type="text" class="form-control" id="latitude" name="latitude"
+                                                    placeholder="Latitude" readonly />
+                                            </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                    </div>
-                                    
+
                                     <div class="row">
-                                    <div class="col-lg-3">
+                                        <div class="col-lg-3">
                                             <div class="left-area">
                                                 <h4 class="heading">{{ __('Map Longitude') }}</h4>
                                             </div>
                                         </div>
-                                    <!-- Latitude input -->
-                                    <div class="col-lg-9">
-                                    <!-- Longitude input -->
-                                    <div class="form-group">
-                                    
-                                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Longitude" readonly />
+                                        <!-- Latitude input -->
+                                        <div class="col-lg-9">
+                                            <!-- Longitude input -->
+                                            <div class="form-group">
+
+                                                <input type="text" class="form-control" id="longitude" name="longitude"
+                                                    placeholder="Longitude" readonly />
+                                            </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                    </div>
-                                    
-                                    
+
+
 
                                     <!--<div class="row">-->
                                     <!--    <div class="col-lg-3">-->
@@ -272,16 +321,17 @@
                                     <!--</div>-->
 
                                     @if (request()->type == 'hotel')
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Distance') }}</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="distance"  placeholder="{{ __('Distance') }}" value="">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Distance') }}</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="distance"
+                                                placeholder="{{ __('Distance') }}" value="">
+                                        </div>
+                                    </div>
                                     @endif
 
                                     <div class="row">
@@ -292,7 +342,22 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <textarea name="description" class="input-field" placeholder="{{ __('Description') }}" cols="30" rows="10"></textarea>
+                                            <textarea name="description" class="input-field"
+                                                placeholder="{{ __('Description') }}" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Description Arbic') }} *</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <textarea name="description_arbic" class="input-field"
+                                                placeholder="{{ __('Description Arbic') }}" cols="30"
+                                                rows="10"></textarea>
                                         </div>
                                     </div>
 
@@ -305,8 +370,10 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-check">
-                                                <input type="checkbox" name="is_feature" class="form-check-input" value="1" id="is_feature">
-                                                <label class="form-check-label" for="is_feature">{{ __('Check if this directory is featured') }}</label>
+                                                <input type="checkbox" name="is_feature" class="form-check-input"
+                                                    value="1" id="is_feature">
+                                                <label class="form-check-label" for="is_feature">{{ __('Check if this
+                                                    directory is featured') }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -318,8 +385,10 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-check">
-                                                <input type="checkbox" name="is_verify" class="form-check-input" value="1" id="is_verify">
-                                                <label class="form-check-label" for="is_verify">{{ __('Check if this directory is Verify') }}</label>
+                                                <input type="checkbox" name="is_verify" class="form-check-input"
+                                                    value="1" id="is_verify">
+                                                <label class="form-check-label" for="is_verify">{{ __('Check if this
+                                                    directory is Verify') }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -331,8 +400,10 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-check">
-                                                <input type="checkbox" name="is_toprated" class="form-check-input" value="1" id="is_toprated">
-                                                <label class="form-check-label" for="is_toprated">{{ __('Check if this directory is Top Rated') }}</label>
+                                                <input type="checkbox" name="is_toprated" class="form-check-input"
+                                                    value="1" id="is_toprated">
+                                                <label class="form-check-label" for="is_toprated">{{ __('Check if this
+                                                    directory is Top Rated') }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -349,14 +420,15 @@
                                                 $foodtype = DB::table('foodtypes')->where('status',1)->get();
                                                 foreach($foodtype as $foodtype_data){
                                                 ?>
-                                                <option value="{{$foodtype_data->id}}">{{__($foodtype_data->name)}}</option>
+                                                <option value="{{$foodtype_data->id}}">{{__($foodtype_data->name)}}
+                                                </option>
                                                 <?php } ?>
-                                               
+
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    
+
+
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="left-area">
@@ -379,7 +451,8 @@
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".amenities" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".amenities"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -388,23 +461,29 @@
                                 <div id="amenities" class="container tab-pane"><br>
                                     <div class="row">
                                         @if ($amenities)
-                                            @foreach($amenities as $key=>$amenity)
-                                                <div class="col-md-4">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="amenities[{{ $amenity->icon }}][]" value="{{$amenity->name}}" id="{{$amenity->name}}-option-{{$key}}">
-                                                        <label class="form-check-label" for="{{$amenity->name}}-option-{{$key}}">{{ $amenity->name }}</label>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                        @foreach($amenities as $key=>$amenity)
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                    name="amenities[{{ $amenity->icon }}][]" value="{{$amenity->name}}"
+                                                    id="{{$amenity->name}}-option-{{$key}}">
+                                                <label class="form-check-label"
+                                                    for="{{$amenity->name}}-option-{{$key}}">{{ $amenity->name
+                                                    }}</label>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                         @endif
                                     </div>
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".bsc" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".bsc" class="next-prev btn btn-primary">
+                                                {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary">
+                                                {{ __('Next') }} </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -431,7 +510,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="listing_video" placeholder="https://www.youtube.com/watch?v=AXrHbrMrun0" value="">
+                                            <input type="text" class="input-field" name="listing_video"
+                                                placeholder="https://www.youtube.com/watch?v=AXrHbrMrun0" value="">
                                         </div>
                                     </div>
 
@@ -445,10 +525,15 @@
                                         <div class="col-lg-9">
                                             <div class="wrapper-image-preview">
                                                 <div class="box">
-                                                    <div class="back-preview-image" style="background-image: url({{ asset('assets/images/default.png') }});"></div>
+                                                    <div class="back-preview-image"
+                                                        style="background-image: url({{ asset('assets/images/default.png') }});">
+                                                    </div>
                                                     <div class="upload-options">
-                                                        <label class="img-upload-label" for="img-upload"> <i class="fas fa-camera"></i> {{ __('Upload Picture') }} </label>
-                                                        <input id="img-upload" type="file" class="image-upload" name="photo" accept="image/*">
+                                                        <label class="img-upload-label" for="img-upload"> <i
+                                                                class="fas fa-camera"></i> {{ __('Upload Picture') }}
+                                                        </label>
+                                                        <input id="img-upload" type="file" class="image-upload"
+                                                            name="photo" accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>
@@ -462,20 +547,24 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                            <button type="button" class="btn btn-primary set-gallery" data-toggle="modal" data-target="#setgallery" id="#myBtn">
+                                            <button type="button" class="btn btn-primary set-gallery"
+                                                data-toggle="modal" data-target="#setgallery" id="#myBtn">
                                                 <i class="icofont-plus"></i> {{__('Set Gallery')}}
                                             </button>
-                                            <input type="file" name="gallery[]" class="hidden" id="propertyuploadgallery" accept="image/*" multiple>
+                                            <input type="file" name="gallery[]" class="hidden"
+                                                id="propertyuploadgallery" accept="image/*" multiple>
                                         </div>
                                     </div>
 
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".amenities" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".amenities"
+                                                class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".schedule" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".schedule"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -968,10 +1057,12 @@
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary">
+                                                {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".contact" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".contact"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -986,7 +1077,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" id="inp-website" name="website" placeholder="{{ __('Website') }}">
+                                            <input type="text" class="input-field" id="inp-website" name="website"
+                                                placeholder="{{ __('Website') }}">
                                         </div>
                                     </div>
 
@@ -998,7 +1090,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="email" placeholder="{{ __('Email') }}">
+                                            <input type="text" class="input-field" name="email"
+                                                placeholder="{{ __('Email') }}">
                                         </div>
                                     </div>
 
@@ -1010,7 +1103,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="phone_number" placeholder="{{ __('Phone number') }}">
+                                            <input type="text" class="input-field" name="phone_number"
+                                                placeholder="{{ __('Phone number') }}">
                                         </div>
                                     </div>
 
@@ -1022,7 +1116,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="facebook" placeholder="{{ __('Facebook') }}">
+                                            <input type="text" class="input-field" name="facebook"
+                                                placeholder="{{ __('Facebook') }}">
                                         </div>
                                     </div>
 
@@ -1034,7 +1129,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="twitter" placeholder="{{ __('Twitter') }}">
+                                            <input type="text" class="input-field" name="twitter"
+                                                placeholder="{{ __('Twitter') }}">
                                         </div>
                                     </div>
 
@@ -1046,16 +1142,19 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="linkedin" placeholder="{{ __('Linkedin') }}">
+                                            <input type="text" class="input-field" name="linkedin"
+                                                placeholder="{{ __('Linkedin') }}">
                                         </div>
                                     </div>
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".schedule" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".schedule"
+                                                class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".dynamic" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".dynamic"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -1063,55 +1162,60 @@
 
                                 <div id="dynamic" class="container tab-pane"><br>
                                     @if (request()->type == 'restaurant')
-                                        <div class="menu-section-area">
-                                            @includeIf('partials.admin.listing.menu')
-                                        </div>
+                                    <div class="menu-section-area">
+                                        @includeIf('partials.admin.listing.menu')
+                                    </div>
 
-                                        <div class="row my-2">
-                                            <div class="col-lg-12 text-center">
-                                                <a href="javascript:;" id="menud-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
-                                            </div>
+                                    <div class="row my-2">
+                                        <div class="col-lg-12 text-center">
+                                            <a href="javascript:;" id="menud-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
+                                    </div>
                                     @endif
 
                                     @if (request()->type == 'hotel')
-                                        <div class="room-section-area">
-                                            @includeIf('partials.admin.listing.room')
-                                        </div>
+                                    <div class="room-section-area">
+                                        @includeIf('partials.admin.listing.room')
+                                    </div>
 
-                                        <div class="row my-2">
-                                            <div class="col-lg-12 text-center">
-                                                <a href="javascript:;" id="room-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
-                                            </div>
+                                    <div class="row my-2">
+                                        <div class="col-lg-12 text-center">
+                                            <a href="javascript:;" id="room-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
+                                    </div>
                                     @endif
 
                                     @if (request()->type == 'beauty')
-                                        <div class="beauty-section-area">
-                                            @includeIf('partials.admin.listing.beauty')
-                                        </div>
+                                    <div class="beauty-section-area">
+                                        @includeIf('partials.admin.listing.beauty')
+                                    </div>
 
-                                        <div class="row my-2">
-                                            <div class="col-lg-12 text-center">
-                                                <a href="javascript:;" id="beauty-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
-                                            </div>
+                                    <div class="row my-2">
+                                        <div class="col-lg-12 text-center">
+                                            <a href="javascript:;" id="beauty-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
+                                    </div>
                                     @endif
 
                                     @if (request()->type == 'real_estate')
-                                        @includeIf('partials.admin.listing.real_estate')
+                                    @includeIf('partials.admin.listing.real_estate')
                                     @endif
 
                                     @if (request()->type == 'car')
-                                        @includeIf('partials.admin.listing.car')
+                                    @includeIf('partials.admin.listing.car')
                                     @endif
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".contact" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".contact"
+                                                class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".faq" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".faq" class="next-prev btn btn-primary">
+                                                {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -1124,12 +1228,14 @@
 
                                     <div class="row my-2">
                                         <div class="col-lg-12 text-center">
-                                            <a href="javascript:;" id="faq-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
+                                            <a href="javascript:;" id="faq-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-center mt-3">
-                                        <button type="submit" id="submit-btn" class="btn btn-primary text-center">{{ __('Submit') }}</button>
+                                        <button type="submit" id="submit-btn" class="btn btn-primary text-center">{{
+                                            __('Submit') }}</button>
                                     </div>
 
                                 </div>
@@ -1147,35 +1253,38 @@
 <div class="modal fade" id="setgallery" tabindex="-1" role="dialog" aria-labelledby="setgallery" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">{{ __('Image Gallery') }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="top-area">
-                <div class="row">
-                    <div class="col-sm-6 text-right">
-                        <div class="upload-img-btn">
-                            <label id="property_gallery"><i class="icofont-upload-alt"></i>{{ __('Upload File') }}</label>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">{{ __('Image Gallery') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="top-area">
+                    <div class="row">
+                        <div class="col-sm-6 text-right">
+                            <div class="upload-img-btn">
+                                <label id="property_gallery"><i class="icofont-upload-alt"></i>{{ __('Upload File')
+                                    }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="javascript:;" class="upload-done" data-dismiss="modal"> <i
+                                    class="fas fa-check"></i> {{ __('Done') }}</a>
+                        </div>
+                        <div class="col-sm-12 text-center">( <small>{{ __('You can upload multiple Images.') }}</small>
+                            )</div>
+                    </div>
+                </div>
+                <div class="gallery-images">
+                    <div class="selected-image">
+                        <div class="row">
+
+
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <a href="javascript:;" class="upload-done" data-dismiss="modal"> <i class="fas fa-check"></i> {{ __('Done') }}</a>
-                    </div>
-                    <div class="col-sm-12 text-center">( <small>{{ __('You can upload multiple Images.') }}</small> )</div>
                 </div>
             </div>
-            <div class="gallery-images">
-                <div class="selected-image">
-                    <div class="row">
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
 </div>
@@ -1183,8 +1292,8 @@
 
 @section('scripts')
 
-    <script>
-        'use strict';
+<script>
+    'use strict';
 
         $(document).on('click', '.remove-img' ,function() {
             var id = $(this).find('input[type=hidden]').val();
@@ -1452,9 +1561,9 @@
             +'')
         })
 
-    </script>
-    
-    
+</script>
+
+
 <script>
     var searchInput = 'search_input';
     var address = 'Dubai;'
@@ -1507,7 +1616,7 @@
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
-  </script>
-  
-  
+</script>
+
+
 @endsection

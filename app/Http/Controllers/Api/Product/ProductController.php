@@ -482,7 +482,7 @@ class ProductController extends Controller
         $product_data = $request->input('product_data');
         $filtertype = $request->input('filtertype');
         $listingsData = [];
-
+        $locale = $request->header('Accept-Language') ?? 'ar';
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
@@ -562,16 +562,25 @@ class ProductController extends Controller
                             $newArray[$day] = $formattedHours;
                         }
                     }
+
+                    if ($locale == 'ar') {
+                        $name = $data->name_arbic ? $data->name_arbic : $data->name;
+                        $real_address = $data->real_address_arbic ? $data->real_address_arbic : $data->real_address;
+                    } else {
+                        $name = $data->name;
+                        $real_address = $data->real_address;
+                    }
+
                     $listingData = [
                         'id' => $data->id,
-                        'name' => $data->name,
+                        'name' => $name,
                         'photo' => $data->photo,
                         'is_feature' => $data->is_feature == 1 ? 'FEATURED' : '',
                         'is_verify' => $data->is_verify == 1 ? 'VERIFYED' : '',
                         'is_toprated' => $data->is_toprated == 1 ? 'TOPRATED' : '',
                         'schedules' => $newArray,
                         'slug' => $data->slug,
-                        'real_address' => $data->real_address,
+                        'real_address' => $real_address,
                         'phone_number' => $data->phone_number,
                         'latitude' => $data->latitude,
                         'longitude' => $data->longitude,

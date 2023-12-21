@@ -10,9 +10,10 @@
 
 <section class="gray py-5">
     <?php
-   $type = [request('category')];
-   
-//    dd($type);
+   $type = request('category');
+   if (is_string($type)) {
+    $type = [request('category')];
+    }  
    foreach ($type as $key => $data){
    $banner= DB::select("SELECT * FROM categories where slug='$data' limit 1");
    foreach ($banner as $key => $bannerss){

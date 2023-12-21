@@ -2,16 +2,20 @@
 
 @section('content')
 <!-- Google Maps JavaScript library -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAjsK7kPLSRl8kVv5koly5ORTyXlsD5Dh8"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAjsK7kPLSRl8kVv5koly5ORTyXlsD5Dh8">
+</script>
 
 <div class="card">
-	<div class="d-sm-flex align-items-center justify-content-between">
-        <h5 class=" mb-0 text-gray-800 pl-3">{{ __('Directory') }} <a class="btn btn-primary btn-rounded btn-sm" href="{{route('admin.listing.index')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h5>
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <h5 class=" mb-0 text-gray-800 pl-3">{{ __('Directory') }} <a class="btn btn-primary btn-rounded btn-sm"
+                href="{{route('admin.listing.index')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h5>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('admin.listing.edit',$data->id) }}">{{ __('Edit Directory') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.listing.edit',$data->id) }}">{{ __('Edit Directory')
+                    }}</a></li>
         </ol>
-	</div>
+    </div>
 </div>
 
 
@@ -19,12 +23,15 @@
     <div class="col-md-12">
         <div class="card mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">{{ __('Edit Directory Form') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Edit Directory Form') }}</h6>
             </div>
 
             <div class="card-body">
-                <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
-                <form class="geniusform" action="{{route('admin.listing.update',$data->id)}}" method="POST" enctype="multipart/form-data">
+                <div class="gocover"
+                    style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
+                </div>
+                <form class="geniusform" action="{{route('admin.listing.update',$data->id)}}" method="POST"
+                    enctype="multipart/form-data">
                     @include('includes.admin.form-both')
                     {{ csrf_field() }}
 
@@ -33,11 +40,13 @@
                         <div id="tabs">
                             <ul class="nav nav-pills nav-justified mb-3" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link bsc active" data-toggle="pill" href="#basic">{{ __('Basic') }}</a>
+                                    <a class="nav-link bsc active" data-toggle="pill" href="#basic">{{ __('Basic')
+                                        }}</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link amenities" data-toggle="pill" href="#amenities">{{ __('Amenities') }}</a>
+                                    <a class="nav-link amenities" data-toggle="pill" href="#amenities">{{
+                                        __('Amenities') }}</a>
                                 </li>
 
                                 <li class="nav-item">
@@ -45,41 +54,48 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link schedule" data-toggle="pill" href="#schedule">{{ __('Schedule') }}</a>
+                                    <a class="nav-link schedule" data-toggle="pill" href="#schedule">{{ __('Schedule')
+                                        }}</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link contact" data-toggle="pill" href="#contact">{{ __('Contact') }}</a>
+                                    <a class="nav-link contact" data-toggle="pill" href="#contact">{{ __('Contact')
+                                        }}</a>
                                 </li>
 
                                 @if (request()->type == 'restaurant')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Item') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Item') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'hotel')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Room') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Room') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'beauty')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Service') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Service') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'real_estate')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(str_replace("_"," ",request()->type)) }} {{ __('Info') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(str_replace("_"," ",request()->type)) }} {{ __('Info') }}</a>
+                                </li>
                                 @endif
 
                                 @if (request()->type == 'car')
-                                    <li class="nav-item">
-                                        <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{ ucfirst(request()->type) }} {{ __('Specification') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dynamic" data-toggle="pill" href="#dynamic">{{
+                                        ucfirst(request()->type) }} {{ __('Specification') }}</a>
+                                </li>
                                 @endif
 
                                 <li class="nav-item">
@@ -91,49 +107,65 @@
                             <div class="tab-content">
                                 <div id="basic" class="container tab-pane active"><br>
                                     @if (request()->type == 'doctor')
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Doctor Name') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="name" placeholder="{{ __('name') }}" value="{{ $data->name }}">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Doctor Name') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="name"
+                                                placeholder="{{ __('name') }}" value="{{ $data->name }}">
+                                        </div>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Doctor Designation') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="designation" placeholder="{{ __('Designation') }}" value="{{ $data->designation }}">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Doctor Designation') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="designation"
+                                                placeholder="{{ __('Designation') }}" value="{{ $data->designation }}">
+                                        </div>
+                                    </div>
                                     @else
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Listing Title') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="name" placeholder="{{ __('Listing Title') }}" value="{{ $data->name}}">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Listing Title') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="name"
+                                                placeholder="{{ __('Listing Title') }}" value="{{ $data->name}}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Listing Title Arbic') }} *</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="name_arbic"
+                                                placeholder="{{ __('Listing Title Arbic') }}"
+                                                value="{{ $data->name_arbic}}">
+                                        </div>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Listing Slug') }} *</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="slug" placeholder="{{ __('Listing Slug') }}" value="{{ $data->slug}}">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Listing Slug') }} *</h4>
                                             </div>
                                         </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="slug"
+                                                placeholder="{{ __('Listing Slug') }}" value="{{ $data->slug}}">
+                                        </div>
+                                    </div>
                                     @endif
 
                                     <div class="row">
@@ -146,11 +178,14 @@
                                             <select name="category_id" class="input-field">
                                                 <option value="" selected>{{__('Please select a category')}}</option>
                                                 @foreach ($categories as $key=>$category)
-                                                <option value="{{$category->id}}" {{ $category->id == $data->category_id ? 'selected' : '' }}>{{$category->title}}</option>
+                                                <option value="{{$category->id}}" {{ $category->id == $data->category_id
+                                                    ? 'selected' : '' }}>{{$category->title}}</option>
                                                 @if ($category->child)
-                                                    @foreach ($category->child as $key=>$childCategory)
-                                                        <option value="{{$childCategory->id}}" {{ $childCategory->id == $data->category_id ? 'selected' : '' }}>--{{$childCategory->title}}</option>
-                                                    @endforeach
+                                                @foreach ($category->child as $key=>$childCategory)
+                                                <option value="{{$childCategory->id}}" {{ $childCategory->id ==
+                                                    $data->category_id ? 'selected' : '' }}>--{{$childCategory->title}}
+                                                </option>
+                                                @endforeach
                                                 @endif
                                                 @endforeach
                                             </select>
@@ -167,12 +202,15 @@
                                             <select id="location" name="location_id" class="input-field">
                                                 <option value="" selected>{{__('Please select a location')}}</option>
                                                 @foreach ($locations as $key=>$location)
-                                                    <option value="{{$location->id}}" {{ $location->id == $data->location_id ? 'selected' : '' }}>{{ucfirst($location->name)}}</option>
-                                                    @if ($location->child)
-                                                        @foreach ($location->child as $key=>$childlocation)
-                                                            <option value="{{$childlocation->id}}" {{ $childlocation->id == $data->location_id ? 'selected' : '' }}>--{{ ucfirst($childlocation->name)}}</option>
-                                                        @endforeach
-                                                    @endif
+                                                <option value="{{$location->id}}" {{ $location->id == $data->location_id
+                                                    ? 'selected' : '' }}>{{ucfirst($location->name)}}</option>
+                                                @if ($location->child)
+                                                @foreach ($location->child as $key=>$childlocation)
+                                                <option value="{{$childlocation->id}}" {{ $childlocation->id ==
+                                                    $data->location_id ? 'selected' : '' }}>--{{
+                                                    ucfirst($childlocation->name)}}</option>
+                                                @endforeach
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -185,11 +223,26 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="real_address" placeholder="{{ __('Address') }}" value="{{ $data->real_address}}">
+                                            <input type="text" class="input-field" name="real_address"
+                                                placeholder="{{ __('Address') }}" value="{{ $data->real_address}}">
                                         </div>
                                     </div>
-                                    
-                                    
+
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Real address Arbic') }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="real_address_arbic"
+                                                placeholder="{{ __('Address Arbic') }}"
+                                                value="{{ $data->real_address_arbic}}">
+                                        </div>
+                                    </div>
+
+
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="left-area">
@@ -197,90 +250,74 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                            <input type="text" class="form-control" id="search_input" placeholder="Map address..." />
+                                            <input type="text" class="form-control" id="search_input"
+                                                placeholder="Map address..." />
                                         </div>
                                     </div>
-                                     
+
                                     <!-- Address input -->
                                     <div class="row d-none">
-                                    <div class="col-lg-3">
+                                        <div class="col-lg-3">
                                             <div class="left-area">
                                                 <h4 class="heading">{{ __('Map Address') }}</h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                    <div class="form-group">
-                                    
-                                    <input type="text" class="form-control" id="address" placeholder="Address" readonly />
+                                            <div class="form-group">
+
+                                                <input type="text" class="form-control" id="address"
+                                                    placeholder="Address" readonly />
+                                            </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                    </div>
-                                    
+
                                     <div class="row">
-                                    <div class="col-lg-3">
+                                        <div class="col-lg-3">
                                             <div class="left-area">
                                                 <h4 class="heading">{{ __('Map Latitude') }}</h4>
                                             </div>
                                         </div>
-                                    <!-- Latitude input -->
-                                    <div class="col-lg-9">
-                                    <div class="form-group">
-                                    
-                                    <input type="text" class="form-control" id="latitude" name="latitude" value="{{ $data->latitude}}" placeholder="Latitude" readonly />
+                                        <!-- Latitude input -->
+                                        <div class="col-lg-9">
+                                            <div class="form-group">
+
+                                                <input type="text" class="form-control" id="latitude" name="latitude"
+                                                    value="{{ $data->latitude}}" placeholder="Latitude" readonly />
+                                            </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                    </div>
-                                    
+
                                     <div class="row">
-                                    <div class="col-lg-3">
+                                        <div class="col-lg-3">
                                             <div class="left-area">
                                                 <h4 class="heading">{{ __('Map Longitude') }}</h4>
                                             </div>
                                         </div>
-                                    <!-- Latitude input -->
-                                    <div class="col-lg-9">
-                                    <!-- Longitude input -->
-                                    <div class="form-group">
-                                    
-                                    <input type="text" class="form-control" id="longitude" name="longitude" value="{{ $data->longitude}}" placeholder="Longitude" readonly />
-                                    </div>
-                                    </div>
-                                    </div>
-                                    
+                                        <!-- Latitude input -->
+                                        <div class="col-lg-9">
+                                            <!-- Longitude input -->
+                                            <div class="form-group">
 
-                                    <!--<div class="row">-->
-                                    <!--    <div class="col-lg-3">-->
-                                    <!--        <div class="left-area">-->
-                                    <!--            <h4 class="heading">{{ __('Map Latitude') }}</h4>-->
-                                    <!--        </div>-->
-                                    <!--    </div>-->
-                                    <!--    <div class="col-lg-9">-->
-                                    <!--        <input type="text" class="input-field" name="latitude" placeholder="{{ __('Latitude') }}" value="{{ $data->latitude}}" readonly style="background-color: #eaecf4;opacity: 1;"/>-->
-                                    <!--    </div>-->
-                                    <!--</div>-->
-
-                                    <!--<div class="row">-->
-                                    <!--    <div class="col-lg-3">-->
-                                    <!--        <div class="left-area">-->
-                                    <!--            <h4 class="heading">{{ __('Map Longitude') }}</h4>-->
-                                    <!--        </div>-->
-                                    <!--    </div>-->
-                                    <!--    <div class="col-lg-9">-->
-                                    <!--        <input type="text" class="input-field" name="longitude" placeholder="{{ __('Longitude') }}" value="{{ $data->longitude}}" readonly style="background-color: #eaecf4;opacity: 1;"/>-->
-                                    <!--    </div>-->
-                                    <!--</div>-->
-
-                                    @if (request()->type == 'hotel')
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="left-area">
-                                                    <h4 class="heading">{{ __('Distance') }}</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <input type="text" class="input-field" name="distance" placeholder="{{ __('Distance') }}" value="{{ $data->distance }}">
+                                                <input type="text" class="form-control" id="longitude" name="longitude"
+                                                    value="{{ $data->longitude}}" placeholder="Longitude" readonly />
                                             </div>
                                         </div>
+                                    </div>
+
+
+
+                                    @if (request()->type == 'hotel')
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Distance') }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="distance"
+                                                placeholder="{{ __('Distance') }}" value="{{ $data->distance }}">
+                                        </div>
+                                    </div>
                                     @endif
 
                                     <div class="row">
@@ -291,7 +328,23 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <textarea name="description" class="input-field" placeholder="{{ __('Description') }}" cols="30" rows="10" required>{{ $data->description }}</textarea>
+                                            <textarea name="description" class="input-field"
+                                                placeholder="{{ __('Description') }}" cols="30" rows="10"
+                                                required>{{ $data->description }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Description Arbic') }} *</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <textarea name="description_arbic" class="input-field"
+                                                placeholder="{{ __('Description Arbic') }}" cols="30"
+                                                rows="10">{{ $data->description_arbic }}</textarea>
                                         </div>
                                     </div>
 
@@ -304,12 +357,15 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-check">
-                                                <input type="checkbox" name="is_feature" class="form-check-input" value="1" id="is_feature" {{ $data->is_feature == 1 ? 'checked' : ''}}>
-                                                <label class="form-check-label" for="is_feature">{{ __('Check if this directory is featured') }}</label>
+                                                <input type="checkbox" name="is_feature" class="form-check-input"
+                                                    value="1" id="is_feature" {{ $data->is_feature == 1 ? 'checked' :
+                                                ''}}>
+                                                <label class="form-check-label" for="is_feature">{{ __('Check if this
+                                                    directory is featured') }}</label>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row mt-3 is_top">
                                         <div class="col-lg-3">
                                             <div class="left-area">
@@ -318,8 +374,11 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-check">
-                                                <input type="checkbox" name="is_verify" class="form-check-input" value="1" id="is_verify" {{ $data->is_verify == 1 ? 'checked' : ''}}>
-                                                <label class="form-check-label" for="is_verify">{{ __('Check if this directory is Verify') }}</label>
+                                                <input type="checkbox" name="is_verify" class="form-check-input"
+                                                    value="1" id="is_verify" {{ $data->is_verify == 1 ? 'checked' :
+                                                ''}}>
+                                                <label class="form-check-label" for="is_verify">{{ __('Check if this
+                                                    directory is Verify') }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -331,8 +390,11 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-check">
-                                                <input type="checkbox" name="is_toprated" class="form-check-input" value="1" id="is_toprated" {{ $data->is_toprated == 1 ? 'checked' : ''}}>
-                                                <label class="form-check-label" for="is_toprated">{{ __('Check if this directory is Top Rated') }}</label>
+                                                <input type="checkbox" name="is_toprated" class="form-check-input"
+                                                    value="1" id="is_toprated" {{ $data->is_toprated == 1 ? 'checked' :
+                                                ''}}>
+                                                <label class="form-check-label" for="is_toprated">{{ __('Check if this
+                                                    directory is Top Rated') }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -349,14 +411,16 @@
                                                 $foodtype = DB::table('foodtypes')->where('status',1)->get();
                                                 foreach($foodtype as $foodtype_data){
                                                 ?>
-                                                <option value="{{$foodtype_data->id}}" {{ $data->id == $foodtype_data->id ? 'selected' : '' }}>{{__($foodtype_data->name)}}</option>
+                                                <option value="{{$foodtype_data->id}}" {{ $data->id ==
+                                                    $foodtype_data->id ? 'selected' : '' }}>{{__($foodtype_data->name)}}
+                                                </option>
                                                 <?php } ?>
-                                               
+
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    
+
+
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="left-area">
@@ -365,13 +429,20 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <select id="highlight_type" name="highlight_type" class="input-field">
-                                                <option value="Tranding" {{ $data->highlight_type == 'Tranding' ? 'selected' : '' }}>{{__('Tranding')}}</option>
-                                                <option value="Popular" {{ $data->highlight_type == 'Popular' ? 'selected' : '' }}>{{__('Popular')}}</option>
-                                                <option value="Verified" {{ $data->highlight_type == 'Verified' ? 'selected' : '' }}>{{__('Verified')}}</option>
-                                                <option value="Trusted" {{ $data->highlight_type == 'Trusted' ? 'selected' : '' }}>{{__('Trusted')}}</option>
-                                                <option value="Top-rated" {{ $data->highlight_type == 'Top-rated' ? 'selected' : '' }}>{{__('Top-rated')}}</option>
-                                                <option value="Ads" {{ $data->highlight_type == 'Ads' ? 'selected' : '' }}>{{__('Ads')}}</option>
-                                                <option value="Deals" {{ $data->highlight_type == 'Deals' ? 'selected' : '' }}>{{__('Deals')}}</option>
+                                                <option value="Tranding" {{ $data->highlight_type == 'Tranding' ?
+                                                    'selected' : '' }}>{{__('Tranding')}}</option>
+                                                <option value="Popular" {{ $data->highlight_type == 'Popular' ?
+                                                    'selected' : '' }}>{{__('Popular')}}</option>
+                                                <option value="Verified" {{ $data->highlight_type == 'Verified' ?
+                                                    'selected' : '' }}>{{__('Verified')}}</option>
+                                                <option value="Trusted" {{ $data->highlight_type == 'Trusted' ?
+                                                    'selected' : '' }}>{{__('Trusted')}}</option>
+                                                <option value="Top-rated" {{ $data->highlight_type == 'Top-rated' ?
+                                                    'selected' : '' }}>{{__('Top-rated')}}</option>
+                                                <option value="Ads" {{ $data->highlight_type == 'Ads' ? 'selected' : ''
+                                                    }}>{{__('Ads')}}</option>
+                                                <option value="Deals" {{ $data->highlight_type == 'Deals' ? 'selected' :
+                                                    '' }}>{{__('Deals')}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -379,7 +450,8 @@
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".amenities" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".amenities"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -388,23 +460,30 @@
                                 <div id="amenities" class="container tab-pane"><br>
                                     <div class="row">
                                         @if ($amenities)
-                                            @foreach($amenities as $key=>$amenity)
-                                                <div class="col-md-4">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="amenities[{{ $amenity->icon }}][]" value="{{$amenity->name}}" id="{{$amenity->name}}-option-{{$key}}" {{ in_array($amenity->name,$listingAmenities) ? 'checked' : ''}}>
-                                                        <label class="form-check-label" for="{{$amenity->name}}-option-{{$key}}">{{ $amenity->name }}</label>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                        @foreach($amenities as $key=>$amenity)
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                    name="amenities[{{ $amenity->icon }}][]" value="{{$amenity->name}}"
+                                                    id="{{$amenity->name}}-option-{{$key}}" {{
+                                                    in_array($amenity->name,$listingAmenities) ? 'checked' : ''}}>
+                                                <label class="form-check-label"
+                                                    for="{{$amenity->name}}-option-{{$key}}">{{ $amenity->name
+                                                    }}</label>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                         @endif
                                     </div>
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".bsc" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".bsc" class="next-prev btn btn-primary">
+                                                {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary">
+                                                {{ __('Next') }} </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -419,7 +498,8 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <select name="listing_video_provider" class="input-field">
-                                                <option value="youtube" {{ $data->listing_video_provider == 'youtube' ? 'selected' : '' }}>{{ __('Youtube') }}</option>
+                                                <option value="youtube" {{ $data->listing_video_provider == 'youtube' ?
+                                                    'selected' : '' }}>{{ __('Youtube') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -432,7 +512,9 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="listing_video" placeholder="https://www.youtube.com/watch?v=AXrHbrMrun0" value="{{ $data->listing_video }}">
+                                            <input type="text" class="input-field" name="listing_video"
+                                                placeholder="https://www.youtube.com/watch?v=AXrHbrMrun0"
+                                                value="{{ $data->listing_video }}">
                                         </div>
                                     </div>
 
@@ -446,10 +528,15 @@
                                         <div class="col-lg-9">
                                             <div class="wrapper-image-preview">
                                                 <div class="box">
-                                                    <div class="back-preview-image" style="background-image: url({{ $data->photo ? asset('assets/images/'.$data->photo) : asset('assets/images/default.png') }});"></div>
+                                                    <div class="back-preview-image"
+                                                        style="background-image: url({{ $data->photo ? asset('assets/images/'.$data->photo) : asset('assets/images/default.png') }});">
+                                                    </div>
                                                     <div class="upload-options">
-                                                        <label class="img-upload-label" for="img-upload"> <i class="fas fa-camera"></i> {{ __('Upload Picture') }} </label>
-                                                        <input id="img-upload" type="file" class="image-upload" name="photo" accept="image/*">
+                                                        <label class="img-upload-label" for="img-upload"> <i
+                                                                class="fas fa-camera"></i> {{ __('Upload Picture') }}
+                                                        </label>
+                                                        <input id="img-upload" type="file" class="image-upload"
+                                                            name="photo" accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>
@@ -463,7 +550,8 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-9">
-                                            <button type="button" class="btn btn-primary set-gallery" data-toggle="modal" data-target="#setgallery" id="#myBtn">
+                                            <button type="button" class="btn btn-primary set-gallery"
+                                                data-toggle="modal" data-target="#setgallery" id="#myBtn">
                                                 <i class="icofont-plus"></i> {{__('Set Gallery')}}
                                             </button>
                                         </div>
@@ -472,10 +560,12 @@
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".amenities" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".amenities"
+                                                class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".schedule" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".schedule"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -492,62 +582,112 @@
                                         <div class="col-lg-5">
                                             <select class="input-field" name="saturday_opening">
                                                 <option value="" selected>{{__('Opening Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['sat_open'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['sat_open'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['sat_open'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['sat_open'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['sat_open'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['sat_open'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['sat_open'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['sat_open'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['sat_open'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['sat_open'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['sat_open'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['sat_open'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['sat_open'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['sat_open'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['sat_open'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['sat_open'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['sat_open'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['sat_open'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['sat_open'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['sat_open'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['sat_open'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['sat_open'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['sat_open'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['sat_open'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['sat_open'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['sat_open']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['sat_open']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['sat_open']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['sat_open']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['sat_open']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['sat_open']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['sat_open']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['sat_open']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['sat_open']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['sat_open']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['sat_open']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['sat_open']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['sat_open']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['sat_open']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['sat_open']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['sat_open']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['sat_open']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['sat_open']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['sat_open']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['sat_open']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['sat_open']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['sat_open']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['sat_open']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['sat_open']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['sat_open']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <select class="input-field" name="saturday_closing">
                                                 <option value="" selected>{{__('Closing Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['sat_close'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['sat_close'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['sat_close'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['sat_close'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['sat_close'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['sat_close'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['sat_close'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['sat_close'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['sat_close'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['sat_close'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['sat_close'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['sat_close'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['sat_close'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['sat_close'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['sat_close'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['sat_close'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['sat_close'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['sat_close'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['sat_close'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['sat_close'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['sat_close'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['sat_close'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['sat_close'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['sat_close'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['sat_close'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['sat_close']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['sat_close']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['sat_close']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['sat_close']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['sat_close']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['sat_close']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['sat_close']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['sat_close']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['sat_close']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['sat_close']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['sat_close']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['sat_close']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['sat_close']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['sat_close']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['sat_close']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['sat_close']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['sat_close']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['sat_close']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['sat_close']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['sat_close']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['sat_close']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['sat_close']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['sat_close']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['sat_close']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['sat_close']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
                                     </div>
@@ -561,62 +701,112 @@
                                         <div class="col-lg-5">
                                             <select class="input-field" name="sunday_opening">
                                                 <option value="" selected>{{__('Opening Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['sun_open'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['sun_open'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['sun_open'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['sun_open'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['sun_open'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['sun_open'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['sun_open'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['sun_open'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['sun_open'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['sun_open'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['sun_open'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['sun_open'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['sun_open'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['sun_open'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['sun_open'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['sun_open'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['sun_open'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['sun_open'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['sun_open'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['sun_open'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['sun_open'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['sun_open'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['sun_open'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['sun_open'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['sun_open'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['sun_open']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['sun_open']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['sun_open']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['sun_open']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['sun_open']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['sun_open']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['sun_open']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['sun_open']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['sun_open']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['sun_open']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['sun_open']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['sun_open']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['sun_open']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['sun_open']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['sun_open']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['sun_open']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['sun_open']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['sun_open']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['sun_open']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['sun_open']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['sun_open']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['sun_open']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['sun_open']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['sun_open']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['sun_open']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <select class="input-field" name="sunday_closing">
                                                 <option value="" selected>{{__('Closing Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['sun_close'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['sun_close'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['sun_close'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['sun_close'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['sun_close'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['sun_close'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['sun_close'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['sun_close'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['sun_close'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['sun_close'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['sun_close'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['sun_close'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['sun_close'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['sun_close'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['sun_close'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['sun_close'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['sun_close'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['sun_close'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['sun_close'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['sun_close'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['sun_close'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['sun_close'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['sun_close'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['sun_close'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['sun_close'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['sun_close']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['sun_close']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['sun_close']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['sun_close']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['sun_close']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['sun_close']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['sun_close']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['sun_close']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['sun_close']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['sun_close']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['sun_close']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['sun_close']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['sun_close']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['sun_close']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['sun_close']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['sun_close']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['sun_close']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['sun_close']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['sun_close']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['sun_close']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['sun_close']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['sun_close']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['sun_close']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['sun_close']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['sun_close']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
                                     </div>
@@ -630,62 +820,112 @@
                                         <div class="col-lg-5">
                                             <select class="input-field" name="monday_opening">
                                                 <option value="" selected>{{__('Opening Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['mon_open'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['mon_open'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['mon_open'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['mon_open'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['mon_open'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['mon_open'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['mon_open'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['mon_open'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['mon_open'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['mon_open'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['mon_open'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['mon_open'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['mon_open'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['mon_open'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['mon_open'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['mon_open'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['mon_open'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['mon_open'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['mon_open'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['mon_open'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['mon_open'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['mon_open'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['mon_open'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['mon_open'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['mon_open'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['mon_open']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['mon_open']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['mon_open']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['mon_open']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['mon_open']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['mon_open']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['mon_open']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['mon_open']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['mon_open']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['mon_open']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['mon_open']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['mon_open']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['mon_open']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['mon_open']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['mon_open']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['mon_open']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['mon_open']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['mon_open']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['mon_open']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['mon_open']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['mon_open']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['mon_open']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['mon_open']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['mon_open']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['mon_open']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <select class="input-field" name="monday_closing">
                                                 <option value="" selected>{{__('Closing Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['mon_close'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['mon_close'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['mon_close'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['mon_close'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['mon_close'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['mon_close'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['mon_close'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['mon_close'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['mon_close'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['mon_close'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['mon_close'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['mon_close'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['mon_close'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['mon_close'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['mon_close'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['mon_close'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['mon_close'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['mon_close'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['mon_close'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['mon_close'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['mon_close'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['mon_close'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['mon_close'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['mon_close'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['mon_close'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['mon_close']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['mon_close']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['mon_close']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['mon_close']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['mon_close']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['mon_close']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['mon_close']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['mon_close']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['mon_close']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['mon_close']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['mon_close']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['mon_close']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['mon_close']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['mon_close']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['mon_close']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['mon_close']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['mon_close']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['mon_close']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['mon_close']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['mon_close']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['mon_close']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['mon_close']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['mon_close']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['mon_close']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['mon_close']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
                                     </div>
@@ -699,62 +939,112 @@
                                         <div class="col-lg-5">
                                             <select class="input-field" name="tuesday_opening">
                                                 <option value="" selected>{{__('Opening Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['tue_open'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['tue_open'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['tue_open'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['tue_open'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['tue_open'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['tue_open'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['tue_open'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['tue_open'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['tue_open'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['tue_open'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['tue_open'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['tue_open'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['tue_open'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['tue_open'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['tue_open'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['tue_open'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['tue_open'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['tue_open'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['tue_open'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['tue_open'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['tue_open'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['tue_open'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['tue_open'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['tue_open'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['tue_open'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['tue_open']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['tue_open']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['tue_open']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['tue_open']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['tue_open']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['tue_open']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['tue_open']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['tue_open']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['tue_open']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['tue_open']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['tue_open']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['tue_open']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['tue_open']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['tue_open']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['tue_open']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['tue_open']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['tue_open']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['tue_open']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['tue_open']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['tue_open']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['tue_open']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['tue_open']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['tue_open']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['tue_open']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['tue_open']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <select class="input-field" name="tuesday_closing">
                                                 <option value="" selected>{{__('Closing Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['tue_close'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['tue_close'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['tue_close'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['tue_close'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['tue_close'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['tue_close'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['tue_close'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['tue_close'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['tue_close'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['tue_close'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['tue_close'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['tue_close'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['tue_close'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['tue_close'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['tue_close'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['tue_close'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['tue_close'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['tue_close'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['tue_close'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['tue_close'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['tue_close'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['tue_close'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['tue_close'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['tue_close'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['tue_close'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['tue_close']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['tue_close']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['tue_close']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['tue_close']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['tue_close']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['tue_close']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['tue_close']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['tue_close']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['tue_close']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['tue_close']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['tue_close']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['tue_close']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['tue_close']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['tue_close']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['tue_close']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['tue_close']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['tue_close']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['tue_close']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['tue_close']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['tue_close']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['tue_close']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['tue_close']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['tue_close']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['tue_close']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['tue_close']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
                                     </div>
@@ -768,62 +1058,112 @@
                                         <div class="col-lg-5">
                                             <select class="input-field" name="wednesday_opening">
                                                 <option value="" selected>{{__('Opening Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['wed_open'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['wed_open'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['wed_open'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['wed_open'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['wed_open'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['wed_open'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['wed_open'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['wed_open'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['wed_open'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['wed_open'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['wed_open'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['wed_open'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['wed_open'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['wed_open'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['wed_open'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['wed_open'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['wed_open'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['wed_open'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['wed_open'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['wed_open'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['wed_open'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['wed_open'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['wed_open'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['wed_open'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['wed_open'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['wed_open']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['wed_open']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['wed_open']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['wed_open']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['wed_open']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['wed_open']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['wed_open']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['wed_open']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['wed_open']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['wed_open']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['wed_open']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['wed_open']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['wed_open']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['wed_open']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['wed_open']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['wed_open']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['wed_open']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['wed_open']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['wed_open']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['wed_open']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['wed_open']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['wed_open']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['wed_open']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['wed_open']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['wed_open']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <select class="input-field" name="wednesday_closing">
                                                 <option value="" selected>{{__('Closing Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['wed_close'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['wed_close'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['wed_close'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['wed_close'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['wed_close'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['wed_close'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['wed_close'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['wed_close'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['wed_close'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['wed_close'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['wed_close'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['wed_close'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['wed_close'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['wed_close'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['wed_close'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['wed_close'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['wed_close'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['wed_close'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['wed_close'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['wed_close'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['wed_close'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['wed_close'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['wed_close'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['wed_close'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['wed_close'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['wed_close']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['wed_close']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['wed_close']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['wed_close']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['wed_close']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['wed_close']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['wed_close']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['wed_close']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['wed_close']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['wed_close']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['wed_close']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['wed_close']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['wed_close']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['wed_close']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['wed_close']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['wed_close']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['wed_close']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['wed_close']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['wed_close']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['wed_close']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['wed_close']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['wed_close']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['wed_close']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['wed_close']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['wed_close']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
                                     </div>
@@ -837,62 +1177,112 @@
                                         <div class="col-lg-5">
                                             <select class="input-field" name="thursday_opening">
                                                 <option value="" selected>{{__('Opening Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['thu_open'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['thu_open'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['thu_open'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['thu_open'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['thu_open'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['thu_open'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['thu_open'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['thu_open'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['thu_open'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['thu_open'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['thu_open'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['thu_open'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['thu_open'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['thu_open'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['thu_open'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['thu_open'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['thu_open'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['thu_open'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['thu_open'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['thu_open'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['thu_open'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['thu_open'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['thu_open'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['thu_open'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['thu_open'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['thu_open']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['thu_open']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['thu_open']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['thu_open']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['thu_open']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['thu_open']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['thu_open']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['thu_open']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['thu_open']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['thu_open']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['thu_open']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['thu_open']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['thu_open']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['thu_open']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['thu_open']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['thu_open']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['thu_open']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['thu_open']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['thu_open']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['thu_open']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['thu_open']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['thu_open']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['thu_open']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['thu_open']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['thu_open']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <select class="input-field" name="thursday_closing">
                                                 <option value="" selected>{{__('Closing Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['thu_close'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['thu_close'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['thu_close'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['thu_close'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['thu_close'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['thu_close'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['thu_close'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['thu_close'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['thu_close'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['thu_close'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['thu_close'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['thu_close'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['thu_close'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['thu_close'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['thu_close'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['thu_close'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['thu_close'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['thu_close'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['thu_close'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['thu_close'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['thu_close'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['thu_close'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['thu_close'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['thu_close'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['thu_close'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['thu_close']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['thu_close']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['thu_close']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['thu_close']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['thu_close']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['thu_close']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['thu_close']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['thu_close']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['thu_close']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['thu_close']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['thu_close']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['thu_close']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['thu_close']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['thu_close']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['thu_close']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['thu_close']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['thu_close']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['thu_close']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['thu_close']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['thu_close']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['thu_close']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['thu_close']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['thu_close']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['thu_close']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['thu_close']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
                                     </div>
@@ -906,72 +1296,124 @@
                                         <div class="col-lg-5">
                                             <select class="input-field" name="friday_opening">
                                                 <option value="" selected>{{__('Opening Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['fri_open'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['fri_open'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['fri_open'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['fri_open'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['fri_open'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['fri_open'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['fri_open'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['fri_open'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['fri_open'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['fri_open'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['fri_open'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['fri_open'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['fri_open'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['fri_open'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['fri_open'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['fri_open'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['fri_open'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['fri_open'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['fri_open'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['fri_open'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['fri_open'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['fri_open'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['fri_open'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['fri_open'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['fri_open'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['fri_open']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['fri_open']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['fri_open']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['fri_open']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['fri_open']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['fri_open']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['fri_open']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['fri_open']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['fri_open']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['fri_open']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['fri_open']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['fri_open']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['fri_open']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['fri_open']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['fri_open']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['fri_open']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['fri_open']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['fri_open']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['fri_open']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['fri_open']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['fri_open']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['fri_open']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['fri_open']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['fri_open']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['fri_open']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <select class="input-field" name="friday_closing">
                                                 <option value="" selected>{{__('Closing Time')}}</option>
-                                                <option value="12 am" {{ $listingSchedules['fri_close'] == "12 am" ? 'selected' : '' }}>12 am</option>
-                                                <option value="01 am" {{ $listingSchedules['fri_close'] == "01 am" ? 'selected' : '' }}>01 am</option>
-                                                <option value="02 am" {{ $listingSchedules['fri_close'] == "02 am" ? 'selected' : '' }}>02 am</option>
-                                                <option value="03 am" {{ $listingSchedules['fri_close'] == "03 am" ? 'selected' : '' }}>03 am</option>
-                                                <option value="04 am" {{ $listingSchedules['fri_close'] == "04 am" ? 'selected' : '' }}>04 am</option>
-                                                <option value="05 am" {{ $listingSchedules['fri_close'] == "05 am" ? 'selected' : '' }}>05 am</option>
-                                                <option value="06 am" {{ $listingSchedules['fri_close'] == "06 am" ? 'selected' : '' }}>06 am</option>
-                                                <option value="07 am" {{ $listingSchedules['fri_close'] == "07 am" ? 'selected' : '' }}>07 am</option>
-                                                <option value="08 am" {{ $listingSchedules['fri_close'] == "08 am" ? 'selected' : '' }}>08 am</option>
-                                                <option value="09 am" {{ $listingSchedules['fri_close'] == "09 am" ? 'selected' : '' }}>09 am</option>
-                                                <option value="10 am" {{ $listingSchedules['fri_close'] == "10 am" ? 'selected' : '' }}>10 am</option>
-                                                <option value="11 am" {{ $listingSchedules['fri_close'] == "11 am" ? 'selected' : '' }}>11 am</option>
-                                                <option value="12 pm" {{ $listingSchedules['fri_close'] == "12 pm" ? 'selected' : '' }}>12 pm</option>
-                                                <option value="01 pm" {{ $listingSchedules['fri_close'] == "01 pm" ? 'selected' : '' }}>01 pm</option>
-                                                <option value="02 pm" {{ $listingSchedules['fri_close'] == "02 pm" ? 'selected' : '' }}>02 pm</option>
-                                                <option value="03 pm" {{ $listingSchedules['fri_close'] == "03 pm" ? 'selected' : '' }}>03 pm</option>
-                                                <option value="04 pm" {{ $listingSchedules['fri_close'] == "04 pm" ? 'selected' : '' }}>04 pm</option>
-                                                <option value="05 pm" {{ $listingSchedules['fri_close'] == "05 pm" ? 'selected' : '' }}>05 pm</option>
-                                                <option value="06 pm" {{ $listingSchedules['fri_close'] == "06 pm" ? 'selected' : '' }}>06 pm</option>
-                                                <option value="07 pm" {{ $listingSchedules['fri_close'] == "07 pm" ? 'selected' : '' }}>07 pm</option>
-                                                <option value="08 pm" {{ $listingSchedules['fri_close'] == "08 pm" ? 'selected' : '' }}>08 pm</option>
-                                                <option value="09 pm" {{ $listingSchedules['fri_close'] == "09 pm" ? 'selected' : '' }}>09 pm</option>
-                                                <option value="10 pm" {{ $listingSchedules['fri_close'] == "10 pm" ? 'selected' : '' }}>10 pm</option>
-                                                <option value="11 pm" {{ $listingSchedules['fri_close'] == "11 pm" ? 'selected' : '' }}>11 pm</option>
-                                                <option value="closed" {{ $listingSchedules['fri_close'] == 'closed' ? 'selected' : ''}}>Closed</option>
+                                                <option value="12 am" {{ $listingSchedules['fri_close']=="12 am"
+                                                    ? 'selected' : '' }}>12 am</option>
+                                                <option value="01 am" {{ $listingSchedules['fri_close']=="01 am"
+                                                    ? 'selected' : '' }}>01 am</option>
+                                                <option value="02 am" {{ $listingSchedules['fri_close']=="02 am"
+                                                    ? 'selected' : '' }}>02 am</option>
+                                                <option value="03 am" {{ $listingSchedules['fri_close']=="03 am"
+                                                    ? 'selected' : '' }}>03 am</option>
+                                                <option value="04 am" {{ $listingSchedules['fri_close']=="04 am"
+                                                    ? 'selected' : '' }}>04 am</option>
+                                                <option value="05 am" {{ $listingSchedules['fri_close']=="05 am"
+                                                    ? 'selected' : '' }}>05 am</option>
+                                                <option value="06 am" {{ $listingSchedules['fri_close']=="06 am"
+                                                    ? 'selected' : '' }}>06 am</option>
+                                                <option value="07 am" {{ $listingSchedules['fri_close']=="07 am"
+                                                    ? 'selected' : '' }}>07 am</option>
+                                                <option value="08 am" {{ $listingSchedules['fri_close']=="08 am"
+                                                    ? 'selected' : '' }}>08 am</option>
+                                                <option value="09 am" {{ $listingSchedules['fri_close']=="09 am"
+                                                    ? 'selected' : '' }}>09 am</option>
+                                                <option value="10 am" {{ $listingSchedules['fri_close']=="10 am"
+                                                    ? 'selected' : '' }}>10 am</option>
+                                                <option value="11 am" {{ $listingSchedules['fri_close']=="11 am"
+                                                    ? 'selected' : '' }}>11 am</option>
+                                                <option value="12 pm" {{ $listingSchedules['fri_close']=="12 pm"
+                                                    ? 'selected' : '' }}>12 pm</option>
+                                                <option value="01 pm" {{ $listingSchedules['fri_close']=="01 pm"
+                                                    ? 'selected' : '' }}>01 pm</option>
+                                                <option value="02 pm" {{ $listingSchedules['fri_close']=="02 pm"
+                                                    ? 'selected' : '' }}>02 pm</option>
+                                                <option value="03 pm" {{ $listingSchedules['fri_close']=="03 pm"
+                                                    ? 'selected' : '' }}>03 pm</option>
+                                                <option value="04 pm" {{ $listingSchedules['fri_close']=="04 pm"
+                                                    ? 'selected' : '' }}>04 pm</option>
+                                                <option value="05 pm" {{ $listingSchedules['fri_close']=="05 pm"
+                                                    ? 'selected' : '' }}>05 pm</option>
+                                                <option value="06 pm" {{ $listingSchedules['fri_close']=="06 pm"
+                                                    ? 'selected' : '' }}>06 pm</option>
+                                                <option value="07 pm" {{ $listingSchedules['fri_close']=="07 pm"
+                                                    ? 'selected' : '' }}>07 pm</option>
+                                                <option value="08 pm" {{ $listingSchedules['fri_close']=="08 pm"
+                                                    ? 'selected' : '' }}>08 pm</option>
+                                                <option value="09 pm" {{ $listingSchedules['fri_close']=="09 pm"
+                                                    ? 'selected' : '' }}>09 pm</option>
+                                                <option value="10 pm" {{ $listingSchedules['fri_close']=="10 pm"
+                                                    ? 'selected' : '' }}>10 pm</option>
+                                                <option value="11 pm" {{ $listingSchedules['fri_close']=="11 pm"
+                                                    ? 'selected' : '' }}>11 pm</option>
+                                                <option value="closed" {{ $listingSchedules['fri_close']=='closed'
+                                                    ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".media" class="next-prev btn btn-primary">
+                                                {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".contact" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".contact"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -986,7 +1428,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" id="inp-website" name="website" placeholder="{{ __('Website') }}" value="{{ $data->website }}">
+                                            <input type="text" class="input-field" id="inp-website" name="website"
+                                                placeholder="{{ __('Website') }}" value="{{ $data->website }}">
                                         </div>
                                     </div>
 
@@ -998,7 +1441,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="email" placeholder="{{ __('Email') }}" value="{{ $data->email }}">
+                                            <input type="text" class="input-field" name="email"
+                                                placeholder="{{ __('Email') }}" value="{{ $data->email }}">
                                         </div>
                                     </div>
 
@@ -1010,7 +1454,9 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="phone_number" placeholder="{{ __('Phone number') }}" value="{{ $data->phone_number }}">
+                                            <input type="text" class="input-field" name="phone_number"
+                                                placeholder="{{ __('Phone number') }}"
+                                                value="{{ $data->phone_number }}">
                                         </div>
                                     </div>
 
@@ -1022,7 +1468,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="facebook" placeholder="{{ __('Facebook') }}" value="{{ $data->facebook }}">
+                                            <input type="text" class="input-field" name="facebook"
+                                                placeholder="{{ __('Facebook') }}" value="{{ $data->facebook }}">
                                         </div>
                                     </div>
 
@@ -1034,7 +1481,8 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="twitter" placeholder="{{ __('Twitter') }}" value="{{ $data->twitter }}">
+                                            <input type="text" class="input-field" name="twitter"
+                                                placeholder="{{ __('Twitter') }}" value="{{ $data->twitter }}">
                                         </div>
                                     </div>
 
@@ -1046,16 +1494,19 @@
                                         </div>
 
                                         <div class="col-lg-9">
-                                            <input type="text" class="input-field" name="linkedin" placeholder="{{ __('Linkedin') }}" value="{{ $data->linkedin }}">
+                                            <input type="text" class="input-field" name="linkedin"
+                                                placeholder="{{ __('Linkedin') }}" value="{{ $data->linkedin }}">
                                         </div>
                                     </div>
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".schedule" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".schedule"
+                                                class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".dynamic" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".dynamic"
+                                                class="next-prev btn btn-primary"> {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -1063,55 +1514,60 @@
 
                                 <div id="dynamic" class="container tab-pane"><br>
                                     @if (request()->type == 'restaurant')
-                                        <div class="menu-section-area">
-                                            @includeIf('partials.admin.listing.menu',['menus' => $menus])
-                                        </div>
+                                    <div class="menu-section-area">
+                                        @includeIf('partials.admin.listing.menu',['menus' => $menus])
+                                    </div>
 
-                                        <div class="row my-2">
-                                            <div class="col-lg-12 text-center">
-                                                <a href="javascript:;" id="menud-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
-                                            </div>
+                                    <div class="row my-2">
+                                        <div class="col-lg-12 text-center">
+                                            <a href="javascript:;" id="menud-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
+                                    </div>
                                     @endif
 
                                     @if (request()->type == 'hotel')
-                                        <div class="room-section-area">
-                                            @includeIf('partials.admin.listing.room',['rooms'=> $rooms])
-                                        </div>
+                                    <div class="room-section-area">
+                                        @includeIf('partials.admin.listing.room',['rooms'=> $rooms])
+                                    </div>
 
-                                        <div class="row my-2">
-                                            <div class="col-lg-12 text-center">
-                                                <a href="javascript:;" id="room-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
-                                            </div>
+                                    <div class="row my-2">
+                                        <div class="col-lg-12 text-center">
+                                            <a href="javascript:;" id="room-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
+                                    </div>
                                     @endif
 
                                     @if (request()->type == 'beauty')
-                                        <div class="beauty-section-area">
-                                            @includeIf('partials.admin.listing.beauty',['beauties'=> $beauties])
-                                        </div>
+                                    <div class="beauty-section-area">
+                                        @includeIf('partials.admin.listing.beauty',['beauties'=> $beauties])
+                                    </div>
 
-                                        <div class="row my-2">
-                                            <div class="col-lg-12 text-center">
-                                                <a href="javascript:;" id="beauty-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
-                                            </div>
+                                    <div class="row my-2">
+                                        <div class="col-lg-12 text-center">
+                                            <a href="javascript:;" id="beauty-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
+                                    </div>
                                     @endif
 
                                     @if (request()->type == 'real_estate')
-                                        @includeIf('partials.admin.listing.real_estate')
+                                    @includeIf('partials.admin.listing.real_estate')
                                     @endif
 
                                     @if (request()->type == 'car')
-                                        @includeIf('partials.admin.listing.car')
+                                    @includeIf('partials.admin.listing.car')
                                     @endif
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".contact" class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
+                                            <a href="javascript:;" data-href=".contact"
+                                                class="next-prev btn btn-primary"> {{ __('Prev') }} </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="javascript:;" data-href=".faq" class="next-prev btn btn-primary"> {{ __('Next') }} </a>
+                                            <a href="javascript:;" data-href=".faq" class="next-prev btn btn-primary">
+                                                {{ __('Next') }} </a>
                                         </li>
                                     </ul>
 
@@ -1124,12 +1580,14 @@
 
                                     <div class="row my-2">
                                         <div class="col-lg-12 text-center">
-                                            <a href="javascript:;" id="faq-add-btn" class="btn btn-info"><i class="fa fa-plus"></i> {{__('Add More')}}</a>
+                                            <a href="javascript:;" id="faq-add-btn" class="btn btn-info"><i
+                                                    class="fa fa-plus"></i> {{__('Add More')}}</a>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-center mt-3">
-                                        <button type="submit" id="submit-btn" class="btn btn-primary text-center">{{ __('Submit') }}</button>
+                                        <button type="submit" id="submit-btn" class="btn btn-primary text-center">{{
+                                            __('Submit') }}</button>
                                     </div>
 
                                 </div>
@@ -1143,64 +1601,70 @@
     </div>
 </div>
 
-<div class="modal fade dynamic-modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="dynamicModalTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">{{ __("Confirm Delete") }}</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="text-center">{{__("You are about to delete this Item. Every informtation under this item will be deleted.")}}</p>
-				<p class="text-center">{{ __("Do you want to proceed?") }}</p>
-			</div>
-			<div class="modal-footer">
-				<a href="javascript:;" class="btn btn-secondary" data-dismiss="modal">{{ __("Cancel") }}</a>
-				<a href="javascript:;" class="btn btn-danger btn-ok">{{ __("Delete") }}</a>
-			</div>
-		</div>
-	</div>
+<div class="modal fade dynamic-modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="dynamicModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ __("Confirm Delete") }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">{{__("You are about to delete this Item. Every informtation under this item will
+                    be deleted.")}}</p>
+                <p class="text-center">{{ __("Do you want to proceed?") }}</p>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-secondary" data-dismiss="modal">{{ __("Cancel") }}</a>
+                <a href="javascript:;" class="btn btn-danger btn-ok">{{ __("Delete") }}</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="setgallery" tabindex="-1" role="dialog" aria-labelledby="setgallery" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">{{ __('Image Gallery') }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="top-area">
-                <div class="row">
-                    <div class="col-sm-6 text-right">
-                        <div class="upload-img-btn">
-                            <form  method="POST" enctype="multipart/form-data" id="form-gallery">
-                                {{ csrf_field() }}
-                                <input type="hidden" id="listing_id" name="listing_id" value="{{ $data->id }}">
-                                <input type="file" name="gallery[]" class="hidden" id="property_upload_gallery_edit" accept="image/*" multiple>
-                                <label id="property_gallery_edit"><i class="icofont-upload-alt"></i>{{ __("Upload File") }}</label>
-                            </form>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">{{ __('Image Gallery') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="top-area">
+                    <div class="row">
+                        <div class="col-sm-6 text-right">
+                            <div class="upload-img-btn">
+                                <form method="POST" enctype="multipart/form-data" id="form-gallery">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" id="listing_id" name="listing_id" value="{{ $data->id }}">
+                                    <input type="file" name="gallery[]" class="hidden" id="property_upload_gallery_edit"
+                                        accept="image/*" multiple>
+                                    <label id="property_gallery_edit"><i class="icofont-upload-alt"></i>{{ __("Upload
+                                        File") }}</label>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="javascript:;" class="upload-done" data-dismiss="modal"> <i
+                                    class="fas fa-check"></i> {{ __('Done') }}</a>
+                        </div>
+                        <div class="col-sm-12 text-center">( <small>{{ __('You can upload multiple Images.') }}</small>
+                            )</div>
+                    </div>
+                </div>
+                <div class="gallery-images">
+                    <div class="selected-image">
+                        <div class="row">
+
+
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <a href="javascript:;" class="upload-done" data-dismiss="modal"> <i class="fas fa-check"></i> {{ __('Done') }}</a>
-                    </div>
-                    <div class="col-sm-12 text-center">( <small>{{ __('You can upload multiple Images.') }}</small> )</div>
                 </div>
             </div>
-            <div class="gallery-images">
-                <div class="selected-image">
-                    <div class="row">
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
 </div>
@@ -1537,6 +2001,6 @@
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
-  </script>
+</script>
 
 @endsection
