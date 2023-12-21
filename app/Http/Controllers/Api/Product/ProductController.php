@@ -652,9 +652,9 @@ class ProductController extends Controller
                         } else {
                             $name = $data->name;
                             $real_address = $data->real_address;
-                            $is_feature = $data->is_feature == 1 ? 'متميز' : '';
-                            $is_toprated = $data->is_toprated == 1 ? '' : '';
-                            $is_verify = $data->is_verify == 1 ? 'تم التحقق منه ' : '';
+                            $is_feature =  $data->is_feature == 1 ? 'FEATURED' : '';
+                            $is_toprated =  $data->is_toprated == 1 ? 'TOPRATED' : '';
+                            $is_verify =  $data->is_verify == 1 ? 'VERIFYED' : '';
                         }
 
 
