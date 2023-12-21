@@ -73,7 +73,7 @@ class ProductController extends Controller
     public function product_detail(Request $request, $slug)
     {
 
-        $locale = $request->header('Accept-Language') ?? 'ar';
+        $locale = $request->header('Accept-Language') ?? 'en';
         $data = Listing::whereSlug($slug)->whereStatus(1)->first();
         $data['amenities'] = $data->amenities != NULL ? json_decode($data->amenities, true) : [];
         $data['schedules'] = $data->schedules != NULL ? json_decode($data->schedules, true) : [];
@@ -491,7 +491,7 @@ class ProductController extends Controller
         $product_data = $request->input('product_data');
         $filtertype = $request->input('filtertype');
         $listingsData = [];
-        $locale = $request->header('Accept-Language') ?? 'ar';
+        $locale = $request->header('Accept-Language') ?? 'en';
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
