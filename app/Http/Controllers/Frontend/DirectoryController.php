@@ -84,6 +84,9 @@ class DirectoryController extends Controller
         return view('frontend.list', $data);
     }
 
+
+
+
     public function filter(Request $request)
     {
         $is_verify = $request->is_verify ? $request->is_verify[0] : null;
