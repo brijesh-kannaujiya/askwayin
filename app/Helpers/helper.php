@@ -186,8 +186,8 @@ function handleMakeImage($file, $resize_array = null, $ticket = false)
 function handleUpdateImage($file, $field, $resize_array = null)
 {
     $image_name = imageNameValidation($file);
-    $locaion = base_path('../assets/images/');
-
+    $locaion = base_path('public/assets/images/');
+    // dd($locaion);
     if ($field && file_exists($locaion . $field)) {
         unlink($locaion . $field);
     }
