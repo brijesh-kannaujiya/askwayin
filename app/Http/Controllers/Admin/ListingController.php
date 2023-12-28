@@ -41,7 +41,7 @@ class ListingController extends Controller
 
         return Datatables::of($datas)
             ->editColumn('photo', function (Listing $data) {
-                $photo = $data->photo ? url('assets/images/' . $data->photo) : url('assets/images/noimage.png');
+                $photo = $data->photo ? url('public/assets/images/' . $data->photo) : url('public/assets/images/noimage.png');
                 return '<img src="' . $photo . '" alt="Image">';
             })
             ->editColumn('category_id', function (Listing $data) {

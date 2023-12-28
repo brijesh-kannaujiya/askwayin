@@ -19,35 +19,35 @@ class PartnerController extends Controller
 
     public function datatables()
     {
-        $datas = Partner::orderBy('id','desc');
+        $datas = Partner::orderBy('id', 'desc');
 
         return Datatables::of($datas)
-                            ->editColumn('created_at', function(Partner $data){
-                                return $data->created_at->format('d M,Y');
-                            })
-                            ->editColumn('photo', function(Partner $data) {
-                                $photo = $data->photo ? url('assets/images/'.$data->photo):url('assets/images/noimage.png');
-                                return '<img src="' . $photo . '" alt="Image">';
-                            })
+            ->editColumn('created_at', function (Partner $data) {
+                return $data->created_at->format('d M,Y');
+            })
+            ->editColumn('photo', function (Partner $data) {
+                $photo = $data->photo ? url('public/assets/images/' . $data->photo) : url('public/assets/images/noimage.png');
+                return '<img src="' . $photo . '" alt="Image">';
+            })
 
-                            ->addColumn('action', function(Partner $data) {
+            ->addColumn('action', function (Partner $data) {
 
-                              return '<div class="btn-group mb-1">
+                return '<div class="btn-group mb-1">
                                 <button type="button" class="btn btn-primary btn-sm btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  '.'Actions' .'
+                                  ' . 'Actions' . '
                                 </button>
                                 <div class="dropdown-menu" x-placement="bottom-start">
-                                  <a href="' . route('admin.partner.edit',$data->id) . '"  class="dropdown-item">'.__("Edit").'</a>
-                                  <a href="javascript:;" data-toggle="modal" data-target="#deleteModal" class="dropdown-item" data-href="'.  route('admin.partner.delete',$data->id).'">'.__("Delete").'</a>
+                                  <a href="' . route('admin.partner.edit', $data->id) . '"  class="dropdown-item">' . __("Edit") . '</a>
+                                  <a href="javascript:;" data-toggle="modal" data-target="#deleteModal" class="dropdown-item" data-href="' .  route('admin.partner.delete', $data->id) . '">' . __("Delete") . '</a>
                                 </div>
                               </div>';
-
-                            })
-                            ->rawColumns(['photo','action'])
-                            ->toJson();
+            })
+            ->rawColumns(['photo', 'action'])
+            ->toJson();
     }
 
-    public function index(){
+    public function index()
+    {
         return view('admin.partners.index');
     }
 
@@ -61,31 +61,29 @@ class PartnerController extends Controller
         $data = new Partner();
         $input = $request->all();
 
-        if ($file = $request->file('photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
+        if ($file = $request->file('photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('assets/images', $name);
             $input['photo'] = $name;
         }
-        
-        if ($file = $request->file('brand_img'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
+
+        if ($file = $request->file('brand_img')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('assets/images', $name);
             $input['brand_img'] = $name;
         }
-        
-        
+
+
         $data->fill($input)->save();
 
-        $msg = 'New Data Added Successfully.'.'<a href="'.route("admin.partner.index").'">View Lists</a>';
+        $msg = 'New Data Added Successfully.' . '<a href="' . route("admin.partner.index") . '">View Lists</a>';
         return response()->json($msg);
     }
 
     public function edit($id)
     {
         $data = Partner::findOrFail($id);
-        return view('admin.partners.edit',compact('data'));
+        return view('admin.partners.edit', compact('data'));
     }
 
     public function update(PartnerRequest $request, $id)
@@ -93,32 +91,30 @@ class PartnerController extends Controller
         $data = Partner::findOrFail($id);
         $input = $request->all();
 
-        if ($file = $request->file('photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->photo);
+        if ($file = $request->file('photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('assets/images', $name);
+            @unlink('assets/images/' . $data->photo);
             $input['photo'] = $name;
         }
-        
-        if ($file = $request->file('brand_img'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->brand_img);
+
+        if ($file = $request->file('brand_img')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('assets/images', $name);
+            @unlink('assets/images/' . $data->brand_img);
             $input['brand_img'] = $name;
         }
-        
+
         $data->update($input);
 
-        $msg = 'Data Updated Successfully.'.'<a href="'.route("admin.partner.index").'">View Lists</a>';
+        $msg = 'Data Updated Successfully.' . '<a href="' . route("admin.partner.index") . '">View Lists</a>';
         return response()->json($msg);
     }
 
     public function destroy($id)
     {
         $data = Partner::findOrFail($id);
-        @unlink('assets/images/'.$data->photo);
+        @unlink('assets/images/' . $data->photo);
         $data->delete();
 
         $msg = 'Data Deleted Successfully.';
