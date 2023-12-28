@@ -83,7 +83,7 @@ class LocationController extends Controller
         $input['slug'] = Str::slug($request->name, '-');
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo'] = $name;
         }
         $data->fill($input)->save();
@@ -111,8 +111,8 @@ class LocationController extends Controller
 
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->photo);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo);
             $input['photo'] = $name;
         }
 

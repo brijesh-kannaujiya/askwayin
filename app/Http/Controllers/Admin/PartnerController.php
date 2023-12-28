@@ -63,13 +63,13 @@ class PartnerController extends Controller
 
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo'] = $name;
         }
 
         if ($file = $request->file('brand_img')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['brand_img'] = $name;
         }
 
@@ -93,15 +93,15 @@ class PartnerController extends Controller
 
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->photo);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo);
             $input['photo'] = $name;
         }
 
         if ($file = $request->file('brand_img')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->brand_img);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->brand_img);
             $input['brand_img'] = $name;
         }
 

@@ -21,31 +21,30 @@ class StaffController extends Controller
 
     public function datatables()
     {
-        $datas = Admin::where('id','!=',1)->where('id','!=',Auth::guard('admin')->user()->id)->orderBy('id');
+        $datas = Admin::where('id', '!=', 1)->where('id', '!=', Auth::guard('admin')->user()->id)->orderBy('id');
 
-         return Datatables::of($datas)
-                            ->addColumn('role_id', function(Admin $data) {
-                                $role = $data->role_id == 0 ? 'No Role' : $data->staff_role->name;
-                                return $role;
-                            })
-                            ->addColumn('action', function(Admin $data) {
+        return Datatables::of($datas)
+            ->addColumn('role_id', function (Admin $data) {
+                $role = $data->role_id == 0 ? 'No Role' : $data->staff_role->name;
+                return $role;
+            })
+            ->addColumn('action', function (Admin $data) {
 
-                              return '<div class="btn-group mb-1">
+                return '<div class="btn-group mb-1">
                               <button type="button" class="btn btn-primary btn-sm btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                '.'Actions' .'
+                                ' . 'Actions' . '
                               </button>
                               <div class="dropdown-menu" x-placement="bottom-start">
-                                <a href="' . route('admin.staff.edit',$data->id) . '"  class="dropdown-item">'.__("Edit").'</a>
-                                <a href="javascript:;" data-toggle="modal" data-target="#deleteModal" class="dropdown-item" data-href="'.  route('admin.staff.delete',$data->id).'">'.__("Delete").'</a>
+                                <a href="' . route('admin.staff.edit', $data->id) . '"  class="dropdown-item">' . __("Edit") . '</a>
+                                <a href="javascript:;" data-toggle="modal" data-target="#deleteModal" class="dropdown-item" data-href="' .  route('admin.staff.delete', $data->id) . '">' . __("Delete") . '</a>
                               </div>
                             </div>';
-
-                            })
-                            ->rawColumns(['action','role_id'])
-                            ->toJson();
+            })
+            ->rawColumns(['action', 'role_id'])
+            ->toJson();
     }
 
-  	public function index()
+    public function index()
     {
         return view('admin.staff.index');
     }
@@ -60,23 +59,22 @@ class StaffController extends Controller
         $rules = [
             'email' => 'required|unique:admins',
             'photo' => 'required|mimes:jpeg,jpg,png,svg',
-            'username'=> 'required',
-            'password'=> 'required',
-            'role_id'=> 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'role_id' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
 
         $data = new Admin();
         $input = $request->all();
-        if ($file = $request->file('photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
+        if ($file = $request->file('photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
             $input['photo'] = $name;
         }
 
@@ -84,7 +82,7 @@ class StaffController extends Controller
         $input['password'] = bcrypt($request['password']);
         $data->fill($input)->save();
 
-        $msg = __('New Data Added Successfully.').'<a href="'.route('admin.staff.index').'">'.__('View Lists.').'</a>';;
+        $msg = __('New Data Added Successfully.') . '<a href="' . route('admin.staff.index') . '">' . __('View Lists.') . '</a>';;
 
         return response()->json($msg);
     }
@@ -92,19 +90,18 @@ class StaffController extends Controller
     public function edit($id)
     {
         $data = Admin::findOrFail($id);
-        return view('admin.staff.edit',compact('data'));
+        return view('admin.staff.edit', compact('data'));
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
 
-        if($id != Auth::guard('admin')->user()->id)
-        {
+        if ($id != Auth::guard('admin')->user()->id) {
             $rules =
-            [
-                'photo' => 'mimes:jpeg,jpg,png,svg',
-                'email' => 'unique:admins,email,'.$id
-            ];
+                [
+                    'photo' => 'mimes:jpeg,jpg,png,svg',
+                    'email' => 'unique:admins,email,' . $id
+                ];
 
             $validator = Validator::make($request->all(), $rules);
 
@@ -114,53 +111,47 @@ class StaffController extends Controller
 
             $input = $request->all();
             $data = Admin::findOrFail($id);
-                if ($file = $request->file('photo'))
-                {
-                    $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-                    $file->move('assets/images/',$name);
-                    if($data->photo != null)
-                    {
-                        if (file_exists(public_path().'/assets/images/'.$data->photo)) {
-                            unlink(public_path().'/assets/images/'.$data->photo);
-                        }
+            if ($file = $request->file('photo')) {
+                $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+                $file->move('public/assets/images/', $name);
+                if ($data->photo != null) {
+                    if (file_exists(public_path() . '/assets/images/' . $data->photo)) {
+                        unlink(public_path() . '/assets/images/' . $data->photo);
                     }
-                $input['photo'] = $name;
                 }
-            if($request->password == ''){
-                $input['password'] = $data->password;
+                $input['photo'] = $name;
             }
-            else{
+            if ($request->password == '') {
+                $input['password'] = $data->password;
+            } else {
                 $input['password'] = Hash::make($request->password);
             }
             $data->update($input);
-            $msg = 'Data Updated Successfully.'.'<a href="'.route("admin.staff.index").'">View Post Lists</a>';
+            $msg = 'Data Updated Successfully.' . '<a href="' . route("admin.staff.index") . '">View Post Lists</a>';
 
             return response()->json($msg);
-        }
-        else{
+        } else {
             $msg = 'You can not change your role.';
             return response()->json($msg);
         }
-
     }
 
 
     public function destroy($id)
     {
-    	if($id == 1)
-    	{
+        if ($id == 1) {
             return "You don't have access to remove this admin";
-    	}
+        }
         $data = Admin::findOrFail($id);
 
-        if($data->photo == null){
+        if ($data->photo == null) {
             $data->delete();
 
             $msg = 'Data Deleted Successfully.';
             return response()->json($msg);
         }
 
-        @unlink('assets/images/'.$data->photo);
+        @unlink('assets/images/' . $data->photo);
         $data->delete();
 
         $msg = 'Data Deleted Successfully.';

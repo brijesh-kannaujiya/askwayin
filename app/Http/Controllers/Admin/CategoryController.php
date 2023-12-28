@@ -84,25 +84,25 @@ class CategoryController extends Controller
         $input['slug'] = Str::slug($request->slug, '-');
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo'] = $name;
         }
 
         if ($file = $request->file('photo1')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo1'] = $name;
         }
 
         if ($file = $request->file('photo_banner')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo_banner'] = $name;
         }
 
         if ($file = $request->file('photo3')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo3'] = $name;
         }
 
@@ -134,29 +134,29 @@ class CategoryController extends Controller
         $input['slug'] = Str::slug($request->slug, '-');
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->photo);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo);
             $input['photo'] = $name;
         }
 
         if ($file = $request->file('photo1')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->photo1);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo1);
             $input['photo1'] = $name;
         }
 
         if ($file = $request->file('photo_banner')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->photo_banner);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo_banner);
             $input['photo_banner'] = $name;
         }
 
         if ($file = $request->file('photo3')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->photo3);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo3);
             $input['photo3'] = $name;
         }
 

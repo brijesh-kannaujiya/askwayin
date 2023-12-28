@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\Pagesetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -25,63 +26,57 @@ class PageSettingController extends Controller
         $data = $this->ps;
         $input = $request->all();
 
-        if ($file = $request->file('about_photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->about_photo);
+        if ($file = $request->file('about_photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->about_photo);
             $input['about_photo'] = $name;
         }
 
-        if ($file = $request->file('hero_photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->hero_photo);
+        if ($file = $request->file('hero_photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->hero_photo);
             $input['hero_photo'] = $name;
         }
 
-        if ($file = $request->file('process_photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->process_photo);
+        if ($file = $request->file('process_photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->process_photo);
             $input['process_photo'] = $name;
         }
 
-        if ($file = $request->file('mission_photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->mission_photo);
+        if ($file = $request->file('mission_photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->mission_photo);
             $input['mission_photo'] = $name;
         }
 
-        if ($file = $request->file('download_photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->download_photo);
+        if ($file = $request->file('download_photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->download_photo);
             $input['download_photo'] = $name;
         }
 
-        if ($file = $request->file('listing_photo'))
-        {
-            $name = Str::random(8).time().'.'.$file->getClientOriginalExtension();
-            $file->move('assets/images',$name);
-            @unlink('assets/images/'.$data->listing_photo);
+        if ($file = $request->file('listing_photo')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->listing_photo);
             $input['listing_photo'] = $name;
         }
 
-        if($request->plan_subtitle){
+        if ($request->plan_subtitle) {
             $input['plan_subtitle'] = Purifier::clean($request->plan_subtitle);
         }
 
-        if($request->blog_text){
+        if ($request->blog_text) {
             $input['blog_text'] = Purifier::clean($request->blog_text);
         }
 
-        if($request->download_text){
+        if ($request->download_text) {
             $input['download_text'] = Purifier::clean($request->download_text);
         }
 
@@ -100,76 +95,83 @@ class PageSettingController extends Controller
         return response()->json($msg);
     }
 
-    public function customization(){
+    public function customization()
+    {
         $data = $this->ps;
-        return view('admin.pagesetting.customization',compact('data'));
+        return view('admin.pagesetting.customization', compact('data'));
     }
 
-    public function customizationUpdate(Request $request){
+    public function customizationUpdate(Request $request)
+    {
         $data = $this->ps;
 
-        if($request->home_module){
-            $input['home_module'] = json_encode($request->home_module,true);
-        }else{
+        if ($request->home_module) {
+            $input['home_module'] = json_encode($request->home_module, true);
+        } else {
             $input['home_module'] = NULL;
         }
         $data->update($input);
 
-        if($request->ajax()){
+        if ($request->ajax()) {
             $msg = 'Data Updated Successfully.';
             return response()->json($msg);
-        }else{
+        } else {
             return back()->withSuccess('Data Updated Successfully.');
         }
     }
 
-    public function hero(){
+    public function hero()
+    {
         $data = $this->ps;
-        return view('admin.pagesetting.hero_section',compact('data'));
+        return view('admin.pagesetting.hero_section', compact('data'));
     }
 
-    public function download(){
+    public function download()
+    {
         $data = $this->ps;
-        return view('admin.pagesetting.download',compact('data'));
+        return view('admin.pagesetting.download', compact('data'));
     }
 
-    public function about(){
+    public function about()
+    {
         $data = $this->ps;
-        return view('admin.pagesetting.about',compact('data'));
+        return view('admin.pagesetting.about', compact('data'));
     }
 
     public function listing()
     {
         $data = $this->ps;
-        return view('admin.pagesetting.listing',compact('data'));
+        return view('admin.pagesetting.listing', compact('data'));
     }
 
-    public function calltoaction(){
+    public function calltoaction()
+    {
         $data = $this->ps;
-        return view('admin.pagesetting.call_section',compact('data'));
+        return view('admin.pagesetting.call_section', compact('data'));
     }
 
     public function contact()
     {
         $data = Pagesetting::find(1);
-        return view('admin.pagesetting.contact',compact('data'));
+        return view('admin.pagesetting.contact', compact('data'));
     }
 
-    public function sectionHeading(){
+    public function sectionHeading()
+    {
         $data = $this->ps;
-        return view('admin.pagesetting.sectionheading',compact('data'));
+        return view('admin.pagesetting.sectionheading', compact('data'));
     }
 
     public function customize()
     {
         $data = $this->ps;
-        return view('admin.pagesetting.customize',compact('data'));
+        return view('admin.pagesetting.customize', compact('data'));
     }
 
     public function blogsection()
     {
         $ps = $this->ps;
-        return view('admin.pagesetting.blog_section',compact('ps'));
+        return view('admin.pagesetting.blog_section', compact('ps'));
     }
 
     public function faqupdate($status)
@@ -198,6 +200,4 @@ class PageSettingController extends Controller
         $msg = 'Data Updated Successfully.';
         return response()->json($msg);
     }
-
-
 }

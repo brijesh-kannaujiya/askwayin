@@ -63,13 +63,13 @@ class AppaddsController extends Controller
 
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo'] = $name;
         }
 
         if ($file = $request->file('appadds_img')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['appadds_img'] = $name;
         }
 
@@ -93,14 +93,14 @@ class AppaddsController extends Controller
 
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             @unlink('assets/images/' . $data->photo);
             $input['photo'] = $name;
         }
 
         if ($file = $request->file('appadds_img')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             @unlink('assets/images/' . $data->appadds_img);
             $input['appadds_img'] = $name;
         }

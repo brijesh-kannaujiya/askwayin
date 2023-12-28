@@ -20,8 +20,7 @@ class GalleryController extends Controller
         $data[0] = 0;
         $id = $_GET['id'];
         $listing = Listing::findOrFail($id);
-        if(count($listing->galleries))
-        {
+        if (count($listing->galleries)) {
             $data[0] = 1;
             $data[1] = $listing->galleries;
         }
@@ -32,19 +31,18 @@ class GalleryController extends Controller
     {
         $data = null;
         $lastid = $request->listing_id;
-        if ($files = $request->file('gallery')){
-            foreach ($files as  $key => $file){
+        if ($files = $request->file('gallery')) {
+            foreach ($files as  $key => $file) {
                 $val = $file->getClientOriginalExtension();
-                if($val == 'jpeg'|| $val == 'jpg'|| $val == 'png'|| $val == 'svg')
-                  {
+                if ($val == 'jpeg' || $val == 'jpg' || $val == 'png' || $val == 'svg') {
                     $gallery = new Gallery();
-                    $name = time().$file->getClientOriginalName();
-                    $file->move('assets/images',$name);
+                    $name = time() . $file->getClientOriginalName();
+                    $file->move('public/assets/images', $name);
                     $gallery['photo'] = $name;
                     $gallery['listing_id'] = $lastid;
                     $gallery->save();
                     $data[] = $gallery;
-                  }
+                }
             }
         }
         return response()->json($data);
@@ -54,7 +52,7 @@ class GalleryController extends Controller
     {
         $id = $_GET['id'];
         $gal = Gallery::findOrFail($id);
-        @unlink('assets/images/'.$gal->photo);
+        @unlink('public/assets/images/' . $gal->photo);
         $gal->delete();
     }
 }
