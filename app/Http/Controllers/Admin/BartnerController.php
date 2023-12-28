@@ -63,7 +63,7 @@ class BartnerController extends Controller
 
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
+            $file->move('public/assets/images', $name);
             $input['photo'] = $name;
         }
         $data->fill($input)->save();
@@ -85,8 +85,8 @@ class BartnerController extends Controller
 
         if ($file = $request->file('photo')) {
             $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
-            $file->move('assets/images', $name);
-            @unlink('assets/images/' . $data->photo);
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo);
             $input['photo'] = $name;
         }
         $data->update($input);
@@ -98,7 +98,7 @@ class BartnerController extends Controller
     public function destroy($id)
     {
         $data = Bartner::findOrFail($id);
-        @unlink('assets/images/' . $data->photo);
+        @unlink('public/assets/images/' . $data->photo);
         $data->delete();
 
         $msg = 'Data Deleted Successfully.';

@@ -143,7 +143,7 @@ if (!function_exists('fileName')) {
 if (!function_exists('upload')) {
     function upload($name, $file, $oldname)
     {
-        $file->move('assets/images', $name);
+        $file->move('public/assets/images', $name);
         if ($oldname != null) {
             if (file_exists(public_path() . '/assets/images/' . $oldname)) {
                 unlink(public_path() . '/assets/images/' . $oldname);
@@ -155,11 +155,11 @@ if (!function_exists('upload')) {
 function handleMakeImage($file, $resize_array = null, $ticket = false)
 {
     $image_name = imageNameValidation($file);
-    $locaion = base_path('../assets/images/');
+    $locaion = base_path('public/assets/images/');
 
     $fileExts = ['pdf', 'doc', 'docx', 'csv'];
     if ($ticket || in_array($file->getClientOriginalExtension(), $fileExts)) {
-        $locaion = base_path('../assets/ticket/');
+        $locaion = base_path('public/assets/ticket/');
         $file->move($locaion, $image_name);
     } else {
         if ($resize_array) {
@@ -212,7 +212,7 @@ function handleUpdateImage($file, $field, $resize_array = null)
 
 function handleDeleteImage($field)
 {
-    $locaion = base_path('../assets/images/');
+    $locaion = base_path('public/assets/images/');
     if ($field && file_exists($locaion . $field)) {
         unlink($locaion . $field);
     }
