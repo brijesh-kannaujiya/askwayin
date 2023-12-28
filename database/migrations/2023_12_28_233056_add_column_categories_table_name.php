@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookingConversationsTable extends Migration
+class AddColumnCategoriesTableName extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateBookingConversationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('booking_conversations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('categories', function (Blueprint $table) {
+            $table->string('title_arbic');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateBookingConversationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_conversations');
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn('title_arbic');
+        });
     }
 }

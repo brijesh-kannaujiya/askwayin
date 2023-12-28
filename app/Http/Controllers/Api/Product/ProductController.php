@@ -495,6 +495,7 @@ class ProductController extends Controller
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
+                ->orWhere('title_arbic', 'LIKE', "%$keyword%")
                 ->whereNull('parent_id')
                 ->pluck('id')
                 ->toArray();
@@ -506,12 +507,12 @@ class ProductController extends Controller
                     $allproduct_query = DB::table('categories')->where('parent_id', $cat_id)
                         ->get();
                     // $locale = $request->header('Accept-Language') ?? 'en';
-                    $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
-                    $translations = json_decode(File::get($translationFile), true);
-                    $languageTranslations = $translations;
+                    // $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
+                    // $translations = json_decode(File::get($translationFile), true);
+                    // $languageTranslations = $translations;
                     foreach ($allproduct_query as $categoriesubIDp) {
                         if ($locale == 'ar') {
-                            $title = $languageTranslations[$categoriesubIDp->title];
+                            $title = $categoriesubIDp->title_arbic;
                         } else {
                             $title = $categoriesubIDp->title;
                         }
@@ -536,8 +537,7 @@ class ProductController extends Controller
                 ->when($product_data, function ($q) use ($product_data, $locale) {
 
                     if ($locale == 'ar') {
-                        $q->OrWhere('slug', 'LIKE', "%$product_data%");
-                        $q->OrWhere('title', 'LIKE', "%$product_data%");
+                        $q->OrWhere('title_arbic', 'LIKE', "%$product_data%");
                     } else {
                         $q->OrWhere('slug', 'LIKE', "%$product_data%");
                         $q->OrWhere('title', 'LIKE', "%$product_data%");
