@@ -97,47 +97,56 @@ class CategoryController extends Controller
     public function allcategoryapi(Request $request)
     {
         // $allcategories = DB::table('categories')->where('parent_id', NULL)->get();
+        $locale = $request->header('Accept-Language') ?? 'en';
 
-        $allcategories = Category::withCount('subcategories')
-            // ->orderBy('id', 'asc')
-            ->where('parent_id', NULL)
-            ->get();
-        $count = $allcategories->count();
-        $locale = $request->header('Accept-Language') ?? 'ar';
-        // $locale = 'ar';
-        // dd($locale);
         if ($locale == 'ar') {
-            $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
-            $translations = json_decode(File::get($translationFile), true);
-            $languageTranslations = $translations;
-            $translatedCategories = $allcategories->map(function ($category) use ($languageTranslations) {
-                $categoryId = $category->id;
-                $translatedName = $languageTranslations[$category->title] ?? $category->title;
-                return [
-                    'id' => $categoryId,
-                    'title' => $translatedName,
-                    'slug' =>  $category->slug,
-                    'photo' =>  $category->photo,
-                    'photo1' =>  $category->photo1,
-                    'photo_banner' =>  $category->photo_banner,
-                    'photo3' =>  $category->photo3,
-                    'pop_cat' =>  $category->pop_cat,
-                    'status' =>  $category->status,
-                    'parent_id' =>  $category->parent_id,
-                    'is_top' =>  $category->is_top,
-                    'pop_home_cat' =>  $category->pop_home_cat,
-                    'bg_color' =>  $category->bg_color,
-                    'created_at' =>  $category->created_at,
-                    'updated_at' =>  $category->updated_at,
-                    'subcategories_count' => $category->subcategories_count
-                ];
-            });
+            $allcategories = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
+                // ->orderBy('id', 'asc')
+                ->where('parent_id', NULL)
+                ->get();
         } else {
-            $translatedCategories = $allcategories;
+            $allcategories = Category::withCount('subcategories')
+                // ->orderBy('id', 'asc')
+                ->where('parent_id', NULL)
+                ->get();
         }
 
+        $count = $allcategories->count();
+        $locale = $request->header('Accept-Language') ?? 'en';
+        // $locale = 'ar';
+        // dd($locale);
+        // if ($locale == 'ar') {
+        //     $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
+        //     $translations = json_decode(File::get($translationFile), true);
+        //     $languageTranslations = $translations;
+        //     $translatedCategories = $allcategories->map(function ($category) use ($languageTranslations) {
+        //         $categoryId = $category->id;
+        //         $translatedName = $languageTranslations[$category->title] ?? $category->title;
+        //         return [
+        //             'id' => $categoryId,
+        //             'title' => $translatedName,
+        //             'slug' =>  $category->slug,
+        //             'photo' =>  $category->photo,
+        //             'photo1' =>  $category->photo1,
+        //             'photo_banner' =>  $category->photo_banner,
+        //             'photo3' =>  $category->photo3,
+        //             'pop_cat' =>  $category->pop_cat,
+        //             'status' =>  $category->status,
+        //             'parent_id' =>  $category->parent_id,
+        //             'is_top' =>  $category->is_top,
+        //             'pop_home_cat' =>  $category->pop_home_cat,
+        //             'bg_color' =>  $category->bg_color,
+        //             'created_at' =>  $category->created_at,
+        //             'updated_at' =>  $category->updated_at,
+        //             'subcategories_count' => $category->subcategories_count
+        //         ];
+        //     });
+        // } else {
+        //     $translatedCategories = $allcategories;
+        // }
+
         if ($count > 0) {
-            return  json_encode(['status' => true, 'allcategories' => $translatedCategories, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'allcategories' => $allcategories, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
