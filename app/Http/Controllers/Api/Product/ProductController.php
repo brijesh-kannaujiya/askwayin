@@ -629,9 +629,10 @@ class ProductController extends Controller
                     $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)
                         ->where('highlight_type', $filtertype)
                         ->get();
-                } else if ($filtertype != 'All') {
-                    $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)->get();
                 } else {
+                    $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)->get();
+                }
+                if ($filtertype == 'All') {
                     $allproduct_query = DB::table('listings')->where('category_id', $categoriesubIDp->id)->get();
                 }
                 foreach ($allproduct_query as $listing) {
