@@ -121,23 +121,23 @@ class ProductController extends Controller
             if ($locale == 'ar') {
                 $ProductName = $data->name_arbic ? $data->name_arbic : $data->name;
                 $description = $data->description_arbic ? $data->description_arbic : $data->description;
-
+                $arbic = [
+                    'الاثنين',
+                    'الثلاثاء',
+                    'الأربعاء',
+                    'الخميس',
+                    'الجمعة',
+                    'السبت',
+                    'الأحد',
+                ];
                 if ($schedules) {
-                    foreach ([
-                        'mon' => 'الاثنين',
-                        'tue' => 'الثلاثاء',
-                        'wed' => 'الأربعاء',
-                        'thu' => 'الخميس',
-                        'fri' => 'الجمعة',
-                        'sat' => 'السبت',
-                        'sun' => 'الأحد',
-                    ] as $day) {
+                    foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $key => $day) {
                         $dayOpenName = $day . '_open';
                         $dayCloseName = $day . '_close';
                         $open = $schedules[$dayOpenName];
                         $close = $schedules[$dayCloseName];
                         $formattedHours = $open . ' - ' . $close;
-                        $newArray[$day] = $formattedHours;
+                        $newArray[$arbic[$key]] = $formattedHours;
                     }
                 }
             } else {
