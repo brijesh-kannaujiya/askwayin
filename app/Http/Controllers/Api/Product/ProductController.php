@@ -553,12 +553,13 @@ class ProductController extends Controller
             $allproduct_query = DB::table('categories')
                 ->when($product_data, function ($q) use ($product_data, $locale) {
 
-                    if ($locale == 'ar') {
-                        $q->OrWhere('title_arbic', 'LIKE', "%$product_data%");
-                    } else {
-                        $q->OrWhere('slug', 'LIKE', "%$product_data%");
-                        $q->OrWhere('title', 'LIKE', "%$product_data%");
-                    }
+                    // if ($locale == 'ar') {
+                    //     $q->OrWhere('title_arbic', 'LIKE', "%$product_data%");
+                    // } else {
+                    $q->OrWhere('slug', 'LIKE', "%$product_data%");
+                    $q->OrWhere('title', 'LIKE', "%$product_data%");
+                    $q->OrWhere('title_arbic', 'LIKE', "%$product_data%");
+                    // }
                 })
                 // ->where(DB::raw('LOWER(slug)'), 'LIKE', '%' . strtolower($product_data) . '%')
                 // ->orWhere(DB::raw('LOWER(name)'), 'LIKE', '%' . strtolower($product_data) . '%')
