@@ -115,9 +115,6 @@ class ProductController extends Controller
             $data['recentViews'] = RecentViewsListing::whereNotIn('listing_id', [$data->id])->whereUserId(auth()->id())->orderBy('id', 'desc')->limit(4)->get();
         }
 
-
-
-
         if ($data) {
             $schedules = $data['schedules'];
             $newArray = [];
@@ -138,7 +135,7 @@ class ProductController extends Controller
                 $ProductName = $data->name;
                 $description = $data->description;
             }
-            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $ProductName, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'is_verify' => $is_verify, 'is_feature' => $is_feature, 'is_toprated' => $is_toprated, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $ProductName, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'is_verify' => $is_verify, 'is_feature' => $is_feature, 'is_toprated' => $is_toprated, 'highlight_type' => $data->highlight_type, 'result' => 'Data Found']);
             //return view('frontend.details',$data);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
