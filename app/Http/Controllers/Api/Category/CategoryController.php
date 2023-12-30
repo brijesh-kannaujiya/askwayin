@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function apicall(Request $request)
     {
-        $locale = $request->header('Accept-Language') ?? 'en';
+        $locale = $request->header('Accept-Language') ?? 'ar';
 
         // $homeCategories = DB::table('categories')
         //     ->select('categories.id')
