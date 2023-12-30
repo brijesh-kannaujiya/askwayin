@@ -114,26 +114,46 @@ class ProductController extends Controller
             $this->recentViews($data->id, $data->user_id);
             $data['recentViews'] = RecentViewsListing::whereNotIn('listing_id', [$data->id])->whereUserId(auth()->id())->orderBy('id', 'desc')->limit(4)->get();
         }
-
         if ($data) {
             $schedules = $data['schedules'];
             $newArray = [];
-            if ($schedules) {
-                foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
-                    $dayOpenName = $day . '_open';
-                    $dayCloseName = $day . '_close';
-                    $open = $schedules[$dayOpenName];
-                    $close = $schedules[$dayCloseName];
-                    $formattedHours = $open . ' - ' . $close;
-                    $newArray[$day] = $formattedHours;
-                }
-            }
+
             if ($locale == 'ar') {
                 $ProductName = $data->name_arbic ? $data->name_arbic : $data->name;
                 $description = $data->description_arbic ? $data->description_arbic : $data->description;
+
+                if ($schedules) {
+                    foreach ([
+                        'mon' => 'الاثنين',
+                        'tue' => 'الثلاثاء',
+                        'wed' => 'الأربعاء',
+                        'thu' => 'الخميس',
+                        'fri' => 'الجمعة',
+                        'sat' => 'السبت',
+                        'sun' => 'الأحد',
+                    ] as $day) {
+                        $dayOpenName = $day . '_open';
+                        $dayCloseName = $day . '_close';
+                        $open = $schedules[$dayOpenName];
+                        $close = $schedules[$dayCloseName];
+                        $formattedHours = $open . ' - ' . $close;
+                        $newArray[$day] = $formattedHours;
+                    }
+                }
             } else {
                 $ProductName = $data->name;
                 $description = $data->description;
+
+                if ($schedules) {
+                    foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
+                        $dayOpenName = $day . '_open';
+                        $dayCloseName = $day . '_close';
+                        $open = $schedules[$dayOpenName];
+                        $close = $schedules[$dayCloseName];
+                        $formattedHours = $open . ' - ' . $close;
+                        $newArray[$day] = $formattedHours;
+                    }
+                }
             }
             return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $ProductName, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'is_verify' => $is_verify, 'is_feature' => $is_feature, 'is_toprated' => $is_toprated, 'highlight_type' => $data->highlight_type, 'result' => 'Data Found']);
             //return view('frontend.details',$data);
