@@ -40,54 +40,69 @@ class CategoryController extends Controller
         //     ->limit(7)
         //     ->get();
 
-        $homeCategories = Category::withCount('subcategories')
+        $homeCategories = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
             ->limit(7)
             ->orderBy('id', 'asc')
             ->get();
 
         $listings       = DB::table('listings')->get();
         $bartners       = DB::table('bartners')->get();
-        $partners       = DB::table('partners')->get();
+
         $sartners       = DB::table('sartners')->get();
-        $popularcat     = DB::select('SELECT * FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
+        if ($locale == 'ar') {
+            $popularcat     = DB::select('SELECT * , COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title  FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
+            $ExploreCategory = DB::select('SELECT *,COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title   FROM categories WHERE is_top=0 and parent_id IS NULL');
+            $partners  = DB::table('partners')
+                ->select('*', DB::raw('COALESCE(NULLIF(partners.brand_name_arbic, \'\'), partners.brand_name) as brand_name'))
+                ->get();
+        } else {
+            $partners   = DB::table('partners')->get();
+            $popularcat  = DB::select('SELECT * FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
+            $ExploreCategory = DB::select('SELECT * FROM categories WHERE is_top=0 and parent_id IS NULL');
+        }
         foreach ($popularcat as $key => $popularcat_data) {
             $ids = $popularcat_data->slug;
-            $popularsubcat  = DB::table('categories')->where('pop_cat', 1)->get();
+            if ($locale == 'ar') {
+                $popularsubcat  = DB::table('categories')->select('categories.*', 'categories.title_arbic as title')->where('pop_cat', 1)->get();
+            } else {
+                $popularsubcat  = DB::table('categories')->where('pop_cat', 1)->get();
+            }
         }
-        $ExploreCategory = DB::select('SELECT * FROM categories WHERE is_top=0 and parent_id IS NULL');
+
         $testimonial    = DB::table('reviews')->get();
         $count = $bartners->count();
-        if ($locale == 'ar') {
-            $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
-            $translations = json_decode(File::get($translationFile), true);
-            $languageTranslations = $translations;
-            $translatedCategories = $homeCategories->map(function ($category) use ($languageTranslations) {
-                $categoryId = $category->id;
-                $translatedName = $languageTranslations[$category->title] ?? $category->title;
-                return [
-                    'id' => $categoryId,
-                    'title' => $translatedName,
-                    'slug' =>  $category->slug,
-                    'photo' =>  $category->photo,
-                    'photo1' =>  $category->photo1,
-                    'photo_banner' =>  $category->photo_banner,
-                    'photo3' =>  $category->photo3,
-                    'pop_cat' =>  $category->pop_cat,
-                    'status' =>  $category->status,
-                    'parent_id' =>  $category->parent_id,
-                    'is_top' =>  $category->is_top,
-                    'pop_home_cat' =>  $category->pop_home_cat,
-                    'bg_color' =>  $category->bg_color,
-                    'created_at' =>  $category->created_at,
-                    'updated_at' =>  $category->updated_at,
-                    'subcategories_count' => $category->subcategories_count
-                ];
-            });
-        } else {
-            $translatedCategories = $homeCategories;
-        }
+        // if ($locale == 'ar') {
+        //     $translationFile = resource_path("lang/1688299864oqIjFrT6.json");
+        //     $translations = json_decode(File::get($translationFile), true);
+        //     $languageTranslations = $translations;
+        //     $translatedCategories = $homeCategories->map(function ($category) use ($languageTranslations) {
+        //         $categoryId = $category->id;
+        //         $translatedName = $languageTranslations[$category->title] ?? $category->title;
+        //         return [
+        //             'id' => $categoryId,
+        //             'title' => $translatedName,
+        //             'slug' =>  $category->slug,
+        //             'photo' =>  $category->photo,
+        //             'photo1' =>  $category->photo1,
+        //             'photo_banner' =>  $category->photo_banner,
+        //             'photo3' =>  $category->photo3,
+        //             'pop_cat' =>  $category->pop_cat,
+        //             'status' =>  $category->status,
+        //             'parent_id' =>  $category->parent_id,
+        //             'is_top' =>  $category->is_top,
+        //             'pop_home_cat' =>  $category->pop_home_cat,
+        //             'bg_color' =>  $category->bg_color,
+        //             'created_at' =>  $category->created_at,
+        //             'updated_at' =>  $category->updated_at,
+        //             'subcategories_count' => $category->subcategories_count
+        //         ];
+        //     });
+        // } else {
+        //     $translatedCategories = $homeCategories;
+        // }
+        // dd($partners);
         if ($count > 0) {
-            return  json_encode(['status' => true, 'homecategory' => $translatedCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'homecategory' => $homeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
             //return view('frontend.api_code', json_encode(['status' => false,'data' => 'Not Found']));  

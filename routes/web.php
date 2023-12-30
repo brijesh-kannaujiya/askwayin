@@ -55,7 +55,7 @@ Route::group(['middleware' => 'maintenance',], function () {
   Route::get('/blog/tag/{slug}', [FrontendController::class, 'blogtags'])->name('front.blogtags');
   Route::get('/blog/archive/{slug}', [FrontendController::class, 'blogarchive'])->name('front.blogarchive');
 
-  Route::get('/pricing-plans', [FrontendController::class, 'plans'])->name('front.plans');
+  Route::get('/pricing-plans/{id?}', [FrontendController::class, 'plans'])->name('front.plans');
 
   Route::get('/contact', [FrontendController::class, 'contact'])->name('front.contact');
   Route::post('/contact', [FrontendController::class, 'contactemail'])->name('front.contact.submit');

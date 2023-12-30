@@ -24,6 +24,7 @@ use App\Models\Subscriber;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
@@ -284,10 +285,16 @@ class FrontendController extends Controller
         return view('frontend.blog', $data);
     }
 
-    public function plans()
+    public function plans($id = null)
     {
+        if ($id) {
+            $userID = base64_decode($id);
+            $userData = User::find($userID);
+            if ($userData) {
+                Auth::login($userData);
+            }
+        }
         $data['plans'] = Plan::whereStatus(1)->orderBy('id', 'desc')->get();
-
         return view('frontend.plan', $data);
     }
 
