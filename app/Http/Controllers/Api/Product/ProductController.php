@@ -509,6 +509,8 @@ class ProductController extends Controller
         $filtertype = $request->input('filtertype');
         $listingsData = [];
         $locale = $request->header('Accept-Language') ?? 'en';
+        $latitude = $request->header('lat') ?? '';
+        $longitude = $request->header('lng') ?? '';
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
@@ -573,9 +575,28 @@ class ProductController extends Controller
                     $categorytitle = $categoriesubname->title;
                     $categoryid = $categoriesubname->id;
                 }
+
+                if($latitude && $longitude){
+                    $radius = 5; // in kilometers
+                    $data = Listing::select(
+                        '*',
+                        DB::raw('(6371 * acos(cos(radians(' . $latitude . ')) * cos(radians(latitude)) * cos(radians(longitude) - radians(' . $longitude . ')) + sin(radians(' . $latitude . ')) * sin(radians(latitude)))) as distance')
+                    )
+                        ->having('distance', '<=', $radius)
+                        ->orderBy('distance')
+                        // ->get();
+                        ->whereStatus(1)
+                        ->first();
+                }else{
+
+
                 $data = Listing::where('category_id', $categoryid)
-                    // whereSlug($listing->slug)
-                    ->whereStatus(1)->first();
+                // whereSlug($listing->slug)
+                ->whereStatus(1)->first();
+
+
+                }
+
                 // dd($data);
                 if ($data) {
                     $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
