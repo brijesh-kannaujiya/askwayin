@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
@@ -74,3 +75,5 @@ Route::get('/search_api/{slug}', [ProductController::class, 'search_api']);
 Route::get('/filterallproduct', [ProductController::class, 'filterallproduct']);
 Route::get('/highlight_type', [ProductController::class, 'filterallproduct']);
 Route::get('/appaddsdata', [ProductController::class, 'appaddsdata']);
+Route::get('/locations', [ProductController::class,'GetLocations']);
+      

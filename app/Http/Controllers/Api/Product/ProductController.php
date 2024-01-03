@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Listing;
 use App\Models\ListingFaq;
 use App\Models\ListingReview;
+use App\Models\Location;
 use App\Models\RecentViewsListing;
 use App\Models\Wishlists;
 use Illuminate\Http\Request;
@@ -769,5 +770,49 @@ class ProductController extends Controller
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
+    }
+
+    public function GetLocations() {
+        $Locations = Location::with('child')->whereNull('parent_id')->where('status' , 1)->get();
+
+        $result = [];
+        
+        foreach ($Locations as $Location) {
+            $LocationsData = [
+                'id' => $Location->id,
+                'name' => $Location->name,
+                'slug' => $Location->slug,
+                'parent_id' => $Location->parent_id,
+                'photo' => $Location->photo,
+                'created_at' => $Location->created_at,
+                'updated_at' => $Location->updated_at,
+            ];
+        
+            if ($Location->child->isNotEmpty()) {
+                $subLocations = [];
+        
+                foreach ($Location->child as $child) {
+                    $subLocations[] = [
+                        'id' => $child->id,
+                        'name' => $child->name,
+                        'slug' => $child->slug,
+                        'parent_id' => $child->parent_id,
+                        'photo' => $child->photo,
+                        'created_at' => $child->created_at,
+                        'updated_at' => $child->updated_at, 
+                    ];
+                }
+        
+                $LocationsData['subLocations'] = $subLocations;
+            }
+        
+            $result[] = $LocationsData;
+        }
+        if($result){
+            return response()->json(['status' => true, 'locations' => $result]);
+        }else{
+            return json_encode(['status' => false, 'result' => 'Data Not Found']);
+        }
+       
     }
 }
