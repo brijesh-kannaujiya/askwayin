@@ -508,10 +508,12 @@ class ProductController extends Controller
         $slug    = $request->input('slug');
         $product_data = $request->input('product_data');
         $filtertype = $request->input('filtertype');
+        $location_id = $request->input('location_id');
         $listingsData = [];
         $locale = $request->header('Accept-Language') ?? 'en';
         $latitude = $request->header('lat') ?? '';
         $longitude = $request->header('lng') ?? '';
+
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
@@ -577,7 +579,7 @@ class ProductController extends Controller
                     $categoryid = $categoriesubname->id;
                 }
 
-                if($latitude && $longitude){
+                if ($latitude && $longitude) {
                     $radius = 5; // in kilometers
                     $data = Listing::select(
                         '*',
@@ -588,14 +590,12 @@ class ProductController extends Controller
                         // ->get();
                         ->whereStatus(1)
                         ->first();
-                }else{
+                } else {
 
 
-                $data = Listing::where('category_id', $categoryid)
-                // whereSlug($listing->slug)
-                ->whereStatus(1)->first();
-
-
+                    $data = Listing::where('category_id', $categoryid)
+                        // whereSlug($listing->slug)
+                        ->whereStatus(1)->first();
                 }
 
                 // dd($data);
@@ -650,6 +650,7 @@ class ProductController extends Controller
                         'total_reviews' => $totlalreviews,
                         'CatName' => $categoryName,
                         // 'total_rating' => $totalRate,
+                        'location_id' => $data->location_id,
                         'highlight_type' => $data->highlight_type,
                         'total_rating' => $data->directoryRatting($data->id),
                         'openCloseTime' => $data->openClose($data->id),
@@ -725,6 +726,7 @@ class ProductController extends Controller
                             'category_id'  => $categoryid,
                             'total_reviews' => $totlalreviews,
                             'CatName' => $categoryName,
+                            'location_id' => $data->location_id,
                             'highlight_type' => $data->highlight_type,
                             // 'total_rating' => $totalRate,
                             'total_rating' =>  $data->directoryRatting($data->id),
@@ -734,6 +736,100 @@ class ProductController extends Controller
                         ];
                         $listingsData[] = $listingData;
                     }
+                }
+            }
+        }
+
+        if ($type == 'location') {
+            $allproduct_query = DB::table('categories')
+                ->get();
+            foreach ($allproduct_query as $listing) {
+                $categorysss = $listing->id;
+                $categoriesub = Category::where('id', $categorysss)->get();
+                foreach ($categoriesub as $categoriesubname) {
+                    $categoryName = $categoriesubname->slug;
+                    $categorytitle = $categoriesubname->title;
+                    $categoryid = $categoriesubname->id;
+                }
+
+                if ($latitude && $longitude) {
+                    $radius = 5; // in kilometers
+                    $data = Listing::select(
+                        '*',
+                        DB::raw('(6371 * acos(cos(radians(' . $latitude . ')) * cos(radians(latitude)) * cos(radians(longitude) - radians(' . $longitude . ')) + sin(radians(' . $latitude . ')) * sin(radians(latitude)))) as distance')
+                    )
+                        ->having('distance', '<=', $radius)
+                        ->orderBy('distance')
+                        ->where('location_id', $location_id)
+                        ->whereStatus(1)
+                        ->first();
+                } else {
+
+
+                    $data = Listing::where('category_id', $categoryid)
+                        ->where('location_id', $location_id)
+                        ->whereStatus(1)->first();
+                }
+
+                // dd($data);
+                if ($data) {
+                    $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
+                    $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
+                    // $totalRate = $reviews->sum('rate');
+                    // $listingLastUpdate = ListingReview::whereListingId($data->id)->whereStatus(1)->orderBy('created_at', 'desc')->first();
+                    // dd($listing);
+                    $seduel = json_decode($data->schedules);
+                    $newArray = [];
+                    if ($seduel) {
+                        foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
+                            $dayOpenName = $day . '_open';
+                            $dayCloseName = $day . '_close';
+                            $open = $seduel->$dayOpenName;
+                            $close = $seduel->$dayCloseName;
+                            $formattedHours = $open . ' - ' . $close;
+                            $newArray[$day] = $formattedHours;
+                        }
+                    }
+
+                    if ($locale == 'ar') {
+                        $name = $data->name_arbic ? $data->name_arbic : $data->name;
+                        $real_address = $data->real_address_arbic ? $data->real_address_arbic : $data->real_address;
+                        $is_feature = $data->is_feature == 1 ? 'متميز' : '';
+                        $is_toprated = $data->is_toprated == 1 ? '' : '';
+                        $is_verify = $data->is_verify == 1 ? 'تم التحقق منه ' : '';
+                    } else {
+                        $name = $data->name;
+                        $real_address = $data->real_address;
+                        $is_feature =  $data->is_feature == 1 ? 'FEATURED' : '';
+                        $is_toprated =  $data->is_toprated == 1 ? 'TOPRATED' : '';
+                        $is_verify =  $data->is_verify == 1 ? 'VERIFYED' : '';
+                    }
+
+                    $listingData = [
+                        'id' => $data->id,
+                        'name' => $name,
+                        'photo' => $data->photo,
+                        'is_feature' => $is_feature,
+                        'is_verify' => $is_verify,
+                        'is_toprated' => $is_toprated,
+                        'schedules' => $newArray,
+                        'slug' => $data->slug,
+                        'real_address' => $real_address,
+                        'phone_number' => $data->phone_number,
+                        'latitude' => $data->latitude,
+                        'longitude' => $data->longitude,
+                        'location_id' => $data->location_id,
+                        'title'        => $categorytitle,
+                        'category_id'  => $categoryid,
+                        'total_reviews' => $totlalreviews,
+                        'CatName' => $categoryName,
+                        // 'total_rating' => $totalRate,
+                        'highlight_type' => $data->highlight_type,
+                        'total_rating' => $data->directoryRatting($data->id),
+                        'openCloseTime' => $data->openClose($data->id),
+                        'ReatingLastUpdate' => isset($data->created_at) && $data->created_at ? $data->created_at->diffForHumans() : 'NA',
+                    ];
+                    $listingsData[] = $listingData;
                 }
             }
         }
@@ -772,11 +868,12 @@ class ProductController extends Controller
         }
     }
 
-    public function GetLocations() {
-        $Locations = Location::with('child')->whereNull('parent_id')->where('status' , 1)->get();
+    public function GetLocations()
+    {
+        $Locations = Location::with('child')->whereNull('parent_id')->where('status', 1)->get();
 
         $result = [];
-        
+
         foreach ($Locations as $Location) {
             $LocationsData = [
                 'id' => $Location->id,
@@ -787,10 +884,10 @@ class ProductController extends Controller
                 'created_at' => $Location->created_at,
                 'updated_at' => $Location->updated_at,
             ];
-        
+
             if ($Location->child->isNotEmpty()) {
                 $subLocations = [];
-        
+
                 foreach ($Location->child as $child) {
                     $subLocations[] = [
                         'id' => $child->id,
@@ -799,20 +896,19 @@ class ProductController extends Controller
                         'parent_id' => $child->parent_id,
                         'photo' => $child->photo,
                         'created_at' => $child->created_at,
-                        'updated_at' => $child->updated_at, 
+                        'updated_at' => $child->updated_at,
                     ];
                 }
-        
+
                 $LocationsData['subLocations'] = $subLocations;
             }
-        
+
             $result[] = $LocationsData;
         }
-        if($result){
+        if ($result) {
             return response()->json(['status' => true, 'locations' => $result]);
-        }else{
+        } else {
             return json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
-       
     }
 }
