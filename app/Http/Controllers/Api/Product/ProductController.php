@@ -588,6 +588,9 @@ class ProductController extends Controller
                         ->having('distance', '<=', $radius)
                         ->orderBy('distance')
                         // ->get();
+                        ->when($location_id, function ($query)  use ($location_id) {
+                            return $query->where('location_id', $location_id);
+                        })
                         ->whereStatus(1)
                         ->first();
                 } else {
@@ -595,6 +598,9 @@ class ProductController extends Controller
 
                     $data = Listing::where('category_id', $categoryid)
                         // whereSlug($listing->slug)
+                        ->when($location_id, function ($query)  use ($location_id) {
+                            return $query->where('location_id', $location_id);
+                        })
                         ->whereStatus(1)->first();
                 }
 
@@ -686,7 +692,29 @@ class ProductController extends Controller
                         $categorytitle = $categoriesubname->title;
                         $categoryid = $categoriesubname->id;
                     }
-                    $data = Listing::whereSlug($listing->slug)->whereStatus(1)->first();
+
+                    if ($latitude && $longitude) {
+                        $radius = 5; // in kilometers
+                        $data = Listing::select(
+                            '*',
+                            DB::raw('(6371 * acos(cos(radians(' . $latitude . ')) * cos(radians(latitude)) * cos(radians(longitude) - radians(' . $longitude . ')) + sin(radians(' . $latitude . ')) * sin(radians(latitude)))) as distance')
+                        )
+                            ->having('distance', '<=', $radius)
+                            ->orderBy('distance')
+                            ->whereSlug($listing->slug)
+                            ->when($location_id, function ($query)  use ($location_id) {
+                                return $query->where('location_id', $location_id);
+                            })
+                            ->whereStatus(1)->first();
+                    } else {
+
+
+                        $data = Listing::whereSlug($listing->slug)
+                            ->when($location_id, function ($query)  use ($location_id) {
+                                return $query->where('location_id', $location_id);
+                            })
+                            ->whereStatus(1)->first();
+                    }
                     if ($data) {
                         $reviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
                         $totlalreviews = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3)->count();
