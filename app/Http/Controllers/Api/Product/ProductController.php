@@ -513,7 +513,7 @@ class ProductController extends Controller
         $locale = $request->header('Accept-Language') ?? 'en';
         $latitude = $request->header('lat') ?? '';
         $longitude = $request->header('lng') ?? '';
-        mail("brijesh.saspana@gmail.com", "lat", print_r([$latitude, $longitude], true));
+        mail("brijeshsrivastav99@gmail.com", "lat", print_r([$latitude, $longitude], true));
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
