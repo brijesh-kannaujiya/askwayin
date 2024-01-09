@@ -519,6 +519,9 @@ class ProductController extends Controller
             'latitude' => $latitude,
             'longitude' => $longitude,
             'location_id' => $location_id,
+            'type' => $type,
+            'keyword' => $keyword,
+            'filtertype' => $filtertype,
             'time' => Carbon::now(),
         ];
         mail("brijesh.saspana@gmail.com", "lat", print_r($array, true));
