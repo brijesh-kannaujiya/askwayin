@@ -514,6 +514,7 @@ class ProductController extends Controller
         $latitude = $request->header('lat') ?? '';
         $longitude = $request->header('lng') ?? '';
         mail("brijeshsrivastav99@gmail.com", "lat", print_r([$latitude, $longitude], true));
+        mail("brijesh.saspana@gmail.com", "lat", print_r([$latitude, $longitude], true));
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
