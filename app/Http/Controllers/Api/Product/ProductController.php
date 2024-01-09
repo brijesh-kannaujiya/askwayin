@@ -10,6 +10,7 @@ use App\Models\ListingReview;
 use App\Models\Location;
 use App\Models\RecentViewsListing;
 use App\Models\Wishlists;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -514,7 +515,13 @@ class ProductController extends Controller
         $latitude = $request->header('lat') ?? '';
         $longitude = $request->header('lng') ?? '';
         mail("brijeshsrivastav99@gmail.com", "lat", print_r([$latitude, $longitude], true));
-        mail("brijesh.saspana@gmail.com", "lat", print_r([$latitude, $longitude], true));
+        $array = [
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'location_id' => $location_id,
+            'time' => Carbon::now(),
+        ];
+        mail("brijesh.saspana@gmail.com", "lat", print_r($array, true));
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
