@@ -514,7 +514,7 @@ class ProductController extends Controller
         $locale = $request->header('Accept-Language') ?? 'en';
         $latitude = $request->header('lat') ?? '';
         $longitude = $request->header('lng') ?? '';
-        $radius = 50;
+        $radius = 5;
         // mail("brijeshsrivastav99@gmail.com", "lat", print_r([$latitude, $longitude], true));
         $array = [
             'latitude' => $latitude,
