@@ -600,6 +600,7 @@ class ProductController extends Controller
                         DB::raw('(6371 * acos(cos(radians(' . $latitude . ')) * cos(radians(latitude)) * cos(radians(longitude) - radians(' . $longitude . ')) + sin(radians(' . $latitude . ')) * sin(radians(latitude)))) as distance')
                     )
                         ->having('distance', '<=', $radius)
+                        ->where('category_id', $categoryid)
                         ->orderBy('distance')
                         // ->get();
                         ->when($location_id, function ($query)  use ($location_id) {
