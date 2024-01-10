@@ -593,7 +593,7 @@ class ProductController extends Controller
                     $categoryid = $categoriesubname->id;
                 }
 
-                if ($latitude && $longitude) {
+                if (!$location_id && ($latitude && $longitude)) {
                     // $radius = 50; // in kilometers
                     $data = Listing::select(
                         '*',
@@ -708,7 +708,7 @@ class ProductController extends Controller
                         $categoryid = $categoriesubname->id;
                     }
 
-                    if ($latitude && $longitude) {
+                    if (!$location_id && ($latitude && $longitude)) {
 
                         $data = Listing::select(
                             '*',
@@ -802,7 +802,7 @@ class ProductController extends Controller
                     $categoryid = $categoriesubname->id;
                 }
 
-                if ($latitude && $longitude) {
+                if (!$location_id  && ($latitude && $longitude)) {
                     // in kilometers
                     $data = Listing::select(
                         '*',
