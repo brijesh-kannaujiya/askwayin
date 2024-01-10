@@ -514,7 +514,8 @@ class ProductController extends Controller
         $locale = $request->header('Accept-Language') ?? 'en';
         $latitude = $request->header('lat') ?? '';
         $longitude = $request->header('lng') ?? '';
-        mail("brijeshsrivastav99@gmail.com", "lat", print_r([$latitude, $longitude], true));
+        $radius = 50;
+        // mail("brijeshsrivastav99@gmail.com", "lat", print_r([$latitude, $longitude], true));
         $array = [
             'latitude' => $latitude,
             'longitude' => $longitude,
@@ -526,7 +527,7 @@ class ProductController extends Controller
             'product_data' => $product_data,
             'time' => Carbon::now(),
         ];
-        mail("brijesh.saspana@gmail.com", "lat", print_r($array, true));
+        // mail("brijesh.saspana@gmail.com", "lat", print_r($array, true));
         if ($type == 'cat') {
             $allproduct_query_p = DB::table('categories')
                 ->where('title', 'LIKE', "%$keyword%")
@@ -593,7 +594,7 @@ class ProductController extends Controller
                 }
 
                 if ($latitude && $longitude) {
-                    $radius = 5; // in kilometers
+                    // $radius = 50; // in kilometers
                     $data = Listing::select(
                         '*',
                         DB::raw('(6371 * acos(cos(radians(' . $latitude . ')) * cos(radians(latitude)) * cos(radians(longitude) - radians(' . $longitude . ')) + sin(radians(' . $latitude . ')) * sin(radians(latitude)))) as distance')
@@ -707,7 +708,7 @@ class ProductController extends Controller
                     }
 
                     if ($latitude && $longitude) {
-                        $radius = 5; // in kilometers
+
                         $data = Listing::select(
                             '*',
                             DB::raw('(6371 * acos(cos(radians(' . $latitude . ')) * cos(radians(latitude)) * cos(radians(longitude) - radians(' . $longitude . ')) + sin(radians(' . $latitude . ')) * sin(radians(latitude)))) as distance')
@@ -718,7 +719,14 @@ class ProductController extends Controller
                             ->when($location_id, function ($query)  use ($location_id) {
                                 return $query->where('location_id', $location_id);
                             })
-                            ->whereStatus(1)->first();
+                            ->whereStatus(1)
+                            // ->toSql();
+                            ->first();
+                        // echo $radius;
+                        // echo $listing->slug;
+                        // echo $location_id;
+                        // print_r($data);
+                        // exit;
                     } else {
 
 
@@ -794,7 +802,7 @@ class ProductController extends Controller
                 }
 
                 if ($latitude && $longitude) {
-                    $radius = 5; // in kilometers
+                    // in kilometers
                     $data = Listing::select(
                         '*',
                         DB::raw('(6371 * acos(cos(radians(' . $latitude . ')) * cos(radians(latitude)) * cos(radians(longitude) - radians(' . $longitude . ')) + sin(radians(' . $latitude . ')) * sin(radians(latitude)))) as distance')
