@@ -1499,6 +1499,19 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Instagram') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="instagram"
+                                                placeholder="{{ __('Instagram') }}" value="{{ $data->instagram }}">
+                                        </div>
+                                    </div>
+
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
                                             <a href="javascript:;" data-href=".schedule"

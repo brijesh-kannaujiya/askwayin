@@ -10,5 +10,6 @@ class Bartner extends Model
     use HasFactory;
     protected $fillable = [
         'photo',
+        'is_mobile'
     ];
 }

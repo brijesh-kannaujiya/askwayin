@@ -106,9 +106,11 @@ class CategoryController extends Controller
             $input['photo3'] = $name;
         }
 
-
-
-
+        if ($file = $request->file('photo4')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            $input['photo4'] = $name;
+        }
 
         $data->fill($input)->save();
 
@@ -160,7 +162,12 @@ class CategoryController extends Controller
             $input['photo3'] = $name;
         }
 
-
+        if ($file = $request->file('photo4')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo4);
+            $input['photo4'] = $name;
+        }
 
         if ($request->is_top) {
             $input['is_top'] = $request->is_top;

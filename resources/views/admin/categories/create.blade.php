@@ -127,6 +127,24 @@
 
 
                     <div class="form-group">
+                        <label>{{ __('Mobile App Image') }} </label>
+                        <div class="wrapper-image-preview">
+                            <div class="box">
+                                <div class="back-preview-image"
+                                    style="background-image: url({{ asset('assets/images/placeholder.jpg') }});"></div>
+                                <div class="upload-options">
+                                    <label class="img-upload-label" for="img-upload3"> <i class="fas fa-camera"></i> {{
+                                        __('Upload Picture') }} </label>
+                                    <input id="img-upload4" type="file" class="image-upload" name="photo4"
+                                        accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
                         <div class="cp-container cp-contain" id="cp3-container">
                             <div class="input-group" title="Using input value">
                                 <input type="color" name="bg_color" class="form-control" value=""
@@ -157,6 +175,15 @@
                                 id="pop_home_cat">
                             <label class="form-check-label" for="pop_cat">{{ __('Check if Home category is Popular')
                                 }}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" name="is_popular" class="form-check-input" value="1" id="is_popular"
+                                {{ $data->is_popular == 1 ? 'checked' : ''}}>
+                            <label class="form-check-label" for="is_popular">{{ __('Check if is
+                                Popular') }}</label>
                         </div>
                     </div>
 

@@ -43,6 +43,7 @@ class Listing extends Model
         'facebook',
         'twitter',
         'linkedin',
+        'instagram',
         'listing_video_provider',
         'listing_video',
         'r_price',

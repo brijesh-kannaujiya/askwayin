@@ -17,6 +17,8 @@ class Category extends Model
         'photo1',
         'photo_banner',
         'photo3',
+        'photo4',
+        'is_popular',
         'pop_cat',
         'pop_home_cat',
         'status',
