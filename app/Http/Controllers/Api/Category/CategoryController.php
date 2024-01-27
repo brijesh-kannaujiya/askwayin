@@ -36,8 +36,8 @@ class CategoryController extends Controller
 
 
         $listings       = DB::table('listings')->get();
-        $bartners       = DB::table('bartners')->get();
-
+        $bartners       = DB::table('bartners')->where('is_mobile', null)->get();
+        $bartners_category       = DB::table('bartners')->where('is_mobile', 1)->get();
         $sartners       = DB::table('sartners')->get();
         if ($locale == 'ar') {
             $homeCategories = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
@@ -79,7 +79,7 @@ class CategoryController extends Controller
         $count = $bartners->count();
 
         if ($count > 0) {
-            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory2' => $newhomeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory2' => $newhomeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, "category_banner" => $bartners_category, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
