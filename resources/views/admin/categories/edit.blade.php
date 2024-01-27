@@ -197,7 +197,7 @@
                             <input type="checkbox" name="is_popular" class="form-check-input" value="1" id="is_popular"
                                 {{ $data->is_popular == 1 ? 'checked' : ''}}>
                             <label class="form-check-label" for="is_popular">{{ __('Check if is
-                                Popular') }}</label>
+                                Home Top') }}</label>
                         </div>
                     </div>
 
