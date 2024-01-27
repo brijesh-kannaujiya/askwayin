@@ -79,7 +79,7 @@ class CategoryController extends Controller
         $count = $bartners->count();
 
         if ($count > 0) {
-            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory' => $newhomeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory2' => $newhomeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
