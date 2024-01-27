@@ -47,8 +47,7 @@
 
           <div class="form-group">
             <div class="form-check">
-              <input type="checkbox" name="is_mobile" class="form-check-input" value="1" id="is_mobile" {{
-                $data->is_mobile == 1 ? 'checked' : ''}}>
+              <input type="checkbox" name="is_mobile" class="form-check-input" value="1" id="is_mobile">
               <label class="form-check-label" for="is_mobile">{{ __('Check if is
                 Mobile') }}</label>
             </div>
