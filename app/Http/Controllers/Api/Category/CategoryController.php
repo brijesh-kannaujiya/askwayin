@@ -41,12 +41,6 @@ class CategoryController extends Controller
         $sartners       = DB::table('sartners')->get();
         if ($locale == 'ar') {
             $homeCategories = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
-                ->limit(3)
-                ->orderBy('id', 'asc')
-                ->get();
-            $homeCategories1 = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
-                ->where('is_popular', 1)
-                ->skip(3)
                 ->orderBy('id', 'asc')
                 ->get();
             $popularcat     = DB::select('SELECT * , COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title  FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
@@ -59,13 +53,8 @@ class CategoryController extends Controller
             $popularcat  = DB::select('SELECT * FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
             $ExploreCategory = DB::select('SELECT * FROM categories WHERE is_top=0 and parent_id IS NULL');
             $homeCategories = Category::withCount('subcategories')
-                ->limit(3)
-                ->orderBy('id', 'asc')
-                ->get();
-            $homeCategories1 = Category::withCount('subcategories')
                 ->where('is_popular', 1)
                 ->orderBy('id', 'asc')
-                ->skip(3)
                 ->get();
         }
         foreach ($popularcat as $key => $popularcat_data) {
@@ -76,12 +65,21 @@ class CategoryController extends Controller
                 $popularsubcat  = DB::table('categories')->where('pop_cat', 1)->get();
             }
         }
+        $newhomeCategories = [];
+        $newhomeCategories1 = [];
+        foreach ($homeCategories as $key => $homeCategory) {
+            if ($key >= 3) {
+                array_push($newhomeCategories, $homeCategory);
+            } else {
+                array_push($newhomeCategories1, $homeCategory);
+            }
+        }
 
         $testimonial    = DB::table('reviews')->get();
         $count = $bartners->count();
 
         if ($count > 0) {
-            return  json_encode(['status' => true, 'homecategory1' => $homeCategories1, 'homecategory' => $homeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory' => $newhomeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
