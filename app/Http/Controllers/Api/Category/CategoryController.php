@@ -40,7 +40,7 @@ class CategoryController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
             $popularcat     = DB::select('SELECT * , COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title  FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
-            $ExploreCategory = DB::select('SELECT *,COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title   FROM categories WHERE is_top=0 and parent_id IS NULL');
+            // $ExploreCategory = DB::select('SELECT *,COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title   FROM categories WHERE is_top=0 and parent_id IS NULL');
             $partners  = DB::table('partners')
                 ->select('*', DB::raw('COALESCE(NULLIF(partners.brand_name_arbic, \'\'), partners.brand_name) as brand_name'))
                 ->get();
@@ -48,7 +48,7 @@ class CategoryController extends Controller
         } else {
             $partners   = DB::table('partners')->get();
             $popularcat  = DB::select('SELECT * FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
-            $ExploreCategory = DB::select('SELECT * FROM categories WHERE is_top=0 and parent_id IS NULL');
+            // $ExploreCategory = DB::select('SELECT * FROM categories WHERE is_top=0 and parent_id IS NULL');
             $homeCategories = Category::withCount('subcategories')
                 ->where('is_popular', 1)
                 ->orderBy('id', 'desc')
@@ -73,11 +73,11 @@ class CategoryController extends Controller
             }
         }
 
-        $testimonial    = DB::table('reviews')->get();
+        // $testimonial    = DB::table('reviews')->get();
         $count = $bartners->count();
 
         if ($count > 0) {
-            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory2' => $newhomeCategories, 'partners' => $partners, 'bannerslider' => $bartners, "category_banner" => $bartners_category, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory2' => $newhomeCategories, 'partners' => $partners, 'bannerslider' => $bartners, "category_banner" => $bartners_category, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat,  'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
