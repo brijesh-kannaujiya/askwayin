@@ -37,7 +37,7 @@ class CategoryController extends Controller
 
         $listings       = DB::table('listings')->get();
         $bartners       = DB::table('bartners')->where('is_mobile', null)->get();
-        $bartners_category       = DB::table('bartners')->where('is_mobile', 1)->get();
+
         $sartners       = DB::table('sartners')->get();
         if ($locale == 'ar') {
             $homeCategories = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
@@ -48,6 +48,7 @@ class CategoryController extends Controller
             $partners  = DB::table('partners')
                 ->select('*', DB::raw('COALESCE(NULLIF(partners.brand_name_arbic, \'\'), partners.brand_name) as brand_name'))
                 ->get();
+            $bartners_category       = DB::table('Categories')->select('categories.mobile_center_text', 'categories.photo5', 'categories.mobile_center_text_ar as mobile_center_text')->where('is_mobile_text', 1)->get();
         } else {
             $partners   = DB::table('partners')->get();
             $popularcat  = DB::select('SELECT * FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
@@ -56,6 +57,7 @@ class CategoryController extends Controller
                 ->where('is_popular', 1)
                 ->orderBy('id', 'desc')
                 ->get();
+            $bartners_category       = DB::table('Categories')->select('categories.mobile_center_text', 'categories.photo5', 'categories.mobile_center_text')->where('is_mobile_text', 1)->get();
         }
         foreach ($popularcat as $key => $popularcat_data) {
             $ids = $popularcat_data->slug;

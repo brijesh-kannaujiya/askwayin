@@ -25,6 +25,10 @@ class Category extends Model
         'parent_id',
         'is_top',
         'bg_color',
+        'mobile_center_text',
+        'mobile_center_text_ar',
+        'photo5',
+        'is_mobile_text'
     ];
 
     public function parent()

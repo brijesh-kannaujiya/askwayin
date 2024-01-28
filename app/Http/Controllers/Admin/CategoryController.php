@@ -112,6 +112,12 @@ class CategoryController extends Controller
             $input['photo4'] = $name;
         }
 
+        if ($file = $request->file('photo5')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            $input['photo5'] = $name;
+        }
+
         $data->fill($input)->save();
 
         $msg = __('New Data Added Successfully.') . ' ' . '<a href="' . route('admin.categories.index') . '"> ' . __('View Lists.') . '</a>';
@@ -169,6 +175,13 @@ class CategoryController extends Controller
             $input['photo4'] = $name;
         }
 
+        if ($file = $request->file('photo5')) {
+            $name = Str::random(8) . time() . '.' . $file->getClientOriginalExtension();
+            $file->move('public/assets/images', $name);
+            @unlink('public/assets/images/' . $data->photo5);
+            $input['photo5'] = $name;
+        }
+
         if ($request->is_top) {
             $input['is_top'] = $request->is_top;
         } else {
@@ -186,6 +199,20 @@ class CategoryController extends Controller
         } else {
             $input['pop_home_cat'] = 0;
         }
+
+        if ($request->is_popular) {
+            $input['is_popular'] = $request->is_popular;
+        } else {
+            $input['is_popular'] = 0;
+        }
+
+
+        if ($request->is_mobile_text) {
+            $input['is_mobile_text'] = $request->is_mobile_text;
+        } else {
+            $input['is_mobile_text'] = 0;
+        }
+
 
 
 

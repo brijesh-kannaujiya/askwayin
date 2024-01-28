@@ -3,8 +3,7 @@
 @section('content')
 <div class="card">
     <div class="d-sm-flex align-items-center justify-content-between">
-        <h5 class=" mb-0 text-gray-800 pl-3">{{ __('Edit Category') }} <a class="btn btn-primary btn-rounded btn-sm"
-                href="{{route('admin.categories.index')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h5>
+        <h5 class=" mb-0 text-gray-800 pl-3">{{ __('Edit Category') }} <a class="btn btn-primary btn-rounded btn-sm" href="{{route('admin.categories.index')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h5>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
             <li class="breadcrumb-item"><a href="{{ route('admin.categories.edit',$data->id) }}">{{ __('Edit Category')
@@ -21,11 +20,9 @@
             </div>
 
             <div class="card-body">
-                <div class="gocover"
-                    style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
+                <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
                 </div>
-                <form class="geniusform" action="{{route('admin.categories.update',$data->id)}}" method="POST"
-                    enctype="multipart/form-data">
+                <form class="geniusform" action="{{route('admin.categories.update',$data->id)}}" method="POST" enctype="multipart/form-data">
                     @include('includes.admin.form-both')
 
                     {{ csrf_field() }}
@@ -42,43 +39,47 @@
 
                     <div class="form-group">
                         <label for="inp-name">{{ __('Name') }}</label>
-                        <input type="text" class="form-control" id="inp-name" name="title"
-                            placeholder="{{ __('Enter Name') }}" value="{{ $data->title }}" required>
+                        <input type="text" class="form-control" id="inp-name" name="title" placeholder="{{ __('Enter Name') }}" value="{{ $data->title }}" required>
                     </div>
                     <div class="form-group">
                         <label for="inp-name">{{ __('Name Arbic') }}</label>
-                        <input type="text" class="form-control" id="inp-name" name="title_arbic"
-                            placeholder="{{ __('Enter Name') }}" value="{{ $data->title_arbic }}" required>
+                        <input type="text" class="form-control" id="inp-name" name="title_arbic" placeholder="{{ __('Enter Name') }}" value="{{ $data->title_arbic }}" required>
                     </div>
 
                     <div class="form-group">
                         <label for="inp-slug">{{ __('Slug') }}</label>
-                        <input type="text" class="form-control" id="inp-slug" name="slug"
-                            placeholder="{{ __('Enter Slug') }}" value="{{ $data->slug }}" required>
+                        <input type="text" class="form-control" id="inp-slug" name="slug" placeholder="{{ __('Enter Slug') }}" value="{{ $data->slug }}" required>
                     </div>
 
                     <div class="form-group">
                         <label for="count">{{ __('Icon') }}</label>
                         <div class="input-group">
                             <span class="input-group-prepend">
-                                <button class="btn btn-secondary" name="icon" data-icon="{{ $data->icon }}"
-                                    role="iconpicker"></button>
+                                <button class="btn btn-secondary" name="icon" data-icon="{{ $data->icon }}" role="iconpicker"></button>
                             </span>
                         </div>
                     </div>
 
                     <div class="form-group">
+                        <label for="inp-slug">{{ __('Mobile Center text') }}</label>
+                        <input type="text" class="form-control" id="inp-slug" name="mobile_center_text" placeholder="{{ __('Enter Mobile Center text') }}" value="{{ $data->mobile_center_text }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inp-slug">{{ __('Mobile Center text Arbic') }}</label>
+                        <input type="text" class="form-control" id="inp-slug" name="mobile_center_text_ar" placeholder="{{ __('Enter Mobile Center text Arbic') }}" value="{{ $data->mobile_center_text_ar }}" required>
+                    </div>
+
+
+                    <div class="form-group">
                         <label>{{ __('Category thumbnail') }} </label>
                         <div class="wrapper-image-preview">
                             <div class="box">
-                                <div class="back-preview-image"
-                                    style="background-image: url({{$data->photo ? asset('assets/images/'.$data->photo) : asset('assets/images/placeholder.jpg') }});">
+                                <div class="back-preview-image" style="background-image: url({{$data->photo ? asset('assets/images/'.$data->photo) : asset('assets/images/placeholder.jpg') }});">
                                 </div>
                                 <div class="upload-options">
                                     <label class="img-upload-label" for="img-upload"> <i class="fas fa-camera"></i> {{
                                         __('Upload Picture') }} </label>
-                                    <input id="img-upload" type="file" class="image-upload" name="photo"
-                                        accept="image/*">
+                                    <input id="img-upload" type="file" class="image-upload" name="photo" accept="image/*">
                                 </div>
                             </div>
                         </div>
@@ -89,14 +90,12 @@
                         <label>{{ __('Category thumbnail2') }} </label>
                         <div class="wrapper-image-preview">
                             <div class="box">
-                                <div class="back-preview-image"
-                                    style="background-image: url({{$data->photo1 ? asset('assets/images/'.$data->photo1) : asset('assets/images/placeholder.jpg') }});">
+                                <div class="back-preview-image" style="background-image: url({{$data->photo1 ? asset('assets/images/'.$data->photo1) : asset('assets/images/placeholder.jpg') }});">
                                 </div>
                                 <div class="upload-options">
                                     <label class="img-upload-label" for="img-upload1"> <i class="fas fa-camera"></i> {{
                                         __('Upload Picture') }} </label>
-                                    <input id="img-upload1" type="file" class="image-upload" name="photo1"
-                                        accept="image/*">
+                                    <input id="img-upload1" type="file" class="image-upload" name="photo1" accept="image/*">
                                 </div>
                             </div>
                         </div>
@@ -106,14 +105,12 @@
                         <label>{{ __('Category Banner') }} </label>
                         <div class="wrapper-image-preview">
                             <div class="box">
-                                <div class="back-preview-image"
-                                    style="background-image: url({{$data->photo_banner ? asset('assets/images/'.$data->photo_banner) : asset('assets/images/placeholder.jpg') }});">
+                                <div class="back-preview-image" style="background-image: url({{$data->photo_banner ? asset('assets/images/'.$data->photo_banner) : asset('assets/images/placeholder.jpg') }});">
                                 </div>
                                 <div class="upload-options">
                                     <label class="img-upload-label" for="img-upload2"> <i class="fas fa-camera"></i> {{
                                         __('Upload Picture') }} </label>
-                                    <input id="img-upload2" type="file" class="image-upload" name="photo_banner"
-                                        accept="image/*">
+                                    <input id="img-upload2" type="file" class="image-upload" name="photo_banner" accept="image/*">
                                 </div>
                             </div>
                         </div>
@@ -123,14 +120,12 @@
                         <label>{{ __('App Image') }} </label>
                         <div class="wrapper-image-preview">
                             <div class="box">
-                                <div class="back-preview-image"
-                                    style="background-image: url({{$data->photo3 ? asset('assets/images/'.$data->photo3) : asset('assets/images/placeholder.jpg') }});">
+                                <div class="back-preview-image" style="background-image: url({{$data->photo3 ? asset('assets/images/'.$data->photo3) : asset('assets/images/placeholder.jpg') }});">
                                 </div>
                                 <div class="upload-options">
                                     <label class="img-upload-label" for="img-upload3"> <i class="fas fa-camera"></i> {{
                                         __('Upload Picture') }} </label>
-                                    <input id="img-upload3" type="file" class="image-upload" name="photo3"
-                                        accept="image/*">
+                                    <input id="img-upload3" type="file" class="image-upload" name="photo3" accept="image/*">
                                 </div>
                             </div>
                         </div>
@@ -140,14 +135,27 @@
                         <label>{{ __('Mobile App Image') }} </label>
                         <div class="wrapper-image-preview">
                             <div class="box">
-                                <div class="back-preview-image"
-                                    style="background-image: url({{$data->photo4 ? asset('assets/images/'.$data->photo4) : asset('assets/images/placeholder.jpg') }});">
+                                <div class="back-preview-image" style="background-image: url({{$data->photo4 ? asset('assets/images/'.$data->photo4) : asset('assets/images/placeholder.jpg') }});">
                                 </div>
                                 <div class="upload-options">
                                     <label class="img-upload-label" for="img-upload4"> <i class="fas fa-camera"></i> {{
                                         __('Upload Picture') }} </label>
-                                    <input id="img-upload4" type="file" class="image-upload" name="photo4"
-                                        accept="image/*">
+                                    <input id="img-upload4" type="file" class="image-upload" name="photo4" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{ __('Mobile Center Image') }} </label>
+                        <div class="wrapper-image-preview">
+                            <div class="box">
+                                <div class="back-preview-image" style="background-image: url({{$data->photo5 ? asset('assets/images/'.$data->photo5) : asset('assets/images/placeholder.jpg') }});">
+                                </div>
+                                <div class="upload-options">
+                                    <label class="img-upload-label" for="img-upload5"> <i class="fas fa-camera"></i> {{
+                                        __('Upload Picture') }} </label>
+                                    <input id="img-upload5" type="file" class="image-upload" name="photo5" accept="image/*">
                                 </div>
                             </div>
                         </div>
@@ -159,8 +167,7 @@
                     <div class="form-group">
                         <div class="cp-container cp-contain" id="cp3-container">
                             <div class="input-group" title="Using input value">
-                                <input type="color" name="bg_color" class="form-control" value="{{ $data->bg_color }}"
-                                    id="exampleInputPassword1">
+                                <input type="color" name="bg_color" class="form-control" value="{{ $data->bg_color }}" id="exampleInputPassword1">
                             </div>
                         </div>
                     </div>
@@ -185,8 +192,7 @@
 
                     <div class="form-group">
                         <div class="form-check">
-                            <input type="checkbox" name="pop_home_cat" class="form-check-input" value="1"
-                                id="pop_home_cat" {{ $data->pop_home_cat == 1 ? 'checked' : ''}}>
+                            <input type="checkbox" name="pop_home_cat" class="form-check-input" value="1" id="pop_home_cat" {{ $data->pop_home_cat == 1 ? 'checked' : ''}}>
                             <label class="form-check-label" for="pop_home_cat">{{ __('Check if Home category is
                                 Popular') }}</label>
                         </div>
@@ -194,14 +200,20 @@
 
                     <div class="form-group">
                         <div class="form-check">
-                            <input type="checkbox" name="is_popular" class="form-check-input" value="1" id="is_popular"
-                                {{ $data->is_popular == 1 ? 'checked' : ''}}>
+                            <input type="checkbox" name="is_popular" class="form-check-input" value="1" id="is_popular" {{ $data->is_popular == 1 ? 'checked' : ''}}>
                             <label class="form-check-label" for="is_popular">{{ __('Check if is
                                 Home Top') }}</label>
                         </div>
                     </div>
 
 
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" name="is_mobile_text" class="form-check-input" value="1" id="is_mobile_text" {{ $data->is_mobile_text == 1 ? 'checked' : ''}}>
+                            <label class="form-check-label" for="is_mobile_text">{{ __('Check if is
+                                Mobile center Text') }}</label>
+                        </div>
+                    </div>
 
 
                     <button type="submit" id="submit-btn" class="btn btn-primary w-100">{{ __('Submit') }}</button>
