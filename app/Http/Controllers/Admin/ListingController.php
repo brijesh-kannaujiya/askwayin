@@ -327,7 +327,7 @@ class ListingController extends Controller
         $input['amenities'] = json_encode($amenities, true);
         $input['amenity_icons'] = json_encode($amenity_icons, true);
         $input['schedules'] = json_encode($schedule, true);
-
+        // dd($input);
         $data->update($input);
 
         if ($request->menu_title) {

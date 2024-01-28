@@ -14,10 +14,10 @@ class AddColumnToListings extends Migration
     public function up()
     {
         Schema::table('listings', function (Blueprint $table) {
-            $table->string('whatsapp_number');
-            $table->string('snapchat');
-            $table->string('youtube');
-            $table->string('tiktok');
+            $table->string('whatsapp_number')->nullable();
+            $table->string('snapchat')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('tiktok')->nullable();
         });
     }
 
