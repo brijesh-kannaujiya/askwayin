@@ -37,6 +37,7 @@ class CategoryController extends Controller
         $sartners       = DB::table('sartners')->get();
         if ($locale == 'ar') {
             $homeCategories = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
+                ->where('is_popular', 1)
                 ->orderBy('id', 'desc')
                 ->get();
             $popularcat     = DB::select('SELECT * , COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title  FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');

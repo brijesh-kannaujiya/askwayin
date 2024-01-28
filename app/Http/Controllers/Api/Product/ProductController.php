@@ -77,6 +77,9 @@ class ProductController extends Controller
 
         $locale = $request->header('Accept-Language') ?? 'en';
         $data = Listing::whereSlug($slug)->whereStatus(1)->first();
+        if (!$data) {
+            return  json_encode(['status' => false, 'result' => 'Data Not Found']);
+        }
         $data['amenities'] = $data->amenities != NULL ? json_decode($data->amenities, true) : [];
         $data['schedules'] = $data->schedules != NULL ? json_decode($data->schedules, true) : [];
         $data['reviews'] = ListingReview::whereListingId($data->id)->whereStatus(1)->paginate(3);
@@ -157,7 +160,7 @@ class ProductController extends Controller
                     }
                 }
             }
-            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $ProductName, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'is_verify' => $is_verify, 'is_feature' => $is_feature, 'is_toprated' => $is_toprated, 'highlight_type' => $data->highlight_type, 'instagram' => $data->instagram, 'linkedin' => $data->linkedin, 'facebook' => $data->facebook, 'twitter' => $data->twitter, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'lishting_id' => $data->id, 'description' => $description, 'Rating' => $data->directoryRatting($data->id), 'ProductName' => $ProductName, 'type' => $data->type, 'OpenCloseTime' => $data->openClose($data->id), 'Amenities' => $data['amenities'], 'Faqs' => $data['faq'], 'galleries' => $data->galleries, 'Review' => $data['reviews'], 'latitude' => $data->latitude, 'longitude' => $data->longitude, 'schedules' =>  $newArray, 'ReviewRatting' => $averageRating, 'is_verify' => $is_verify, 'is_feature' => $is_feature, 'is_toprated' => $is_toprated, 'highlight_type' => $data->highlight_type, 'instagram' => $data->instagram, 'linkedin' => $data->linkedin, 'facebook' => $data->facebook, 'twitter' => $data->twitter,  'whatsapp_number' => $data->whatsapp_number,  'snapchat' => $data->snapchat,  'youtube' => $data->youtube,  'tiktok' => $data->tiktok, 'result' => 'Data Found']);
             //return view('frontend.details',$data);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
