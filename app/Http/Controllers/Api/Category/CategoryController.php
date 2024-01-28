@@ -32,10 +32,6 @@ class CategoryController extends Controller
     public function apicall(Request $request)
     {
         $locale = $request->header('Accept-Language') ?? 'en';
-
-
-
-        $listings       = DB::table('listings')->get();
         $bartners       = DB::table('bartners')->where('is_mobile', null)->get();
 
         $sartners       = DB::table('sartners')->get();
@@ -48,7 +44,7 @@ class CategoryController extends Controller
             $partners  = DB::table('partners')
                 ->select('*', DB::raw('COALESCE(NULLIF(partners.brand_name_arbic, \'\'), partners.brand_name) as brand_name'))
                 ->get();
-            $bartners_category       = DB::table('categories')->select('categories.mobile_center_text', 'categories.photo5', 'categories.mobile_center_text_ar as mobile_center_text')->where('is_mobile_text', 1)->get();
+            $bartners_category       = DB::table('categories')->select('categories.id', 'categories.title_arbic as title', 'categories.slug', 'categories.mobile_center_text', 'categories.photo5', 'categories.mobile_center_text_ar as mobile_center_text')->where('is_mobile_text', 1)->get();
         } else {
             $partners   = DB::table('partners')->get();
             $popularcat  = DB::select('SELECT * FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
@@ -57,7 +53,7 @@ class CategoryController extends Controller
                 ->where('is_popular', 1)
                 ->orderBy('id', 'desc')
                 ->get();
-            $bartners_category       = DB::table('categories')->select('categories.mobile_center_text', 'categories.photo5', 'categories.mobile_center_text')->where('is_mobile_text', 1)->get();
+            $bartners_category       = DB::table('categories')->select('categories.id', 'categories.title', 'categories.slug', 'categories.mobile_center_text', 'categories.photo5', 'categories.mobile_center_text')->where('is_mobile_text', 1)->get();
         }
         foreach ($popularcat as $key => $popularcat_data) {
             $ids = $popularcat_data->slug;
@@ -81,7 +77,7 @@ class CategoryController extends Controller
         $count = $bartners->count();
 
         if ($count > 0) {
-            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory2' => $newhomeCategories, 'listings' => $listings, 'partners' => $partners, 'bannerslider' => $bartners, "category_banner" => $bartners_category, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
+            return  json_encode(['status' => true, 'homecategory1' => $newhomeCategories1, 'homecategory2' => $newhomeCategories, 'partners' => $partners, 'bannerslider' => $bartners, "category_banner" => $bartners_category, 'smallbanner' => $sartners, 'popularcat' => $popularcat, 'popularsubcat' => $popularsubcat, 'testimonial' => $testimonial, 'explorecategory' => $ExploreCategory, 'result' => 'Data Found']);
         } else {
             return  json_encode(['status' => false, 'result' => 'Data Not Found']);
         }
