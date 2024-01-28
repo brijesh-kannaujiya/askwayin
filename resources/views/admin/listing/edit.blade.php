@@ -1459,6 +1459,19 @@
                                                 value="{{ $data->phone_number }}">
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Whatsapp Number') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="whatsapp_number"
+                                                placeholder="{{ __('Whatsapp Number') }}"
+                                                value="{{ $data->whatsapp_number }}">
+                                        </div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -1509,6 +1522,43 @@
                                         <div class="col-lg-9">
                                             <input type="text" class="input-field" name="instagram"
                                                 placeholder="{{ __('Instagram') }}" value="{{ $data->instagram }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Snapchat') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="snapchat"
+                                                placeholder="{{ __('Snapchat') }}" value="{{ $data->snapchat }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Youtube') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="youtube"
+                                                placeholder="{{ __('Youtube') }}" value="{{ $data->youtube }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Tiktok') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="tiktok"
+                                                placeholder="{{ __('Tiktok') }}" value="{{ $data->tiktok }}">
                                         </div>
                                     </div>
 

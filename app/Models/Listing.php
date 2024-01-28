@@ -60,6 +60,10 @@ class Listing extends Model
         'is_toprated',
         'food_type',
         'highlight_type',
+        'whatsapp_number',
+        'snapchat',
+        'youtube',
+        'tiktok',
     ];
 
     protected $dates = [

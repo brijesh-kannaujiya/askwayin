@@ -1107,6 +1107,19 @@
                                                 placeholder="{{ __('Phone number') }}">
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Whatsapp Number') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="whatsapp_number"
+                                                placeholder="{{ __('Whatsapp Number') }}" value="">
+                                        </div>
+                                    </div>
+
 
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -1158,6 +1171,46 @@
                                                 placeholder="{{ __('Instagram') }}">
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Snapchat') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="snapchat"
+                                                placeholder="{{ __('Snapchat') }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Youtube') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="youtube"
+                                                placeholder="{{ __('Youtube') }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="left-area">
+                                                <h4 class="heading">{{ __('Tiktok') }}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-9">
+                                            <input type="text" class="input-field" name="tiktok"
+                                                placeholder="{{ __('Tiktok') }}">
+                                        </div>
+                                    </div>
+
+
 
                                     <ul class="list-inline mt-3 mb-0  text-center">
                                         <li class="list-inline-item">
