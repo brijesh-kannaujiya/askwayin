@@ -181,7 +181,7 @@ class CategoryController extends Controller
             @unlink('public/assets/images/' . $data->photo5);
             $input['photo5'] = $name;
         }
-
+        // image upload
         if ($request->is_top) {
             $input['is_top'] = $request->is_top;
         } else {
