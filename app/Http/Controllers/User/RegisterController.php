@@ -28,28 +28,29 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function showRegisterForm(){
-        $data['countries'] = Country::where('status',1)->get();
-        return view('user.register',$data);
+    public function showRegisterForm()
+    {
+        $data['countries'] = Country::where('status', 1)->get();
+        return view('user.register', $data);
     }
 
     public function register(Request $request)
     {
         $value = session('captcha_string');
-        if ($request->codes != $value){
-            return response()->json(array('errors' => [ 0 => 'Please enter Correct Capcha Code.' ]));
+        if ($request->codes != $value) {
+            return response()->json(array('errors' => [0 => 'Please enter Correct Capcha Code.']));
         }
 
         $rules = [
             'username' => 'required|alpha_dash|min:5|unique:users',
             'email' => 'required|email|max:255|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|unique:users',
             'password' => 'required||min:6|confirmed'
         ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
 
         $gs = Generalsetting::findOrFail(1);
@@ -58,21 +59,19 @@ class RegisterController extends Controller
         $input = $request->all();
 
         $input['password'] = bcrypt($request['password']);
-        $token = md5(time().$request->name.$request->email);
+        $token = md5(time() . $request->name . $request->email);
         $input['verification_link'] = $token;
-        $input['affilate_code'] = md5($request->name.$request->email);
+        $input['affilate_code'] = md5($request->name . $request->email);
         $input['status'] = 1;
         $user->fill($input)->save();
 
-        if($gs->is_verification_email == 1)
-        {
-            $verificationLink = "<a href=".url('user/register/verify/'.$token).">Simply click here to verify. </a>";
+        if ($gs->is_verification_email == 1) {
+            $verificationLink = "<a href=" . url('user/register/verify/' . $token) . ">Simply click here to verify. </a>";
             $to = $request->email;
             $subject = 'Verify your email address.';
-            $msg = "Dear Customer,<br> We noticed that you need to verify your email address.".$verificationLink;
+            $msg = "Dear Customer,<br> We noticed that you need to verify your email address." . $verificationLink;
 
-            if($gs->is_smtp == 1)
-            {
+            if ($gs->is_smtp == 1) {
 
                 $mail = new PHPMailer(true);
 
@@ -97,20 +96,15 @@ class RegisterController extends Controller
                     $mail->Body    = $msg;
                     $mail->send();
                 } catch (Exception $e) {
-
                 }
+            } else {
+                $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
+                mail($to, $subject, $msg, $headers);
             }
-            else
-            {
-                $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-                mail($to,$subject,$msg,$headers);
-            }
-            return response()->json('We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.');
-        }
-        else {
+            return response()->json('We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.');
+        } else {
 
-            if (Session::has('affilate'))
-            {
+            if (Session::has('affilate')) {
                 $referral = User::findOrFail(Session::get('affilate'));
                 $user->referral_id = $referral->id;
                 $user->update();
@@ -118,8 +112,8 @@ class RegisterController extends Controller
                 session()->forget('affliate_visited');
             }
 
-            if($gs->is_affilate == 1){
-                if(Session::has('affilate')){
+            if ($gs->is_affilate == 1) {
+                if (Session::has('affilate')) {
 
                     $mainUser = User::findOrFail(Session::get('affilate'));
                     $mainUser->balance += $gs->affilate_user;
@@ -141,7 +135,7 @@ class RegisterController extends Controller
                     $mainUserTrans->type = "Referral Bonus";
                     $mainUserTrans->profit = "plus";
                     $mainUserTrans->txnid = Str::random(12);
-                    $mainUserTrans->user_id =$mainUser->id;
+                    $mainUserTrans->user_id = $mainUser->id;
                     $mainUserTrans->save();
 
                     $newUserTrans = new Transaction();
@@ -150,7 +144,7 @@ class RegisterController extends Controller
                     $newUserTrans->type = "Referral Bonus";
                     $newUserTrans->profit = "plus";
                     $newUserTrans->txnid = Str::random(12);
-                    $newUserTrans->user_id =$user->id;
+                    $newUserTrans->user_id = $user->id;
                     $newUserTrans->save();
                 }
             }
@@ -158,8 +152,7 @@ class RegisterController extends Controller
             $user->email_verified = 'Yes';
             $user->update();
 
-            if($gs->is_smtp == 1)
-            {
+            if ($gs->is_smtp == 1) {
                 $data = [
                     'to' => $user->email,
                     'type' => "welcome",
@@ -172,14 +165,12 @@ class RegisterController extends Controller
 
                 $mailer = new GeniusMailer();
                 $mailer->sendAutoMail($data);
-            }
-            else
-            {
-               $to = $user->email;
-               $subject = "Welcome to our website";
-               $msg = "Hello ".$user->name."!\nYour registration successfully completed.\nThank you.";
-               $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-               mail($to,$subject,$msg,$headers);
+            } else {
+                $to = $user->email;
+                $subject = "Welcome to our website";
+                $msg = "Hello " . $user->name . "!\nYour registration successfully completed.\nThank you.";
+                $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
+                mail($to, $subject, $msg, $headers);
             }
 
             $notification = new Notification;
@@ -189,71 +180,63 @@ class RegisterController extends Controller
 
             return response()->json(1);
         }
-
     }
 
     public function token($token)
     {
-            $gs = Generalsetting::findOrFail(1);
-            if($gs->is_verification_email == 1)
-            {
-                $user = User::where('verification_link','=',$token)->first();
-                if(isset($user))
-                {
-                    $user->email_verified = 'Yes';
+        $gs = Generalsetting::findOrFail(1);
+        if ($gs->is_verification_email == 1) {
+            $user = User::where('verification_link', '=', $token)->first();
+            if (isset($user)) {
+                $user->email_verified = 'Yes';
+                $user->update();
+
+                if (Session::has('affilate')) {
+                    $referral = User::findOrFail(Session::get('affilate'));
+                    $user->referral_id = $referral->id;
                     $user->update();
-
-                            if (Session::has('affilate'))
-                            {
-                                $referral = User::findOrFail(Session::get('affilate'));
-                                $user->referral_id = $referral->id;
-                                $user->update();
-                            }
-
-                            if($gs->is_affilate == 1 && Session::has('affilate')){
-                                $mainUser = $referral;
-                                $mainUser->balance += $gs->affilate_user;
-                                $mainUser->update();
-
-                                $user->balance += $gs->affilate_new_user;
-                                $user->update();
-                            }
-
-
-                    $notification = new Notification;
-                    $notification->user_id = $user->id;
-                    $notification->save();
-
-                    if($gs->is_smtp == 1)
-                    {
-                        $data = [
-                            'to' => $user->email,
-                            'type' => "welcome",
-                            'cname' => $user->name,
-                            'oamount' => "",
-                            'aname' => "",
-                            'aemail' => "",
-                            'wtitle' => "",
-                        ];
-
-                        $mailer = new GeniusMailer();
-                        $mailer->sendAutoMail($data);
-                    }
-                    else
-                    {
-                       $to = $user->email;
-                       $subject = "Welcome to our website";
-                       $msg = "Hello ".$user->name."!\nYour registration successfully completed.\nThank you.";
-                       $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-                       mail($to,$subject,$msg,$headers);
-                    }
-
-                    Auth::guard('web')->login($user);
-                    return redirect()->route('user.dashboard')->with('success','Email Verified Successfully');
                 }
+
+                if ($gs->is_affilate == 1 && Session::has('affilate')) {
+                    $mainUser = $referral;
+                    $mainUser->balance += $gs->affilate_user;
+                    $mainUser->update();
+
+                    $user->balance += $gs->affilate_new_user;
+                    $user->update();
+                }
+
+
+                $notification = new Notification;
+                $notification->user_id = $user->id;
+                $notification->save();
+
+                if ($gs->is_smtp == 1) {
+                    $data = [
+                        'to' => $user->email,
+                        'type' => "welcome",
+                        'cname' => $user->name,
+                        'oamount' => "",
+                        'aname' => "",
+                        'aemail' => "",
+                        'wtitle' => "",
+                    ];
+
+                    $mailer = new GeniusMailer();
+                    $mailer->sendAutoMail($data);
+                } else {
+                    $to = $user->email;
+                    $subject = "Welcome to our website";
+                    $msg = "Hello " . $user->name . "!\nYour registration successfully completed.\nThank you.";
+                    $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
+                    mail($to, $subject, $msg, $headers);
+                }
+
+                Auth::guard('web')->login($user);
+                return redirect()->route('user.dashboard')->with('success', 'Email Verified Successfully');
             }
-            else {
-                return redirect()->back();
-            }
+        } else {
+            return redirect()->back();
+        }
     }
 }

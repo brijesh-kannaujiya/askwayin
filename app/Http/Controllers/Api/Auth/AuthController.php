@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Generalsetting;
+use App\Models\Notification;
+use App\Models\Transaction;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class AuthController extends Controller
 {
@@ -24,6 +32,15 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {
+            $gs = Generalsetting::findOrFail(1);
+            if ($gs->is_verification_email == 1) {
+                if ($user->email_verified == 'No') {
+                    return response([
+                        'message' => 'Your Email is not Verified !.',
+                        'status' => 'failed'
+                    ], 401);
+                }
+            }
             $token = md5(time() . $request->name . $request->email);
             return response([
                 'token' => $token,
@@ -48,30 +65,88 @@ class AuthController extends Controller
         $rules = [
             'name' => 'required|alpha_dash|min:5|unique:users',
             'email' => 'required|email|max:255|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|unique:users',
             'username' => 'required',
             'password' => 'required||min:6|confirmed'
         ];
         $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()->first(), 'status' => 'failed'], 422);
+        }
         if (User::where('email', $request->email)->first()) {
             return response([
                 'message' => 'Email already exists',
                 'status' => 'failed'
             ], 200);
         }
-        $user = User::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-        $token = $token = md5(time() . $request->name . $request->email);
-        return response([
-            'token' => $token,
-            'message' => 'Registration Success',
-            'status' => 'success'
-        ], 201);
+
+        $gs = Generalsetting::findOrFail(1);
+        $user = new User;
+        $input = $request->all();
+
+        $input['password'] = bcrypt($request['password']);
+        $token = md5(time() . $request->name . $request->email);
+        $input['verification_link'] = $token;
+        $input['affilate_code'] = md5($request->name . $request->email);
+        $input['phone'] =  $request->phone;
+        $input['status'] = 1;
+        $user->fill($input)->save();
+
+        if ($gs->is_verification_email == 1) {
+            $verificationLink = "<a href=" . url('user/register/verify/' . $token) . ">Simply click here to verify. </a>";
+            $to = $request->email;
+            $subject = 'Verify your email address.';
+            $msg = "Dear Customer,<br> We noticed that you need to verify your email address." . $verificationLink;
+
+            if ($gs->is_smtp == 1) {
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host       = $gs->smtp_host;
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = $gs->smtp_user;
+                    $mail->Password   = $gs->smtp_pass;
+                    if ($gs->smtp_encryption == 'ssl') {
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                    } else {
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    }
+                    $mail->Port       = $gs->smtp_port;
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom($gs->from_email, $gs->from_name);
+                    $mail->addAddress($user->email, $user->name);
+                    $mail->addReplyTo($gs->from_email, $gs->from_name);
+                    $mail->isHTML(true);
+                    $mail->Subject = $subject;
+                    $mail->Body    = $msg;
+                    $mail->send();
+                } catch (Exception $e) {
+                }
+            } else {
+                $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
+                mail($to, $subject, $msg, $headers);
+            }
+            return response([
+                'token' => $token,
+                'message' => 'We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.',
+                'status' => 'success'
+            ], 201);
+            // return response()->json('We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.');
+        } else {
+            $user = User::create([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+            $token = $token = md5(time() . $request->name . $request->email);
+            return response([
+                'token' => $token,
+                'message' => 'Registration Success',
+                'status' => 'success'
+            ], 201);
+        }
     }
 
     public function logout()
