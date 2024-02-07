@@ -38,7 +38,7 @@ class AuthController extends Controller
                     return response([
                         'message' => 'Your Email is not Verified !.',
                         'status' => 'failed'
-                    ], 401);
+                    ], 200);
                 }
             }
             $token = md5(time() . $request->name . $request->email);
@@ -71,7 +71,7 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first(), 'status' => 'failed'], 422);
+            return response()->json(['message' => $validator->errors()->first(), 'status' => 'failed'], 200);
         }
         if (User::where('email', $request->email)->first()) {
             return response([
