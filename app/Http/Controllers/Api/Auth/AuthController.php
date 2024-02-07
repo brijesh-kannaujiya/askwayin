@@ -70,9 +70,9 @@ class AuthController extends Controller
             'password' => 'required||min:6|confirmed'
         ];
         $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first(), 'status' => 'failed'], 200);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json(['message' => $validator->errors()->first(), 'status' => 'failed'], 200);
+        // }
         if (User::where('email', $request->email)->first()) {
             return response([
                 'message' => 'Email already exists',
