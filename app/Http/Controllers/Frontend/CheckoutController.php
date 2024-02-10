@@ -74,7 +74,7 @@ class CheckoutController extends Controller
         'framed' => 0,
         'order' => [
         'cartid' => $order_id,
-        "test" => "1",
+        "test" => 1,
         'amount' => '1',
         'currency' => 'AED',
         'description' => 'My purchase'
@@ -99,8 +99,8 @@ class CheckoutController extends Controller
         return view(('decline'));     
         } else {
         $res = json_decode($response);
-        //print_r($response);
-        //die();
+        // print_r($response);
+        // die();
         $order_id = DB::table('payment_test')->insert([
         "payment_url"=>$res->order->url,
         "payment_ref"=>$res->order->ref,
