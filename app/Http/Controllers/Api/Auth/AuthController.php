@@ -128,7 +128,7 @@ class AuthController extends Controller
             }
             return response([
                 'token' => $token,
-                'message' => 'We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.',
+                'message' => 'Account Created Successfully!  Please verify your email before Login.',
                 'status' => 'success'
             ], 201);
             // return response()->json('We need to verify your email address. We have sent an email to ' . $to . ' to verify your email address. Please click link in that email to continue.');
