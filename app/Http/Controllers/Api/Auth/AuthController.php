@@ -93,10 +93,10 @@ class AuthController extends Controller
         $user->fill($input)->save();
 
         if ($gs->is_verification_email == 1) {
-            $verificationLink = "<a href=" . url('user/register/verify/' . $token) . ">Simply click here to verify. </a>";
+            $verificationLink = "<a href=" . url('user/register/verify/' . $token) . ">Verify Your Email . </a>";
             $to = $request->email;
             $subject = 'Verify your email address.';
-            $msg = "Dear Customer,<br> We noticed that you need to verify your email address." . $verificationLink;
+            $msg = "Welcome to Wayin! 🚀 To activate your account, simply tap the button below:<br> ".$verificationLink."If you didn't sign up, ignore this email.";
 
             if ($gs->is_smtp == 1) {
                 $mail = new PHPMailer(true);

@@ -40,8 +40,8 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  print_r($response);
-  die();
+  // print_r($response);
+  // die();
 }
 ?>
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
@@ -55,15 +55,14 @@ if ($err) {
             <div class="grid grid-cols-1 md:grid-cols-2">
                 <div class="p-6">
                     <div class="flex items-center">
-                    <!--<img class="telr" src="https://telr.com/wp-content/uploads/2017/10/Telr-logo-green-rgb-2000w.png" alt="">-->
+              <img class="telr" src="https://telr.com/wp-content/uploads/2017/10/Telr-logo-green-rgb-2000w.png" alt=""> 
                     </div>
                 </div>
 
                 <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
                     
                         <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                            <ul>
-                                
+                            <ul> 
                             </ul>
                             <form action="#">
                                 <button type="submit" class="btn btn-success btn-lg btn-block">Success</button>
