@@ -36,7 +36,7 @@ class AuthController extends Controller
             if ($gs->is_verification_email == 1) {
                 if ($user->email_verified == 'No') {
                     return response([
-                        'message' => 'Your Email is not Verified !.',
+                        'result' => 'Your Email is not Verified !.',
                         'status' => 'failed'
                     ], 200);
                 }
