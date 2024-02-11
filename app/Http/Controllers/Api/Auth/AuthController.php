@@ -36,8 +36,8 @@ class AuthController extends Controller
             if ($gs->is_verification_email == 1) {
                 if ($user->email_verified == 'No') {
                     return response([
-                        'result' => 'Your Email is not Verified !.',
-                        'status' => 'failed'
+                        'message' => 'Your Email is not Verified !.',
+                        'status' => false,
                     ], 200);
                 }
             }
@@ -52,11 +52,11 @@ class AuthController extends Controller
                 'status' => 'success'
             ], 200);
         } else {
-            return  json_encode(['status' => false, 'result' => 'The Provided Credentials are incorrect']);
+            return  json_encode(['status' => false, 'message' => 'The Provided Credentials are incorrect']);
         }
         return response([
             'message' => 'Something Wrong.',
-            'status' => 'failed'
+            'status' => false
         ], 401);
     }
 
