@@ -77,7 +77,7 @@ class CheckoutController extends Controller
         'framed' => 0,
         'order' => [
         'cartid' => $order_id,
-        "test" => 0,
+        "test" => 1,
         'amount' => $subscription->price ,
         'currency' => 'AED',
         'description' => 'My purchase'
