@@ -58,7 +58,7 @@ class CheckoutController extends Controller
         $subscription->currency_id = $request->currency_id;
         $subscription->method = $request->method;
         $subscription->days = $request->days;
-        
+        $subscription->save();
         $order_number = Session::get('order_number');
         $order_id = rand(4111, 9999);
         $curl = curl_init();
