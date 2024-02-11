@@ -38,6 +38,7 @@ class CategoryController extends Controller
         if ($locale == 'ar') {
             $homeCategories = Category::select('categories.*', 'categories.title_arbic as title')->withCount('subcategories')
                 ->where('is_popular', 1)
+                ->whereIn('id',[19,20,22,24,34,36,21,53])
                 ->orderBy('id', 'desc')
                 ->get();
             $popularcat     = DB::select('SELECT * , COALESCE(NULLIF(categories.title_arbic, \'\'), categories.title) as title  FROM categories WHERE parent_id IS NULL AND pop_home_cat=1 ORDER by id DESC LIMIT 5');
@@ -52,6 +53,7 @@ class CategoryController extends Controller
             // $ExploreCategory = DB::select('SELECT * FROM categories WHERE is_top=0 and parent_id IS NULL');
             $homeCategories = Category::withCount('subcategories')
                 ->where('is_popular', 1)
+                ->whereIn('id',[19,20,22,24,34,36,21,53])
                 ->orderBy('id', 'desc')
                 ->get();
             $bartners_category       = DB::table('categories')->select('categories.id', 'categories.title', 'categories.slug', 'categories.mobile_center_text', 'categories.photo5', 'categories.mobile_center_text')->where('is_mobile_text', 1)->get();
