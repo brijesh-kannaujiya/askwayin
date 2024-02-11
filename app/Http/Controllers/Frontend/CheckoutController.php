@@ -44,6 +44,8 @@ class CheckoutController extends Controller
 
         if($request->currency_id){
             $subscription->price = $request->price/$currencyValue->value;
+        }else{
+            $subscription->price = $request->price;
         }
 
         if(isset($addionalData['subscription_number'])){
@@ -75,7 +77,7 @@ class CheckoutController extends Controller
         'order' => [
         'cartid' => $order_id,
         "test" => 0,
-        'amount' => '1',
+        'amount' => $subscription->price ,
         'currency' => 'AED',
         'description' => 'My purchase'
         ],

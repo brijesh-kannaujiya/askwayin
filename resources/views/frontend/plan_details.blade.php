@@ -94,7 +94,8 @@
                             </div>
 
                             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                            <input type="hidden" id="amount" name="price" value="{{ userBaseAmount($data->price) }}">
+                            {{-- <input type="hidden" id="amount" name="price" value="{{ userBaseAmount($data->price) }}"> --}}
+                            <input type="hidden" id="amount" name="price" value="{{ $data->price }}">
                             <input type="hidden" name="days" value="{{ $data->post_duration }}">
                             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             <input type="hidden" name="plan_id" value="{{ $data->id }}">
