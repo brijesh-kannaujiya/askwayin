@@ -34,7 +34,7 @@ class CheckoutController extends Controller
     
     public function store(Request $request) {
        // dd('jhgajhagj');
-       dd($request->all());
+    //    dd($request->all());
        $currentURL = request()->url();
        $base_url = 'https://askwayin.com/';
         $subscription = new UserSubscription();
@@ -44,7 +44,7 @@ class CheckoutController extends Controller
         }
 
         if($request->currency_id){
-            $subscription->price = $request->price/$currencyValue->value;
+            $subscription->price = round(($request->price) * $currencyValue->value, 2);
         }else{
             $subscription->price = $request->price;
         }
