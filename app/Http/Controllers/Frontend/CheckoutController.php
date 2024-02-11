@@ -60,7 +60,7 @@ class CheckoutController extends Controller
         $subscription->days = $request->days;
         $subscription->save();
         $order_number = Session::get('order_number');
-        $order_id = rand(4111, 9999);
+        // $order_id = rand(4111, 9999);
         $curl = curl_init();
         curl_setopt_array($curl, [
         CURLOPT_URL => "https://secure.telr.com/gateway/order.json",
@@ -76,7 +76,7 @@ class CheckoutController extends Controller
         'authkey' => 'Fs2VV-rBWfj^L4Zn',
         'framed' => 0,
         'order' => [
-        'cartid' => $order_id,
+        'cartid' => $subscription->id,
         "test" => 1,
         'amount' => $subscription->price ,
         'currency' => 'AED',
@@ -107,7 +107,7 @@ class CheckoutController extends Controller
         $order_id = DB::table('payment_test')->insert([
         "payment_url"=>$res->order->url,
         "payment_ref"=>$res->order->ref,
-        "order_id"=>$order_id,
+        "order_id"=>$subscription->id,
         "payment_status"=>"Pending"
         ]);
         return redirect($res->order->url);
@@ -181,8 +181,7 @@ public function callAfterOrder($request,$subscription){
     
 
     public function authorised(Request $request) {
-       
-        //dd($request);
+
          return view('success');
     }
     public function cancel(Request $request) {
