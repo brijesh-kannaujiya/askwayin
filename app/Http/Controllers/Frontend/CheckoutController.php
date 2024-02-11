@@ -34,6 +34,7 @@ class CheckoutController extends Controller
     
     public function store(Request $request) {
        // dd('jhgajhagj');
+       dd($request->all());
        $currentURL = request()->url();
        $base_url = 'https://askwayin.com/';
         $subscription = new UserSubscription();
