@@ -40,8 +40,8 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  // print_r($response);
-  // die();
+  print_r($response);
+  die();
 }
 ?>
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
