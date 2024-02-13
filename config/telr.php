@@ -1,7 +1,7 @@
 <?php
 return [
     // The current mode is live|production or test
-    'test_mode' => env('TELR_TEST_MODE', true),
+    'test_mode' =>0,
 
     // The currency of store
 

@@ -22,6 +22,7 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "laravel_payment/telr": "^1.2",
         "mews/purifier": "^3.3",
         "mollie/laravel-mollie": "^2.10",
         "paypal/rest-api-sdk-php": "*",

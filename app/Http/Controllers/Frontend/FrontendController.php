@@ -42,7 +42,7 @@ class FrontendController extends Controller
     }
 
     public function index(Request $request)
-    {
+    { 
         $gs = Generalsetting::findOrFail(1);
         if (!empty($request->reff)) {
             $affilate_user = User::where('affilate_code', '=', $request->reff)->first();
@@ -336,8 +336,8 @@ class FrontendController extends Controller
         return view('frontend.faq', $data);
     }
 
-    public function page($slug)
-    {
+    public function page($slug = null)
+    { 
         $data['page'] =  DB::table('pages')->where('slug', $slug)->first();
         if (empty($data['page'])) {
             return view('errors.404');

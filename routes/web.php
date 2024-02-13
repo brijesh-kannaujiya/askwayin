@@ -36,6 +36,12 @@ Route::group(['middleware' => 'maintenance',], function () {
   Route::get('/filter', [DirectoryController::class, 'filter'])->name('front.filter');
 
 
+Route::get('/handle-payment/success',[CheckoutController::class,'paymentSuccess'])->name('payment-success');
+Route::get('/handle-payment/cancel',[CheckoutController::class,'paymentCancel'])->name('payment-cancel');
+Route::get('/handle-payment/declined',[CheckoutController::class,'paymentDeclined'])->name('payment-declined');
+
+
+
   ////////// By Mohd Raies /////////////
 
 

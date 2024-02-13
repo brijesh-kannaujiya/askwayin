@@ -27,5 +27,8 @@ class VerifyCsrfToken extends Middleware
         '/authorised',
         '/api/postreview',
         '/api/wishlistapi',
+        '/handle-payment/success',
+        '/handle-payment/cancel',
+        '/handle-payment/declined',
     ];
 }
